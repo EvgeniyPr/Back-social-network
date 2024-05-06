@@ -5,6 +5,5 @@ export const app = express();
 app.use(express.json());
 app.use(cors());
 app.get("/", (req, res) => {
-  res.status(204).send({ version: "1.0" });
-  console.log("run");
+  res.status(200).json({ version: "1.0" });
 });
