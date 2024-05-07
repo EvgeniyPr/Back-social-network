@@ -1,5 +1,5 @@
 import { app } from "./app";
 import { SETTINGS } from "./settings";
+import { db } from "./db/db";
 
-console.log(process.env.PORT);
-app.listen(SETTINGS.PORT, () => console.log("...server started"));
+app.listen(SETTINGS.PORT, () => console.log("...server not  started"));

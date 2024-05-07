@@ -1,4 +1,4 @@
-export type OutputVideoType = {
+export type CreateVideoModel = {
   id: number;
   title: string;
   author: string;
@@ -6,5 +6,5 @@ export type OutputVideoType = {
   minAgeRestriction: null | number;
   createdAt: string;
   publicationDate: string;
-  //   availableResolutions: string;
+  availableResolutions: string[];
 };
