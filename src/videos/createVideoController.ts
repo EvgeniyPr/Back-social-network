@@ -1,14 +1,18 @@
-import { Request, Response } from "express";
-import { CreateVideoModel } from "../models/videos-models/CreateVideoModel";
+import { Response } from "express";
+import { InputVideoModel } from "../models/videos-models/InputVideoModel";
 import { db } from "../db/db";
 import { HTTP_STATUSES } from "../HTTP_STATUSES/HTTP_STATUSES";
 import { RequestWithBody } from "../models/requests-models/RequestsModels";
+import { inputValidation } from "./utils/inputValidation";
 
 export const createVideoController = (
-  req: RequestWithBody<CreateVideoModel>,
+  req: RequestWithBody<InputVideoModel>,
   res: Response
 ) => {
-  console.log(req.body);
+  const errors = inputValidation(req.body);
+  if (errors.errorsMessages.length) {
+    res.status(HTTP_STATUSES.BAD_REQUEST_400).json(errors);
+  }
   db.videos.push(req.body);
   res.sendStatus(HTTP_STATUSES.CREATED_201);
 };

@@ -1,8 +1,3 @@
-export type ErrorCreateVideoType = {
-  errorsMessages: [
-    {
-      message: "string";
-      field: "string";
-    }
-  ];
-};
+export type FieldError = { message: string | null; field: string | null };
+
+export type APIErrorResult = { errorsMessages: FieldError[] };

@@ -1,4 +1,4 @@
-export type OutputVideoType = {
+export type OutputVideoModel = {
   id: number;
   title: string;
   author: string;
