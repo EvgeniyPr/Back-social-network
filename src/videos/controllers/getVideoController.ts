@@ -1,9 +1,9 @@
 import { Response } from "express";
-import { db } from "../db/db";
-import { OutputVideoModel } from "../models/videos-models/OutputVideoModel";
-import { HTTP_STATUSES } from "../HTTP_STATUSES/HTTP_STATUSES";
-import { RequestWithParams } from "../models/requests-models/RequestsModels";
-import { GetVideoByURIParamsModel } from "../models/videos-models/GetVideoByURIParamsModel";
+import { db } from "../../db/db";
+import { OutputVideoModel } from "../../models/videos-models/OutputVideoModel";
+import { HTTP_STATUSES } from "../../HTTP_STATUSES/HTTP_STATUSES";
+import { RequestWithParams } from "../../models/requests-models/RequestsModels";
+import { GetVideoByURIParamsModel } from "../../models/videos-models/GetVideoByURIParamsModel";
 
 export const getVideoController = (
   req: RequestWithParams<GetVideoByURIParamsModel>,
@@ -13,7 +13,6 @@ export const getVideoController = (
     res.status(HTTP_STATUSES.OK_200).json(db.videos);
     return;
   } else {
-    console.log(db.videos);
     const video = db.videos.find((v) => v.id === +req.params.id);
     if (video) {
       res.status(HTTP_STATUSES.OK_200).json(video);
