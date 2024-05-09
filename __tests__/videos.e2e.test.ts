@@ -5,19 +5,22 @@ import { setDb } from "../src/db/db";
 
 describe("/videos", () => {
   let newVideo: any;
-  test("should get empty array", async () => {
+  test("-GET should get empty array", async () => {
     setDb();
     await req.get(SETTINGS.PASS.VIDEO).expect(HTTP_STATUSES.OK_200, []);
   });
 
-  test("shouldn't create a new object with incorrect request", async () => {
-    await req
+  test("-POST shouldn't create a new video with incorrect data (no title, no author)", async () => {
+    const createResponse = await req
       .post(SETTINGS.PASS.VIDEO)
       .send({ title: "test", author: "" })
       .expect(HTTP_STATUSES.BAD_REQUEST_400);
+    expect(createResponse.body).toEqual({
+      errorsMessages: [{ message: "author is required", field: "author" }],
+    });
   });
 
-  test("should create a new object", async () => {
+  test("-POST should create a new video with correct data", async () => {
     await req
       .post(SETTINGS.PASS.VIDEO)
       .send({ title: "test1", author: "test1" })
@@ -37,31 +40,34 @@ describe("/videos", () => {
       availableResolutions: expect.any(Array),
     });
   });
-  test("should return video by id param", async () => {
+  test("-GET should return the video with correct id", async () => {
     const createResponse = await req
       .get(SETTINGS.PASS.VIDEO + "/" + parseFloat(newVideo.id))
       .expect(HTTP_STATUSES.OK_200);
     expect(createResponse.body).toEqual(newVideo);
   });
 
-  test("shouldn't return video with id param that not exist", async () => {
+  test("-GET shouldn't return video with incorrect id", async () => {
     await req
       .get(SETTINGS.PASS.VIDEO + "/" + 1)
       .expect(HTTP_STATUSES.NOT_FOUND_404);
   });
-  test("shouldn't update video with incorrect request", async () => {
-    await req
+  test("-PUT shouldn't update video with incorrect data (no title, no author)", async () => {
+    const createResponse = await req
       .put(SETTINGS.PASS.VIDEO + "/" + parseFloat(newVideo.id))
-      .send({ title: "testUpdateTitle", author: "" })
+      .send({ title: "", author: "testUpdateAuthor" })
       .expect(HTTP_STATUSES.BAD_REQUEST_400);
+    expect(createResponse.body).toEqual({
+      errorsMessages: [{ message: "title is required", field: "title" }],
+    });
   });
-  test("shouldn't update video with id param that not exist", async () => {
+  test("-PUT shouldn't update video with incorrect id", async () => {
     await req
       .put(SETTINGS.PASS.VIDEO + "/" + 1)
       .send({ title: "testUpdateTitle", author: "testUpdateAuthor" })
       .expect(HTTP_STATUSES.NOT_FOUND_404);
   });
-  test("should update video with correct data", async () => {
+  test("-PUT should update video with correct data", async () => {
     await req
       .put(SETTINGS.PASS.VIDEO + "/" + parseFloat(newVideo.id))
       .send({ title: "testUpdateTitle", author: "testUpdateAuthor" })
@@ -73,12 +79,16 @@ describe("/videos", () => {
     expect(newVideo.title).toBe("testUpdateTitle");
     expect(newVideo.author).toBe("testUpdateAuthor");
   });
-  test("shouldn't delete video with id param that not exist", async () => {
+  test("-DELETE shouldn't delete video with incorrect id", async () => {
     await req
       .delete(SETTINGS.PASS.VIDEO + "/" + 1)
       .expect(HTTP_STATUSES.NOT_FOUND_404);
+    const createResponse = await req
+      .get(SETTINGS.PASS.VIDEO)
+      .expect(HTTP_STATUSES.OK_200);
+    expect(createResponse.body.length).toBe(1);
   });
-  test("should delete video by id param", async () => {
+  test("-DELETE should delete video with correct data", async () => {
     await req
       .delete(SETTINGS.PASS.VIDEO + "/" + parseFloat(newVideo.id))
       .expect(HTTP_STATUSES.NO_CONTENT_204);

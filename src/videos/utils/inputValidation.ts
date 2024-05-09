@@ -9,23 +9,23 @@ export const inputValidation = (video: createVideoModel | UpdateVideoModel) => {
   const errors: APIErrorResult = { errorsMessages: [] };
   if (stringIsNotValid(40, video.title)) {
     errors.errorsMessages.push({
-      message: "Error!!!",
-      field: "Not valid title",
+      message: "title is required",
+      field: "title",
     });
     return errors;
   }
   if (stringIsNotValid(20, video.author)) {
     errors.errorsMessages.push({
-      message: "Error!!!",
-      field: "Not valid author",
+      message: "author is required",
+      field: "author",
     });
     return errors;
   }
   if (video.availableResolutions) {
     if (resolutionIsNotValid(video.availableResolutions, Resolutions)) {
       errors.errorsMessages.push({
-        message: "Error!!!",
-        field: "Not valid resolution",
+        message: "Not valid resolution",
+        field: "availableResolutions",
       });
       return errors;
     }
