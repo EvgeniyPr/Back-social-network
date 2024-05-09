@@ -1,4 +1,4 @@
-export const resolutionIsNotValid = (
+export const isNotValidResolution = (
   inputResolution: string[],
   Resolutions: any
 ) => {

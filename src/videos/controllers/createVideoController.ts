@@ -3,7 +3,7 @@ import { createVideoModel } from "../../models/videos-models/CreateVideoModel";
 import { db } from "../../db/db";
 import { HTTP_STATUSES } from "../../HTTP_STATUSES/HTTP_STATUSES";
 import { RequestWithBody } from "../../models/requests-models/RequestsModels";
-import { inputValidation } from "../utils/inputValidation";
+import { inputValidation } from "../utils/validation/inputValidation";
 import { createVideo } from "../utils/createVideo";
 import { OutputVideoModel } from "../../models/videos-models/OutputVideoModel";
 import { APIErrorResult } from "../../models/videos-models/video-error-models/ErrorCreateVideoType";
