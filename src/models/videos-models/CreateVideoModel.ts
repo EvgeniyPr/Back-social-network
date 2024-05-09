@@ -1,4 +1,4 @@
-export type InputVideoModel = {
+export type createVideoModel = {
   title: string;
   author: string;
   availableResolutions?: string[];

@@ -6,7 +6,7 @@ import {
 import { UpdateVideoModel } from "../../models/videos-models/UpdateVideoModel";
 import { inputValidation } from "../utils/inputValidation";
 import { HTTP_STATUSES } from "../../HTTP_STATUSES/HTTP_STATUSES";
-import { findIndexVideoToUpdate } from "../utils/findVideoInDB";
+import { findIndexVideo } from "../utils/findIndexVideo";
 import { GetVideoByURIParamsModel } from "../../models/videos-models/GetVideoByURIParamsModel";
 import { db } from "../../db/db";
 
@@ -20,10 +20,7 @@ export const updateVideoController = (
     res.status(HTTP_STATUSES.BAD_REQUEST_400).json(errors);
     return;
   }
-  console.log(req.params.id);
-  console.log(db.videos);
-  const indexVideoToUpdate = findIndexVideoToUpdate(req.params.id);
-  console.log("indexVideoToUpdate", indexVideoToUpdate);
+  const indexVideoToUpdate = findIndexVideo(req.params.id);
   if (indexVideoToUpdate > -1) {
     db.videos[indexVideoToUpdate] = {
       ...db.videos[indexVideoToUpdate],

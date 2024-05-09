@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { InputVideoModel } from "../../models/videos-models/CreateVideoModel";
+import { createVideoModel } from "../../models/videos-models/CreateVideoModel";
 import { db } from "../../db/db";
 import { HTTP_STATUSES } from "../../HTTP_STATUSES/HTTP_STATUSES";
 import { RequestWithBody } from "../../models/requests-models/RequestsModels";
@@ -9,7 +9,7 @@ import { OutputVideoModel } from "../../models/videos-models/OutputVideoModel";
 import { APIErrorResult } from "../../models/videos-models/video-error-models/ErrorCreateVideoType";
 
 export const createVideoController = (
-  req: RequestWithBody<InputVideoModel>,
+  req: RequestWithBody<createVideoModel>,
   res: Response<OutputVideoModel | APIErrorResult>
 ) => {
   const errors = inputValidation(req.body);
@@ -18,5 +18,6 @@ export const createVideoController = (
     return;
   }
   const newVideo = createVideo(req.body);
+  db.videos.push(newVideo);
   res.status(HTTP_STATUSES.CREATED_201).json(newVideo);
 };

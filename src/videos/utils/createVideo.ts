@@ -1,6 +1,6 @@
-import { InputVideoModel } from "../../models/videos-models/CreateVideoModel";
+import { createVideoModel } from "../../models/videos-models/CreateVideoModel";
 
-export const createVideo = (video: InputVideoModel) => {
+export const createVideo = (video: createVideoModel) => {
   return {
     id: Date.now() + Math.random(),
     title: video.title,
@@ -9,6 +9,8 @@ export const createVideo = (video: InputVideoModel) => {
     minAgeRestriction: null,
     createdAt: new Date().toISOString(),
     publicationDate: new Date().toISOString(),
-    availableResolutions: video.availableResolutions,
+    availableResolutions: video.availableResolutions
+      ? video.availableResolutions
+      : [],
   };
 };
