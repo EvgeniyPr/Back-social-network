@@ -25,12 +25,12 @@ export const inputValidation = (video: InputVideoModel) => {
       field: "canBeDownloaded",
     });
   }
-  if (isNotValidString(null, video.publicationDate)) {
-    errors.errorsMessages.push({
-      message: "author is required",
-      field: "author",
-    });
-  }
+  // if (isNotValidString(20, video.publicationDate)) {
+  //   errors.errorsMessages.push({
+  //     message: "author is required",
+  //     field: "author",
+  //   });
+  // }
   if (
     video.availableResolutions &&
     isNotValidResolution(video.availableResolutions, Resolutions)
