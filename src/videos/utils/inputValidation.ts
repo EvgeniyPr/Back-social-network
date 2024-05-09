@@ -12,14 +12,14 @@ export const inputValidation = (video: createVideoModel | UpdateVideoModel) => {
       message: "title is required",
       field: "title",
     });
-    return errors;
+    // return errors;
   }
   if (stringIsNotValid(20, video.author)) {
     errors.errorsMessages.push({
       message: "author is required",
       field: "author",
     });
-    return errors;
+    // return errors;
   }
   if (
     video.availableResolutions &&
