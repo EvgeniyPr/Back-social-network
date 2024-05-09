@@ -1,7 +1,7 @@
 import { createVideoModel } from "../../models/videos-models/CreateVideoModel";
 import { UpdateVideoModel } from "../../models/videos-models/UpdateVideoModel";
 import { APIErrorResult } from "../../models/videos-models/video-error-models/ErrorCreateVideoType";
-import { Resolutions } from "../settings/resolutions";
+import { Resolutions, ResolutionsObj } from "../settings/resolutions";
 import { resolutionIsNotValid } from "./resolutionIsNotValid";
 import { stringIsNotValid } from "./stringIsNotValid";
 
@@ -21,14 +21,15 @@ export const inputValidation = (video: createVideoModel | UpdateVideoModel) => {
     });
     return errors;
   }
-  if (video.availableResolutions) {
-    if (resolutionIsNotValid(video.availableResolutions, Resolutions)) {
-      errors.errorsMessages.push({
-        message: "Not valid resolution",
-        field: "availableResolutions",
-      });
-      return errors;
-    }
+  if (
+    video.availableResolutions &&
+    resolutionIsNotValid(video.availableResolutions, ResolutionsObj)
+  ) {
+    errors.errorsMessages.push({
+      message: "Not valid resolution",
+      field: "availableResolutions",
+    });
+    console.log();
   }
 
   return errors;
