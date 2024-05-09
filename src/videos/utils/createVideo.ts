@@ -8,7 +8,7 @@ export const createVideo = (video: createVideoModel) => {
     id: Date.now() + Math.random(),
     title: video.title,
     author: video.author,
-    canBeDownloaded: true,
+    canBeDownloaded: false,
     minAgeRestriction: null,
     createdAt: createAt.toISOString(),
     publicationDate: publicationDate(createAt),
