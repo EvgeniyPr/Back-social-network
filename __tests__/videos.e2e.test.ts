@@ -28,7 +28,7 @@ describe("/videos", () => {
     const createResponse = await req.get(SETTINGS.PASS.VIDEO);
 
     newVideo = createResponse.body[0];
-    console.log("createResponse", newVideo);
+
     expect(newVideo).toEqual({
       id: expect.any(Number),
       title: expect.any(String),

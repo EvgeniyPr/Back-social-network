@@ -3,7 +3,6 @@ export const isNotValidResolution = (
   Resolutions: any
 ) => {
   return inputResolution.find((p) => {
-    console.log("call fn", p.length);
     if (!p.length) {
       return true;
     } else {
