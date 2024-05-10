@@ -2,6 +2,7 @@ import { InputVideoModel } from "../../../models/videos-models/InputVideoModel";
 import { APIErrorResult } from "../../../models/videos-models/video-error-models/ErrorCreateVideoType";
 import { Resolutions } from "../../settings/resolutions";
 import { isNotBooleanType } from "./isNotBooleanType";
+import { isNotValidMinAgeRestriction } from "./isNotValidMinAgeRestriction";
 import { isNotValidResolution } from "./isNotValidResolution";
 import { isNotValidString } from "./isNotValidString";
 
@@ -25,12 +26,18 @@ export const inputValidation = (video: InputVideoModel) => {
       field: "canBeDownloaded",
     });
   }
-  // if (isNotValidString(20, video.publicationDate)) {
-  //   errors.errorsMessages.push({
-  //     message: "author is required",
-  //     field: "author",
-  //   });
-  // }
+  if (video.publicationDate && video.publicationDate !== "string") {
+    errors.errorsMessages.push({
+      message: "Not valid publicationDate",
+      field: "publicationDate",
+    });
+  }
+  if (isNotValidMinAgeRestriction(video.minAgeRestriction)) {
+    errors.errorsMessages.push({
+      message: "Not valid minAgeRestriction",
+      field: "minAgeRestriction",
+    });
+  }
   if (
     video.availableResolutions &&
     isNotValidResolution(video.availableResolutions, Resolutions)
