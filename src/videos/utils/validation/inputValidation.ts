@@ -26,7 +26,7 @@ export const inputValidation = (video: InputVideoModel) => {
       field: "canBeDownloaded",
     });
   }
-  if (video.publicationDate && video.publicationDate !== "string") {
+  if (video.publicationDate && typeof video.publicationDate !== "string") {
     errors.errorsMessages.push({
       message: "Not valid publicationDate",
       field: "publicationDate",
