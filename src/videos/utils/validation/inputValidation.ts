@@ -1,4 +1,4 @@
-import { InputVideoModel } from "../../../models/videos-models/InputVideoModel";
+import { UpdateVideoModel } from "../../../models/videos-models/UpdateVideoModel";
 import { APIErrorResult } from "../../../models/videos-models/video-error-models/ErrorCreateVideoType";
 import { Resolutions } from "../../settings/resolutions";
 import { isNotBooleanType } from "./isNotBooleanType";
@@ -6,7 +6,7 @@ import { isNotValidMinAgeRestriction } from "./isNotValidMinAgeRestriction";
 import { isNotValidResolution } from "./isNotValidResolution";
 import { isNotValidString } from "./isNotValidString";
 
-export const inputValidation = (video: InputVideoModel) => {
+export const inputValidation = (video: UpdateVideoModel) => {
   const errors: APIErrorResult = { errorsMessages: [] };
   if (isNotValidString(40, video.title)) {
     errors.errorsMessages.push({
