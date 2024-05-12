@@ -2,7 +2,7 @@ export const isNotValidString = (
   stringLength: number,
   string: string | undefined | null
 ): boolean => {
-  if (string === undefined || string === null) {
+  if (string === undefined || string === null || typeof string === "number") {
     return true;
   }
   if (string.trim().length > stringLength || string.trim().length === 0)

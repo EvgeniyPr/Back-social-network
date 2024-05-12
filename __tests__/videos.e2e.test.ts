@@ -1,6 +1,6 @@
 import { req } from "./test-helpers";
-import { SETTINGS } from "../src/settings";
-import { HTTP_STATUSES } from "../src/HTTP_STATUSES/HTTP_STATUSES";
+import { SETTINGS } from "../src/videos/settings/settings";
+import { HTTP_STATUSES } from "../src/videos/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { setDb } from "../src/db/db";
 
 describe("/videos", () => {
@@ -17,6 +17,28 @@ describe("/videos", () => {
       .expect(HTTP_STATUSES.BAD_REQUEST_400);
     expect(createResponse.body).toEqual({
       errorsMessages: [{ message: "author is required", field: "author" }],
+    });
+  });
+  test("-POST shouldn't create a new video with incorrect data (incorrect title, author)", async () => {
+    const createResponse = await req
+      .post(SETTINGS.PASS.VIDEO)
+      .send({ incorrect_title: "test", author: "test" })
+      .expect(HTTP_STATUSES.BAD_REQUEST_400);
+    expect(createResponse.body).toEqual({
+      errorsMessages: [{ message: "title is required", field: "title" }],
+    });
+  });
+
+  test("-POST shouldn't create a new video with incorrect data (incorrect title, incorrect author)", async () => {
+    const createResponse = await req
+      .post(SETTINGS.PASS.VIDEO)
+      .send({ incorrect_title: 2, author: 2 })
+      .expect(HTTP_STATUSES.BAD_REQUEST_400);
+    expect(createResponse.body).toEqual({
+      errorsMessages: [
+        { message: "title is required", field: "title" },
+        { message: "author is required", field: "author" },
+      ],
     });
   });
 
@@ -61,12 +83,52 @@ describe("/videos", () => {
       errorsMessages: [{ message: "title is required", field: "title" }],
     });
   });
+
+  test("-PUT shouldn't update video with incorrect data (canBeDownloaded not boolean)", async () => {
+    const createResponse = await req
+      .put(SETTINGS.PASS.VIDEO + "/" + parseFloat(newVideo.id))
+      .send({
+        title: "testUpdateAuthor",
+        author: "testUpdateAuthor",
+        canBeDownloaded: "string",
+      })
+      .expect(HTTP_STATUSES.BAD_REQUEST_400);
+    expect(createResponse.body).toEqual({
+      errorsMessages: [
+        {
+          message: "Not valid value",
+          field: "canBeDownloaded",
+        },
+      ],
+    });
+  });
+
+  test("-PUT shouldn't update video with young age  (10)", async () => {
+    const createResponse = await req
+      .put(SETTINGS.PASS.VIDEO + "/" + parseFloat(newVideo.id))
+      .send({
+        title: "testUpdateAuthor",
+        author: "testUpdateAuthor",
+        minAgeRestriction: 10,
+      })
+      .expect(HTTP_STATUSES.BAD_REQUEST_400);
+    expect(createResponse.body).toEqual({
+      errorsMessages: [
+        {
+          message: "Not valid publicationDate",
+          field: "publicationDate",
+        },
+      ],
+    });
+  });
+
   test("-PUT shouldn't update video with incorrect id", async () => {
     await req
       .put(SETTINGS.PASS.VIDEO + "/" + 1)
       .send({ title: "testUpdateTitle", author: "testUpdateAuthor" })
       .expect(HTTP_STATUSES.NOT_FOUND_404);
   });
+
   test("-PUT should update video with correct data", async () => {
     await req
       .put(SETTINGS.PASS.VIDEO + "/" + parseFloat(newVideo.id))

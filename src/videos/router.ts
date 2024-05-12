@@ -10,6 +10,3 @@ videoRouter.get("/:id", getVideoController);
 videoRouter.put("/:id", updateVideoController);
 videoRouter.delete("/:id", deleteVideoController);
 videoRouter.post("/", createVideoController);
-
-//add test router
-//add tests e2e

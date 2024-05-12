@@ -5,7 +5,7 @@ import {
 } from "../../models/requests-models/RequestsModels";
 import { InputVideoModel } from "../../models/videos-models/InputVideoModel";
 import { inputValidation } from "../utils/validation/inputValidation";
-import { HTTP_STATUSES } from "../../HTTP_STATUSES/HTTP_STATUSES";
+import { HTTP_STATUSES } from "../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { findIndexVideo } from "../utils/findIndexVideo";
 import { GetVideoByURIParamsModel } from "../../models/videos-models/GetVideoByURIParamsModel";
 import { db } from "../../db/db";
