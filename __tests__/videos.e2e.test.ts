@@ -103,7 +103,7 @@ describe("/videos", () => {
     });
   });
 
-  test("-PUT shouldn't update video with young age  (10)", async () => {
+  test("-PUT shouldn't update video with young age (10)", async () => {
     const createResponse = await req
       .put(SETTINGS.PASS.VIDEO + "/" + parseFloat(newVideo.id))
       .send({
