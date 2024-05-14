@@ -1,4 +1,4 @@
-export type UpdateVideoModel = {
+export type UpdateVideoInputModel = {
   title: string;
   author: string;
   minAgeRestriction?: null | number;

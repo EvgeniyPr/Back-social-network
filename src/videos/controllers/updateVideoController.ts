@@ -3,7 +3,7 @@ import {
   RequestWithBody,
   RequestWithParams,
 } from "../../models/requests-models/RequestsModels";
-import { UpdateVideoModel } from "../../models/videos-models/UpdateVideoModel";
+import { UpdateVideoInputModel } from "../../models/videos-models/UpdateVideoInputModel";
 import { inputValidation } from "../utils/validation/inputValidation";
 import { HTTP_STATUSES } from "../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { findIndexVideo } from "../utils/findIndexVideo";
@@ -11,7 +11,7 @@ import { GetVideoByURIParamsModel } from "../../models/videos-models/GetVideoByU
 import { db } from "../../db/db";
 
 export const updateVideoController = (
-  req: RequestWithBody<UpdateVideoModel> &
+  req: RequestWithBody<UpdateVideoInputModel> &
     RequestWithParams<GetVideoByURIParamsModel>,
   res: Response
 ) => {

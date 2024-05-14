@@ -1,6 +1,6 @@
-import { createVideoModel } from "../../models/videos-models/CreateVideoModel";
+import { CreateVideoInputModel } from "../../models/videos-models/CreateVideoInputModel";
 
-export const createVideo = (video: createVideoModel) => {
+export const createVideo = (video: CreateVideoInputModel) => {
   const createAt = new Date();
   const publicationDate = (createAt: Date) =>
     new Date(new Date().setDate(createAt.getDate() + 1)).toISOString();

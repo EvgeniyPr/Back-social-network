@@ -1,10 +1,10 @@
 export type OutputVideoModel = {
-  id: number;
+  id?: number;
   title: string;
   author: string;
-  canBeDownloaded: boolean;
-  minAgeRestriction: null | number;
-  createdAt: string;
-  publicationDate: string;
-  availableResolutions?: string[];
+  canBeDownloaded?: boolean;
+  minAgeRestriction?: null | number;
+  createdAt?: string;
+  publicationDate?: string;
+  availableResolutions?: string[] | null;
 };
