@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
-import { SETTINGS } from "./videos/settings/settings";
-import { videoRouter } from "./videos/router";
+import { SETTINGS } from "./settings/settings";
+import { videoRouter } from "./videos/videoRouter";
 import { db } from "./db/db";
-import { HTTP_STATUSES } from "./videos/settings/HTTP_STATUSES/HTTP_STATUSES";
+import { HTTP_STATUSES } from "./settings/HTTP_STATUSES/HTTP_STATUSES";
 
 export const app = express();
 

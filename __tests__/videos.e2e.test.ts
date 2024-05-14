@@ -1,6 +1,6 @@
 import { req } from "./test-helpers";
-import { SETTINGS } from "../src/videos/settings/settings";
-import { HTTP_STATUSES } from "../src/videos/settings/HTTP_STATUSES/HTTP_STATUSES";
+import { SETTINGS } from "../src/settings/settings";
+import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { setDb } from "../src/db/db";
 
 describe("/videos", () => {

@@ -1,4 +1,4 @@
 import { app } from "./app";
-import { SETTINGS } from "./videos/settings/settings";
+import { SETTINGS } from "./settings/settings";
 
 app.listen(SETTINGS.PORT, () => console.log("...server started"));
