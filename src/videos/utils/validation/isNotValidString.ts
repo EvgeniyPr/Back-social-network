@@ -5,7 +5,6 @@ export const isNotValidString = (
   if (string === undefined || string === null || typeof string === "number") {
     return true;
   }
-  if (string.trim().length > stringLength || string.trim().length === 0)
-    return true;
+  if (string.length > stringLength || string.trim().length === 0) return true;
   else return false;
 };

@@ -3,7 +3,6 @@ export const isNotValidResolution = (
   Resolutions: any
 ) => {
   return inputResolution.find((p) => {
-    console.log(p.length);
     !p.length ? true : !Resolutions[p];
     if (!p.length) {
       return true;
