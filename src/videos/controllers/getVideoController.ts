@@ -2,7 +2,7 @@ import { Response } from "express";
 import { db } from "../../db/db";
 import { OutputVideoModel } from "../models/OutputVideoModel";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { RequestWithParams } from "../../models/requests-models/RequestsModels";
+import { RequestWithParams } from "../../models/RequestsModels";
 import { GetVideoByURIParamsModel } from "../models/GetVideoByURIParamsModel";
 
 export const getVideoController = (
