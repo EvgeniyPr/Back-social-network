@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { RequestWithParams } from "../../models/requests-models/RequestsModels";
-import { GetVideoByURIParamsModel } from "../../models/videos-models/GetVideoByURIParamsModel";
+import { GetVideoByURIParamsModel } from "../models/GetVideoByURIParamsModel";
 import { findIndexVideo } from "../utils/findIndexVideo";
 import { db } from "../../db/db";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";

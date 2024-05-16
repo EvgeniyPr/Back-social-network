@@ -1,15 +1,17 @@
 import express from "express";
 import cors from "cors";
 import { SETTINGS } from "./settings/settings";
-import { videoRouter } from "./videos/videoRouter";
+import { videoRouter } from "./routers/videoRouter";
 import { db } from "./db/db";
 import { HTTP_STATUSES } from "./settings/HTTP_STATUSES/HTTP_STATUSES";
+import { postsRouter } from "./routers/blogsRouter";
 
 export const app = express();
 
 app.use(express.json());
 app.use(cors());
 app.use(SETTINGS.PASS.VIDEO, videoRouter);
+app.use(SETTINGS.PASS.BLOGS, postsRouter);
 
 app.delete("/testing/all-data", (req, res) => {
   db.videos = [];

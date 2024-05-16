@@ -1,6 +1,9 @@
-import { UpdateVideoInputModel } from "../../../models/videos-models/UpdateVideoInputModel";
-import { APIErrorResult } from "../../../models/videos-models/video-error-models/APIErrorResult";
-import { Resolutions } from "../../settings/resolutions";
+import { UpdateVideoInputModel } from "../models/UpdateVideoInputModel";
+import { APIErrorResult } from "../models/video-error-models/APIErrorResult";
+import {
+  MAX_STRING_LENGTH,
+  VALID_VIDEO_RESOLUTION,
+} from "../settings/VALID_VIDEO_RESOLUTION";
 import { isNotBooleanType } from "./isNotBooleanType";
 import { isNotValidMinAgeRestriction } from "./isNotValidMinAgeRestriction";
 import { isNotValidResolution } from "./isNotValidResolution";
@@ -8,13 +11,13 @@ import { isNotValidString } from "./isNotValidString";
 
 export const inputValidation = (video: UpdateVideoInputModel) => {
   const errors: APIErrorResult = { errorsMessages: [] };
-  if (isNotValidString(40, video.title)) {
+  if (isNotValidString(MAX_STRING_LENGTH.TITLE, video.title)) {
     errors.errorsMessages.push({
       message: "title is required",
       field: "title",
     });
   }
-  if (isNotValidString(20, video.author)) {
+  if (isNotValidString(MAX_STRING_LENGTH.AUTHOR, video.author)) {
     errors.errorsMessages.push({
       message: "author is required",
       field: "author",
@@ -40,7 +43,7 @@ export const inputValidation = (video: UpdateVideoInputModel) => {
   }
   if (
     video.availableResolutions &&
-    isNotValidResolution(video.availableResolutions, Resolutions)
+    isNotValidResolution(video.availableResolutions)
   ) {
     errors.errorsMessages.push({
       message: "Not valid resolution",
