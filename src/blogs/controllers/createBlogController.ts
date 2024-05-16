@@ -6,14 +6,15 @@ import { APIErrorResult } from "../../videos/models/video-error-models/APIErrorR
 import { BlogInputModel } from "../models/BlogInputModel";
 import { BlogOutputModel } from "../models/BlogOutputModel";
 import { createBlog } from "../utils blogs/createBlog";
+import { blogsRepository } from "../blogRepository";
 
-export const createBlogController = (
+export const createBlogController = async (
   req: RequestWithBody<BlogInputModel>,
   res: Response<BlogOutputModel>
 ) => {
-  //middleware validdation
-  console.log(req.body);
-  const newBlog = createBlog(req.body);
-  db.blogs.push(newBlog);
+  //middleware validdation 400
+  //middleware authorized 401
+  const newBlog = await blogsRepository.createBlog(req.body);
+
   res.status(HTTP_STATUSES.OK_200).json(newBlog);
 };
