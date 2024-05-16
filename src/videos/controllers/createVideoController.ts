@@ -2,7 +2,7 @@ import { Response } from "express";
 import { CreateVideoInputModel } from "../models/CreateVideoInputModel";
 import { db } from "../../db/db";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { RequestWithBody } from "../../models/requests-models/RequestsModels";
+import { RequestWithBody } from "../../models/RequestsModels";
 import { inputValidation } from "../validation/inputValidation";
 import { createVideo } from "../utils/createVideo";
 import { OutputVideoModel } from "../models/OutputVideoModel";
