@@ -1,4 +1,4 @@
-import { CreateVideoInputModel } from "../../models/videos-models/CreateVideoInputModel";
+import { CreateVideoInputModel } from "../models/CreateVideoInputModel";
 
 export const createVideo = (video: CreateVideoInputModel) => {
   const createAt = new Date();

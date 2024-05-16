@@ -1,12 +1,12 @@
 import { Response } from "express";
-import { CreateVideoInputModel } from "../../models/videos-models/CreateVideoInputModel";
+import { CreateVideoInputModel } from "../models/CreateVideoInputModel";
 import { db } from "../../db/db";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { RequestWithBody } from "../../models/requests-models/RequestsModels";
-import { inputValidation } from "../utils/validation/inputValidation";
+import { inputValidation } from "../validation/inputValidation";
 import { createVideo } from "../utils/createVideo";
-import { OutputVideoModel } from "../../models/videos-models/OutputVideoModel";
-import { APIErrorResult } from "../../models/videos-models/video-error-models/APIErrorResult";
+import { OutputVideoModel } from "../models/OutputVideoModel";
+import { APIErrorResult } from "../models/video-error-models/APIErrorResult";
 
 export const createVideoController = (
   req: RequestWithBody<CreateVideoInputModel>,
