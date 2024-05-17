@@ -1,8 +1,7 @@
-import { error } from "console";
 import { db } from "../db/db";
 import { BlogOutputModel } from "./models/BlogOutputModel";
-import { APIErrorResult } from "../videos/models/video-error-models/APIErrorResult";
 import { BlogInputModel } from "./models/BlogInputModel";
+import { findIndex } from "../utils/findIndex";
 
 export const blogsRepository = {
   async getBlogs(): Promise<BlogOutputModel[]> {
@@ -16,14 +15,39 @@ export const blogsRepository = {
     //   return { errorsMessages: [{ message: e.message, field: "" }] };
     // }
   },
-  async getBlog(id: string): Promise<BlogOutputModel> {
-    // the if no response from db
-    return db.blogs.find((b) => b.id === id);
+  async getBlog(id: string): Promise<BlogOutputModel | undefined> {
+    const blogs = await this.getBlogs();
+    return blogs.find((b) => b.id === id);
   },
   async createBlog(data: BlogInputModel): Promise<BlogOutputModel> {
-    // the if no response from db
+    const blogs = await this.getBlogs();
     const newBlog = { ...data, id: (Date.now() + Math.random()).toString() };
-    db.blogs.push(newBlog);
+    blogs.push(newBlog);
     return newBlog;
+  },
+
+  async updateBlogController(
+    id: string,
+    data: BlogInputModel
+  ): Promise<boolean> {
+    const blogs = await this.getBlogs();
+    const indexBlogToUpdate = findIndex(id, blogs);
+    if (indexBlogToUpdate > -1) {
+      db.blogs[indexBlogToUpdate] = { ...db.blogs[indexBlogToUpdate], ...data };
+      return true;
+    } else {
+      return false;
+    }
+  },
+
+  async deleteBlog(id: string): Promise<boolean> {
+    const blogs = await this.getBlogs();
+    const indexBlogToDelete = findIndex(id, blogs);
+    if (indexBlogToDelete > -1) {
+      blogs.splice(indexBlogToDelete, 1);
+      return true;
+    } else {
+      return false;
+    }
   },
 };

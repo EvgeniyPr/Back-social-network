@@ -4,14 +4,14 @@ import { RequestWithParams } from "../../models/RequestsModels";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { findIndex } from "../../utils/findIndex";
 import { GetBlogByURIParamsModel } from "../models/GetBlogByURIParamsModel";
+import { blogsRepository } from "../blogRepository";
 
-export const deleteBlogController = (
+export const deleteBlogController = async (
   req: RequestWithParams<GetBlogByURIParamsModel>,
   res: Response
 ) => {
-  const indexBlogToDelete = findIndex(req.params.id, db.blogs);
-  if (indexBlogToDelete > -1) {
-    db.blogs.splice(indexBlogToDelete, 1);
+  const blogIsExist = await blogsRepository.deleteBlog(req.params.id);
+  if (blogIsExist) {
     res.sendStatus(HTTP_STATUSES.NO_CONTENT_204);
     return;
   }
