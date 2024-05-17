@@ -6,13 +6,22 @@ export const db: DBType = {
   blogs: [
     {
       id: "1",
-      name: "string",
+      name: "name blog",
       description: "string",
       websiteUrl:
         "https://CRtXHiQcztBWNLaYHLMk2GCFcFO6VCTxAi_uV_NE433I.jJawuDHgUt.t4dzLhgZ_q0QRlIITs-_.6Lm4HLxV8JDKsA9",
     },
   ],
-  posts: [],
+  posts: [
+    {
+      id: "1",
+      title: "title",
+      shortDescription: "shortDescription",
+      content: "content",
+      blogId: "blogId",
+      blogName: "blogName",
+    },
+  ],
 };
 export const setDb = (dataset?: DBType) => {
   if (!dataset) {

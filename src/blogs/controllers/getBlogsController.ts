@@ -21,8 +21,7 @@ export const getBlogsController = async (
     if (blog) {
       res.status(HTTP_STATUSES.OK_200).json(blog);
       return;
-    } else {
-      res.sendStatus(HTTP_STATUSES.NOT_FOUND_404);
     }
+    res.sendStatus(HTTP_STATUSES.NOT_FOUND_404);
   }
 };

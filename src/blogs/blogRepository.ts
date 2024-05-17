@@ -26,18 +26,14 @@ export const blogsRepository = {
     return newBlog;
   },
 
-  async updateBlogController(
-    id: string,
-    data: BlogInputModel
-  ): Promise<boolean> {
+  async updateBlog(id: string, data: BlogInputModel): Promise<boolean> {
     const blogs = await this.getBlogs();
     const indexBlogToUpdate = findIndex(id, blogs);
     if (indexBlogToUpdate > -1) {
-      db.blogs[indexBlogToUpdate] = { ...db.blogs[indexBlogToUpdate], ...data };
+      blogs[indexBlogToUpdate] = { ...blogs[indexBlogToUpdate], ...data };
       return true;
-    } else {
-      return false;
     }
+    return false;
   },
 
   async deleteBlog(id: string): Promise<boolean> {
@@ -46,8 +42,7 @@ export const blogsRepository = {
     if (indexBlogToDelete > -1) {
       blogs.splice(indexBlogToDelete, 1);
       return true;
-    } else {
-      return false;
     }
+    return false;
   },
 };

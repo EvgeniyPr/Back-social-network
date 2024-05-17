@@ -10,8 +10,8 @@ export const deleteBlogController = async (
   req: RequestWithParams<GetBlogByURIParamsModel>,
   res: Response
 ) => {
-  const blogIsExist = await blogsRepository.deleteBlog(req.params.id);
-  if (blogIsExist) {
+  const isDeleted = await blogsRepository.deleteBlog(req.params.id);
+  if (isDeleted) {
     res.sendStatus(HTTP_STATUSES.NO_CONTENT_204);
     return;
   }
