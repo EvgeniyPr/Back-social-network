@@ -4,6 +4,7 @@ import { createBlogController } from "../blogs/controllers/createBlogController"
 import { deleteBlogController } from "../blogs/controllers/deleteBlogController";
 
 import { updateBlogController } from "../blogs/controllers/updateBlogController";
+import { authMiddleware } from "../middlewares/authMiddleware";
 
 export const blogsRouter = Router();
 
@@ -11,19 +12,19 @@ blogsRouter.get("/", getBlogsController);
 blogsRouter.get("/:id", getBlogsController);
 blogsRouter.post(
   "/",
+  authMiddleware,
   //add middleware validation add error 400
-  //add middleware auth add error 401
   createBlogController
 );
 blogsRouter.delete(
   "/:id",
+  authMiddleware,
   //add middleware validation
-  //add middleware auth add error 401
   deleteBlogController
 );
 blogsRouter.put(
   "/:id",
+  authMiddleware,
   //add middleware validation add error 400
-  //add middleware auth add error 401
   updateBlogController
 );

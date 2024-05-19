@@ -10,6 +10,5 @@ export const createPostsController = async (
   res: Response<PostOutputModel>
 ) => {
   const newPost: any = await postRepository.createPost(req.body);
-  console.log("newPost", newPost);
   res.status(HTTP_STATUSES.CREATED_201).json(newPost);
 };
