@@ -1,4 +1,3 @@
-import { video1 } from "../../__tests__/datasets";
 export type DBType = { videos: any[]; blogs: any[]; posts: any[] };
 
 export const db: DBType = {
@@ -6,7 +5,7 @@ export const db: DBType = {
   blogs: [
     {
       id: "1",
-      name: "name blog",
+      name: "blogs",
       description: "string",
       websiteUrl:
         "https://CRtXHiQcztBWNLaYHLMk2GCFcFO6VCTxAi_uV_NE433I.jJawuDHgUt.t4dzLhgZ_q0QRlIITs-_.6Lm4HLxV8JDKsA9",
@@ -15,7 +14,7 @@ export const db: DBType = {
   posts: [
     {
       id: "1",
-      title: "title",
+      title: "posts",
       shortDescription: "shortDescription",
       content: "content",
       blogId: "blogId",

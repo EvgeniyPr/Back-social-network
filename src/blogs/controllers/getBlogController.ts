@@ -6,7 +6,7 @@ import { BlogOutputModel } from "../models/BlogOutputModel";
 import { GetBlogByURIParamsModel } from "../models/GetBlogByURIParamsModel";
 import { blogsRepository } from "../blogRepository";
 
-export const getBlogsController = async (
+export const getBlogController = async (
   req: RequestWithParams<GetBlogByURIParamsModel>,
   res: Response<BlogOutputModel[] | BlogOutputModel>
 ) => {

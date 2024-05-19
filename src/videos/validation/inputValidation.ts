@@ -1,16 +1,14 @@
+import { errors } from "../../errors/errors";
 import { UpdateVideoInputModel } from "../models/UpdateVideoInputModel";
-import { APIErrorResult } from "../models/video-error-models/APIErrorResult";
-import {
-  MAX_STRING_LENGTH,
-  VALID_VIDEO_RESOLUTION,
-} from "../settings/VALID_VIDEO_RESOLUTION";
+import { MAX_STRING_LENGTH } from "../settings/VALID_VIDEO_RESOLUTION";
 import { isNotBooleanType } from "./isNotBooleanType";
 import { isNotValidMinAgeRestriction } from "./isNotValidMinAgeRestriction";
 import { isNotValidResolution } from "./isNotValidResolution";
 import { isNotValidString } from "./isNotValidString";
 
 export const inputValidation = (video: UpdateVideoInputModel) => {
-  const errors: APIErrorResult = { errorsMessages: [] };
+  errors.errorsMessages = [];
+  // const errors: APIErrorResult = { errorsMessages: [] };
   if (isNotValidString(MAX_STRING_LENGTH.TITLE, video.title)) {
     errors.errorsMessages.push({
       message: "title is required",
