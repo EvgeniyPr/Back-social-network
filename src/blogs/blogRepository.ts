@@ -6,14 +6,6 @@ import { findIndex } from "../utils/findIndex";
 export const blogsRepository = {
   async getBlogs(): Promise<BlogOutputModel[]> {
     return db.blogs;
-    // if no response from db we have to add error using try catch
-    // try {
-    //   throw new Error("Error!!!!");
-    //   return db.blogs;
-    // } catch (e: any) {
-    //   console.log(e.message);
-    //   return { errorsMessages: [{ message: e.message, field: "" }] };
-    // }
   },
   async getBlog(id: string): Promise<BlogOutputModel | undefined> {
     const blogs = await this.getBlogs();
@@ -25,7 +17,6 @@ export const blogsRepository = {
     blogs.push(newBlog);
     return newBlog;
   },
-
   async updateBlog(id: string, data: BlogInputModel): Promise<boolean> {
     const blogs = await this.getBlogs();
     const indexBlogToUpdate = findIndex(id, blogs);
@@ -34,6 +25,14 @@ export const blogsRepository = {
       return true;
     }
     return false;
+  },
+  async findBlogNameById(blogId: string) {
+    const blogs = await this.getBlogs();
+    const blogNameById = blogs.find((b) => b.id === blogId);
+    if (blogNameById) {
+      return blogNameById.name;
+    }
+    throw new Error("There are no blogs with such id");
   },
 
   async deleteBlog(id: string): Promise<boolean> {

@@ -4,11 +4,22 @@ import { createPostsController } from "../posts/controllers/createPostsControlle
 import { deletePostController } from "../posts/controllers/deletePostController";
 import { updatePostController } from "../posts/controllers/updatePostController";
 import { authMiddleware } from "../middlewares/authMiddleware";
+import { postInputValidator } from "../posts/middleware/postsValidationMiddleware";
 
 export const postsRouter = Router();
 
 postsRouter.get("/", getPostsController);
 postsRouter.get("/:id", getPostsController);
-postsRouter.post("/", authMiddleware, createPostsController);
+postsRouter.post(
+  "/",
+  authMiddleware,
+  ...postInputValidator,
+  createPostsController
+);
 postsRouter.delete("/:id", authMiddleware, deletePostController);
-postsRouter.put("/:id", authMiddleware, updatePostController);
+postsRouter.put(
+  "/:id",
+  authMiddleware,
+  ...postInputValidator,
+  updatePostController
+);
