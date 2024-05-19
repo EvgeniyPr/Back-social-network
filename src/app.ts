@@ -17,5 +17,7 @@ app.use(SETTINGS.PASS.POSTS, postsRouter);
 
 app.delete("/testing/all-data", (req, res) => {
   db.videos = [];
+  db.posts = [];
+  db.blogs = [];
   res.sendStatus(HTTP_STATUSES.NO_CONTENT_204);
 });
