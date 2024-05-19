@@ -12,12 +12,10 @@ blogsRouter.get("/", getBlogController);
 blogsRouter.get("/:id", getBlogController);
 blogsRouter.post(
   "/",
-
   authMiddleware,
   ...blogsInputValidators,
   createBlogController
 );
-
 blogsRouter.delete("/:id", authMiddleware, deleteBlogController);
 blogsRouter.put(
   "/:id",
