@@ -42,7 +42,6 @@ export const postRepository = {
       posts.push(newBlog);
       return newBlog;
     } catch (e: any) {
-      console.log("error", e.message);
       return { error: e.message };
     }
   },
