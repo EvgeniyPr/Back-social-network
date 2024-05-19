@@ -10,5 +10,5 @@ export const createBlogController = async (
   res: Response<BlogOutputModel>
 ) => {
   const newBlog = await blogsRepository.createBlog(req.body);
-  res.status(HTTP_STATUSES.OK_200).json(newBlog);
+  res.status(HTTP_STATUSES.CREATED_201).json(newBlog);
 };

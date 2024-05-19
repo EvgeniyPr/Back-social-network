@@ -53,3 +53,4 @@ export const req = agent(app)
 Чтобы тесты запускались последовательно (файл за файлом) в scripts прописываем  флаги "-i" или “--runInBand”
 
 serveo ssh -R 80:localhost:3003 serveo.net
+ssh -R 80:localhost:8080 localhost.run

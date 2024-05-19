@@ -3,6 +3,7 @@ import { errorCheckMiddleware } from "../../middlewares/errorCheckMiddleware";
 import { blogsRepository } from "../../blogs/blogRepository";
 
 export const postTitleInputValidator = body("title")
+  .trim()
   .notEmpty()
   .withMessage("title is empty")
   .isString()
@@ -11,6 +12,7 @@ export const postTitleInputValidator = body("title")
   .withMessage("max length of title is 30");
 
 export const postShortDescriptionInputValidator = body("shortDescription")
+  .trim()
   .notEmpty()
   .withMessage("shortDescription is empty")
   .isString()
@@ -18,6 +20,7 @@ export const postShortDescriptionInputValidator = body("shortDescription")
   .isLength({ max: 100 })
   .withMessage("max length of shortDescription is 100");
 export const postContentInputValidator = body("content")
+  .trim()
   .notEmpty()
   .withMessage("content is empty")
   .isString()
@@ -25,6 +28,7 @@ export const postContentInputValidator = body("content")
   .isLength({ max: 1000 })
   .withMessage("max length of content is 1000");
 export const postBlogIdInputValidator = body("blogId")
+  .trim()
   .notEmpty()
   .withMessage("blogId is empty")
   .isString()
