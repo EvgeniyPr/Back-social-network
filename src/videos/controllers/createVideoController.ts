@@ -6,7 +6,7 @@ import { RequestWithBody } from "../../models/RequestsModels";
 import { inputValidation } from "../validation/inputValidation";
 import { createVideo } from "../utils/createVideo";
 import { OutputVideoModel } from "../models/OutputVideoModel";
-import { APIErrorResult } from "../models/video-error-models/APIErrorResult";
+import { APIErrorResult } from "../../models/APIErrorResult";
 
 export const createVideoController = (
   req: RequestWithBody<CreateVideoInputModel>,

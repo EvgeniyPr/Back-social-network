@@ -7,6 +7,7 @@ import { PostOutputModel } from "./models/PostOutputModel";
 export const postRepository = {
   async getPosts() {
     return db.posts;
+
     // if no response from db we have to add error using try catch
     // try {
     //   throw new Error("Error!!!!");

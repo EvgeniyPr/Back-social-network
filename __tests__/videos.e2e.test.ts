@@ -24,6 +24,7 @@ describe("/videos", () => {
       .post(SETTINGS.PASS.VIDEO)
       .send({ incorrect_title: "test", author: "test" })
       .expect(HTTP_STATUSES.BAD_REQUEST_400);
+
     expect(createResponse.body).toEqual({
       errorsMessages: [{ message: "title is required", field: "title" }],
     });

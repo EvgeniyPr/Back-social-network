@@ -1,30 +1,27 @@
 import { Router } from "express";
-import { getBlogsController } from "../blogs/controllers/getBlogsController";
+import { getBlogController } from "../blogs/controllers/getBlogController";
 import { createBlogController } from "../blogs/controllers/createBlogController";
 import { deleteBlogController } from "../blogs/controllers/deleteBlogController";
-
 import { updateBlogController } from "../blogs/controllers/updateBlogController";
 import { authMiddleware } from "../middlewares/authMiddleware";
+import { blogsInputValidators } from "../blogs/middleware/blogsValidationMiddleware";
 
 export const blogsRouter = Router();
 
-blogsRouter.get("/", getBlogsController);
-blogsRouter.get("/:id", getBlogsController);
+blogsRouter.get("/", getBlogController);
+blogsRouter.get("/:id", getBlogController);
 blogsRouter.post(
   "/",
+
   authMiddleware,
-  //add middleware validation add error 400
+  ...blogsInputValidators,
   createBlogController
 );
-blogsRouter.delete(
-  "/:id",
-  authMiddleware,
-  //add middleware validation
-  deleteBlogController
-);
+
+blogsRouter.delete("/:id", authMiddleware, deleteBlogController);
 blogsRouter.put(
   "/:id",
   authMiddleware,
-  //add middleware validation add error 400
+  ...blogsInputValidators,
   updateBlogController
 );
