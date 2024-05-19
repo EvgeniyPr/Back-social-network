@@ -2,12 +2,12 @@ import { Response } from "express";
 import {
   RequestWithBody,
   RequestWithParams,
-} from "../../models/requests-models/RequestsModels";
-import { UpdateVideoInputModel } from "../../models/videos-models/UpdateVideoInputModel";
-import { inputValidation } from "../utils/validation/inputValidation";
+} from "../../models/RequestsModels";
+import { UpdateVideoInputModel } from "../models/UpdateVideoInputModel";
+import { inputValidation } from "../validation/inputValidation";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { findIndexVideo } from "../utils/findIndexVideo";
-import { GetVideoByURIParamsModel } from "../../models/videos-models/GetVideoByURIParamsModel";
+import { findIndex } from "../../utils/findIndex";
+import { GetVideoByURIParamsModel } from "../models/GetVideoByURIParamsModel";
 import { db } from "../../db/db";
 
 export const updateVideoController = (
@@ -20,7 +20,7 @@ export const updateVideoController = (
     res.status(HTTP_STATUSES.BAD_REQUEST_400).json(errors);
     return;
   }
-  const indexVideoToUpdate = findIndexVideo(req.params.id);
+  const indexVideoToUpdate = findIndex(req.params.id, db.videos);
   if (indexVideoToUpdate > -1) {
     db.videos[indexVideoToUpdate] = {
       ...db.videos[indexVideoToUpdate],
