@@ -1,8 +1,6 @@
 import { Response } from "express";
-import { db } from "../../db/db";
 import { RequestWithParams } from "../../models/RequestsModels";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { findIndex } from "../../utils/findIndex";
 import { GetBlogByURIParamsModel } from "../models/GetBlogByURIParamsModel";
 import { blogsRepository } from "../blogRepository";
 
