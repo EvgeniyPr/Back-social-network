@@ -1,4 +1,6 @@
-export type DBType = { videos: any[]; blogs: any[]; posts: any[] };
+import { BlogOutputModel } from "../blogs/models/BlogOutputModel";
+
+export type DBType = { videos: any[]; blogs: BlogOutputModel[]; posts: any[] };
 
 export const db: DBType = {
   videos: [],

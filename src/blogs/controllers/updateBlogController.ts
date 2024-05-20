@@ -13,7 +13,6 @@ export const updateBlogController = async (
     RequestWithBody<BlogInputModel>,
   res: Response
 ) => {
-  //validation middleware first
   const isUpdate = await blogsRepository.updateBlog(req.params.id, req.body);
   if (isUpdate) {
     res.sendStatus(HTTP_STATUSES.NO_CONTENT_204);
