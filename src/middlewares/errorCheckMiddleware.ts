@@ -11,9 +11,11 @@ export const errorCheckMiddleware = (
   next: NextFunction
 ) => {
   resetErrors();
-  const result = validationResult(req).array({ onlyFirstError: true });
-  if (result.length > 0) {
-    mapErrors(result);
+  const validationErrors = validationResult(req).array({
+    onlyFirstError: true,
+  });
+  if (validationErrors.length > 0) {
+    mapErrors(validationErrors);
     res.status(HTTP_STATUSES.BAD_REQUEST_400).json(errors);
     return;
   }
