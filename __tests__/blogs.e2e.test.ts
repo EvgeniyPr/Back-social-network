@@ -254,4 +254,48 @@ describe("/blogs", () => {
         });
       });
   });
+  test("-DELETE shouldn't delete the blog with unauthorized user (wrong password)", async () => {
+    await req
+      .delete(SETTINGS.PASS.BLOGS + "/" + blog[0].id)
+      .auth("admin", "wrong qwerty")
+      .expect(HTTP_STATUSES.UNAUTHORIZED_401);
+    const createRequest = await req
+      .get(SETTINGS.PASS.BLOGS)
+      .expect(HTTP_STATUSES.OK_200);
+    blog = createRequest.body;
+    expect(blog.length === 1);
+  });
+  test("-DELETE shouldn't delete the blog with unauthorized user (wrong username)", async () => {
+    await req
+      .delete(SETTINGS.PASS.BLOGS + "/" + blog[0].id)
+      .auth("wrong admin", "qwerty")
+      .expect(HTTP_STATUSES.UNAUTHORIZED_401);
+    const createRequest = await req
+      .get(SETTINGS.PASS.BLOGS)
+      .expect(HTTP_STATUSES.OK_200);
+    blog = createRequest.body;
+    expect(blog.length === 1);
+  });
+  test("-DELETE shouldn't delete with wrong params id", async () => {
+    await req
+      .delete(SETTINGS.PASS.BLOGS + "/" + "0000")
+      .auth("admin", "qwerty")
+      .expect(HTTP_STATUSES.NOT_FOUND_404);
+    const createRequest = await req
+      .get(SETTINGS.PASS.BLOGS)
+      .expect(HTTP_STATUSES.OK_200);
+    blog = createRequest.body;
+    expect(blog.length === 1);
+  });
+  test("-DELETE should delete blog by params id", async () => {
+    await req
+      .delete(SETTINGS.PASS.BLOGS + "/" + blog[0].id)
+      .auth("admin", "qwerty")
+      .expect(HTTP_STATUSES.NO_CONTENT_204);
+    const createRequest = await req
+      .get(SETTINGS.PASS.BLOGS)
+      .expect(HTTP_STATUSES.OK_200);
+    blog = createRequest.body;
+    expect(blog.length === 0);
+  });
 });
