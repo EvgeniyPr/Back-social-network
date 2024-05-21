@@ -5,7 +5,7 @@ import { SETTINGS } from "../src/settings/settings";
 import { req } from "./test-helpers";
 
 describe("/blogs", () => {
-  let blog: BlogOutputModel[];
+  let blogs: BlogOutputModel[];
   test("-GET should get an empty array", async () => {
     setDb();
     await req.get(SETTINGS.PASS.BLOGS).expect(HTTP_STATUSES.OK_200, []);
@@ -97,13 +97,13 @@ describe("/blogs", () => {
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
-    blog = createRequest.body;
-    expect(blog.length === 1);
+    blogs = createRequest.body;
+    expect(blogs.length === 1);
   });
 
   test("-GET BY PARAMS should return the blog by params id", async () => {
     await req
-      .get(SETTINGS.PASS.BLOGS + "/" + blog[0].id)
+      .get(SETTINGS.PASS.BLOGS + "/" + blogs[0].id)
       .expect(HTTP_STATUSES.OK_200)
       .then((response) => {
         expect(response.body).toEqual({
@@ -116,8 +116,8 @@ describe("/blogs", () => {
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
-    blog = createRequest.body;
-    expect(blog.length === 1);
+    blogs = createRequest.body;
+    expect(blogs.length === 1);
   });
   test("-GET BY PARAMS shouldn't return the blog with wrong params id", async () => {
     await req
@@ -126,8 +126,8 @@ describe("/blogs", () => {
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
-    blog = createRequest.body;
-    expect(blog.length === 1);
+    blogs = createRequest.body;
+    expect(blogs.length === 1);
   });
   test("-PUT shouldn't update the blog with wrong params id", async () => {
     await req
@@ -143,12 +143,12 @@ describe("/blogs", () => {
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
-    blog = createRequest.body;
-    expect(blog.length === 1);
+    blogs = createRequest.body;
+    expect(blogs.length === 1);
   });
   test("-PUT shouldn't update the blog with wrong username", async () => {
     await req
-      .put(SETTINGS.PASS.BLOGS + "/" + blog[0].id)
+      .put(SETTINGS.PASS.BLOGS + "/" + blogs[0].id)
       .auth("wrong admin", "qwerty")
       .send({
         name: "name",
@@ -160,12 +160,12 @@ describe("/blogs", () => {
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
-    blog = createRequest.body;
-    expect(blog.length === 1);
+    blogs = createRequest.body;
+    expect(blogs.length === 1);
   });
   test("-PUT shouldn't update the blog with wrong password", async () => {
     await req
-      .put(SETTINGS.PASS.BLOGS + "/" + blog[0].id)
+      .put(SETTINGS.PASS.BLOGS + "/" + blogs[0].id)
       .auth("admin", "wrong qwerty")
       .send({
         name: "name",
@@ -177,12 +177,12 @@ describe("/blogs", () => {
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
-    blog = createRequest.body;
-    expect(blog.length === 1);
+    blogs = createRequest.body;
+    expect(blogs.length === 1);
   });
   test("-PUT shouldn't update the blog with invalid field name", async () => {
     await req
-      .put(SETTINGS.PASS.BLOGS + "/" + blog[0].id)
+      .put(SETTINGS.PASS.BLOGS + "/" + blogs[0].id)
       .auth("admin", "qwerty")
       .send({
         name: "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
@@ -194,12 +194,12 @@ describe("/blogs", () => {
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
-    blog = createRequest.body;
-    expect(blog.length === 1);
+    blogs = createRequest.body;
+    expect(blogs.length === 1);
   });
   test("-PUT shouldn't update the blog with invalid field description", async () => {
     await req
-      .put(SETTINGS.PASS.BLOGS + "/" + blog[0].id)
+      .put(SETTINGS.PASS.BLOGS + "/" + blogs[0].id)
       .auth("admin", "qwerty")
       .send({
         name: "name",
@@ -211,12 +211,12 @@ describe("/blogs", () => {
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
-    blog = createRequest.body;
-    expect(blog.length === 1);
+    blogs = createRequest.body;
+    expect(blogs.length === 1);
   });
   test("-PUT shouldn't update the blog with invalid format websiteUrl", async () => {
     await req
-      .put(SETTINGS.PASS.BLOGS + "/" + blog[0].id)
+      .put(SETTINGS.PASS.BLOGS + "/" + blogs[0].id)
       .auth("admin", "qwerty")
       .send({
         name: "name",
@@ -227,12 +227,12 @@ describe("/blogs", () => {
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
-    blog = createRequest.body;
-    expect(blog.length === 1);
+    blogs = createRequest.body;
+    expect(blogs.length === 1);
   });
   test("-PUT should update the blog with valid data", async () => {
     await req
-      .put(SETTINGS.PASS.BLOGS + "/" + blog[0].id)
+      .put(SETTINGS.PASS.BLOGS + "/" + blogs[0].id)
       .auth("admin", "qwerty")
       .send({
         name: "new name",
@@ -242,11 +242,11 @@ describe("/blogs", () => {
       })
       .expect(HTTP_STATUSES.NO_CONTENT_204);
     await req
-      .get(SETTINGS.PASS.BLOGS + "/" + blog[0].id)
+      .get(SETTINGS.PASS.BLOGS + "/" + blogs[0].id)
       .expect(HTTP_STATUSES.OK_200)
       .then((response) => {
         expect(response.body).toEqual({
-          id: blog[0].id,
+          id: blogs[0].id,
           name: "new name",
           description: "new description",
           websiteUrl:
@@ -256,25 +256,25 @@ describe("/blogs", () => {
   });
   test("-DELETE shouldn't delete the blog with unauthorized user (wrong password)", async () => {
     await req
-      .delete(SETTINGS.PASS.BLOGS + "/" + blog[0].id)
+      .delete(SETTINGS.PASS.BLOGS + "/" + blogs[0].id)
       .auth("admin", "wrong qwerty")
       .expect(HTTP_STATUSES.UNAUTHORIZED_401);
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
-    blog = createRequest.body;
-    expect(blog.length === 1);
+    blogs = createRequest.body;
+    expect(blogs.length === 1);
   });
   test("-DELETE shouldn't delete the blog with unauthorized user (wrong username)", async () => {
     await req
-      .delete(SETTINGS.PASS.BLOGS + "/" + blog[0].id)
+      .delete(SETTINGS.PASS.BLOGS + "/" + blogs[0].id)
       .auth("wrong admin", "qwerty")
       .expect(HTTP_STATUSES.UNAUTHORIZED_401);
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
-    blog = createRequest.body;
-    expect(blog.length === 1);
+    blogs = createRequest.body;
+    expect(blogs.length === 1);
   });
   test("-DELETE shouldn't delete with wrong params id", async () => {
     await req
@@ -284,18 +284,18 @@ describe("/blogs", () => {
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
-    blog = createRequest.body;
-    expect(blog.length === 1);
+    blogs = createRequest.body;
+    expect(blogs.length === 1);
   });
   test("-DELETE should delete blog by params id", async () => {
     await req
-      .delete(SETTINGS.PASS.BLOGS + "/" + blog[0].id)
+      .delete(SETTINGS.PASS.BLOGS + "/" + blogs[0].id)
       .auth("admin", "qwerty")
       .expect(HTTP_STATUSES.NO_CONTENT_204);
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
-    blog = createRequest.body;
-    expect(blog.length === 0);
+    blogs = createRequest.body;
+    expect(blogs.length === 0);
   });
 });
