@@ -1,13 +1,13 @@
 import { Response } from "express";
 import { RequestWithParams } from "../../models/RequestsModels";
 import { GetPostByURIParamsModel } from "../models/GetPostByURIParamsModel";
-import { PostOutputModel } from "../models/PostOutputModel";
+import { PostOutputModelToFront } from "../models/PostOutputModelToFrontToFront";
 import { postRepository } from "../postsRepository";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 
 export const getPostsController = async (
   req: RequestWithParams<GetPostByURIParamsModel>,
-  res: Response<PostOutputModel[] | PostOutputModel>
+  res: Response<PostOutputModelToFront[] | PostOutputModelToFront>
 ) => {
   if (!req.params.id) {
     // const postsDb = await postRepository.getPostsFromDB();

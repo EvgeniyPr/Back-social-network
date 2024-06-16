@@ -1,4 +1,4 @@
-export type PostOutputModel = {
+export type PostOutputModelToFront = {
   id: string;
   title: string;
   shortDescription: string;
