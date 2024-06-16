@@ -10,13 +10,14 @@ export const getPostsController = async (
   res: Response<PostOutputModel[] | PostOutputModel>
 ) => {
   if (!req.params.id) {
-    const blogs = await postRepository.getPosts();
-    res.status(HTTP_STATUSES.OK_200).json(blogs);
+    // const postsDb = await postRepository.getPostsFromDB();
+    const posts = await postRepository.getPosts();
+    res.status(HTTP_STATUSES.OK_200).json(posts);
     return;
   } else {
-    const blog = await postRepository.getPost(req.params.id);
-    if (blog) {
-      res.status(HTTP_STATUSES.OK_200).json(blog);
+    const post = await postRepository.getPost(req.params.id);
+    if (post) {
+      res.status(HTTP_STATUSES.OK_200).json(post);
       return;
     }
     res.sendStatus(HTTP_STATUSES.NOT_FOUND_404);

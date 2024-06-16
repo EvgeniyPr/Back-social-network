@@ -1,16 +1,20 @@
-import { blogsRepository } from "../blogs/blogRepository";
-import { db } from "../db/db";
+import { blogsRepository } from "../blogs/repositories/blogsRepository";
+import { client, db } from "../db/db";
 import { findIndex } from "../utils/findIndex";
 import { PostInputModel } from "./models/PostInputModel";
 import { PostOutputModel } from "./models/PostOutputModel";
 
 export const postRepository = {
+  // async getPostsFromDB() {
+  //   const posts = client.db("SocialNetwork").collection("posts");
+  //   return posts;
+  // },
   async getPosts() {
     return db.posts;
   },
   async getPost(id: string): Promise<PostOutputModel | undefined> {
-    const blogs = await this.getPosts();
-    return blogs.find((b) => b.id === id);
+    const posts = await this.getPosts();
+    return posts.find((b) => b.id === id);
   },
   async createPost(data: PostInputModel) {
     const posts = await this.getPosts();

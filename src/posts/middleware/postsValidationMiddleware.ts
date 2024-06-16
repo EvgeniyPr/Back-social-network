@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 import { errorCheckMiddleware } from "../../middlewares/errorCheckMiddleware";
-import { blogsRepository } from "../../blogs/blogRepository";
+import { blogsRepository } from "../../blogs/repositories/blogsRepository";
 
 export const postTitleInputValidator = body("title")
   .trim()

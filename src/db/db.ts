@@ -1,6 +1,13 @@
-import { BlogOutputModel } from "../blogs/models/BlogOutputModel";
+import { MongoClient } from "mongodb";
+import { BlogOutputModelToFront } from "../blogs/models/BlogOutputModelToFront";
+import * as dotenv from "dotenv";
+dotenv.config();
 
-export type DBType = { videos: any[]; blogs: BlogOutputModel[]; posts: any[] };
+export type DBType = {
+  videos: any[];
+  blogs: BlogOutputModelToFront[];
+  posts: any[];
+};
 
 export const db: DBType = {
   videos: [],
@@ -32,5 +39,28 @@ export const setDb = (dataset?: DBType) => {
     return;
   } else {
     db.videos = dataset.videos || db.videos;
+  }
+};
+
+const url: string | undefined =
+  "mongodb+srv://prishchepovee:7HTc1TIRey6DKGgn@cluster0.oqgp2w5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+if (!url) {
+  throw new Error("Missing MONGO_URL in environment variables");
+}
+
+export const client = new MongoClient(url);
+
+export const runDb = async () => {
+  try {
+    await client.connect();
+    console.log("connect successfully");
+    await client.db("admin").command({ ping: 1 });
+    console.log(
+      "Pinged your deployment. You successfully connected to MongoDB!"
+    );
+  } catch (e) {
+    await client.close();
+    console.log("error");
   }
 };
