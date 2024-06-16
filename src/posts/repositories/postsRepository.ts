@@ -1,16 +1,16 @@
-import { blogsRepository } from "../blogs/blogRepository";
-import { db } from "../db/db";
-import { findIndex } from "../utils/findIndex";
-import { PostInputModel } from "./models/PostInputModel";
-import { PostOutputModel } from "./models/PostOutputModel";
+import { blogsRepository } from "../../blogs/repositories/blogsRepository";
+import { db } from "../../db/db";
+import { findIndex } from "../../utils/findIndex";
+import { PostInputModel } from "../models/PostInputModel";
+import { PostOutputModelToFront } from "../models/PostOutputModel";
 
 export const postRepository = {
   async getPosts() {
     return db.posts;
   },
-  async getPost(id: string): Promise<PostOutputModel | undefined> {
-    const blogs = await this.getPosts();
-    return blogs.find((b) => b.id === id);
+  async getPost(id: string): Promise<PostOutputModelToFront | undefined> {
+    const posts = await this.getPosts();
+    return posts.find((b) => b.id === id);
   },
   async createPost(data: PostInputModel) {
     const posts = await this.getPosts();
@@ -48,3 +48,4 @@ export const postRepository = {
     return false;
   },
 };
+8;

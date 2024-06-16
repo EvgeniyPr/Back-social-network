@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { SETTINGS } from "./settings/settings";
+import { SETTINGS } from "./settings/SETTINGS";
 import { videoRouter } from "./routers/videoRouter";
 import { db } from "./db/db";
 import { HTTP_STATUSES } from "./settings/HTTP_STATUSES/HTTP_STATUSES";
