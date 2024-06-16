@@ -1,11 +1,11 @@
-import { BlogOutputModel } from "../src/blogs/models/BlogOutputModel";
+import { BlogOutputModelToFront } from "../src/blogs/models/BlogOutputModelToFront";
 import { setDb } from "../src/db/db";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
-import { SETTINGS } from "../src/settings/settings";
+import { SETTINGS } from "../src/settings/SETTINGS";
 import { req } from "./test-helpers";
 
 describe("/blogs", () => {
-  let blogs: BlogOutputModel[];
+  let blogs: BlogOutputModelToFront[];
   test("-GET should get an empty array", async () => {
     setDb();
     await req.get(SETTINGS.PASS.BLOGS).expect(HTTP_STATUSES.OK_200, []);

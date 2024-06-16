@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 import { errorCheckMiddleware } from "../../middlewares/errorCheckMiddleware";
-import { blogsRepository } from "../../blogs/blogRepository";
+import { blogsMongoDBRepository } from "../../blogs/repositories/blogsMongoDbRepository";
 
 export const postTitleInputValidator = body("title")
   .trim()
@@ -33,8 +33,8 @@ export const postBlogIdInputValidator = body("blogId")
   .withMessage("blogId is empty")
   .isString()
   .withMessage("blogId must be a string")
-  .custom(async (blogId) => {
-    await blogsRepository.findBlogNameById(blogId);
+  .custom(async (id) => {
+    await blogsMongoDBRepository.blogNameByIdIsExist(id);
   });
 
 export const postInputValidator = [

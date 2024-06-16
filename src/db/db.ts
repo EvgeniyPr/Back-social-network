@@ -1,6 +1,13 @@
-import { BlogOutputModel } from "../blogs/models/BlogOutputModel";
+import { MongoClient } from "mongodb";
+import { BlogOutputModelToFront } from "../blogs/models/BlogOutputModel";
+import * as dotenv from "dotenv";
+dotenv.config();
 
-export type DBType = { videos: any[]; blogs: BlogOutputModel[]; posts: any[] };
+export type DBType = {
+  videos: any[];
+  blogs: BlogOutputModelToFront[];
+  posts: any[];
+};
 
 export const db: DBType = {
   videos: [],

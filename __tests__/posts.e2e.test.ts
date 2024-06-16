@@ -1,14 +1,14 @@
 import { response } from "express";
-import { BlogOutputModel } from "../src/blogs/models/BlogOutputModel";
+import { BlogOutputModelToFront } from "../src/blogs/models/BlogOutputModelToFront";
 import { setDb } from "../src/db/db";
-import { PostOutputModel } from "../src/posts/models/PostOutputModel";
+import { PostOutputModelToFront } from "../src/posts/models/PostOutputModelToFront";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
-import { SETTINGS } from "../src/settings/settings";
+import { SETTINGS } from "../src/settings/SETTINGS";
 import { req } from "./test-helpers";
 
 describe("", () => {
-  let posts: PostOutputModel[];
-  let blogs: BlogOutputModel[];
+  let posts: PostOutputModelToFront[];
+  let blogs: BlogOutputModelToFront[];
   test("-GET should get an empty array", async () => {
     setDb();
     await req.get(SETTINGS.PASS.POSTS).expect(HTTP_STATUSES.OK_200, []);
