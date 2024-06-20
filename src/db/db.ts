@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import { BlogOutputModelToFront } from "../blogs/models/BlogOutputModelToFront";
+import { BlogOutputModelToFront } from "../blogs/models/BlogOutputModel";
 import * as dotenv from "dotenv";
 dotenv.config();
 

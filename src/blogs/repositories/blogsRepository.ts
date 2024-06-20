@@ -1,5 +1,5 @@
-import { client, db } from "../../db/db";
-import { BlogOutputModelToFront } from "../models/BlogOutputModelToFront";
+import { db } from "../../db/db";
+import { BlogOutputModelToFront } from "../models/BlogOutputModel";
 import { BlogInputModel } from "../models/BlogInputModel";
 import { findIndex } from "../../utils/findIndex";
 

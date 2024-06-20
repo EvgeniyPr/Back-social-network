@@ -1,10 +1,8 @@
 import { Response } from "express";
-import { db } from "../../db/db";
 import { RequestWithParams } from "../../models/RequestsModels";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { BlogOutputModelToFront } from "../models/BlogOutputModelToFront";
+import { BlogOutputModelToFront } from "../models/BlogOutputModel";
 import { GetBlogByURIParamsModel } from "../models/GetBlogByURIParamsModel";
-import { blogsRepository } from "../repositories/blogsRepository";
 import { blogsMongoDBRepository } from "../repositories/blogsMongoDbRepository";
 
 export const getBlogController = async (

@@ -1,7 +1,9 @@
 import { ObjectId } from "mongodb";
 import { blogCollection } from "../../db/mongo-db";
-import { BlogOutputModelToFront } from "../models/BlogOutputModelToFront";
-import { BlogsOutputModelFromDb } from "../models/BlogsOutputModelFromDb";
+import {
+  BlogOutputModelToFront,
+  BlogsOutputModelFromDb,
+} from "../models/BlogOutputModel";
 import { BlogInputModel } from "../models/BlogInputModel";
 
 export const blogsMongoDBRepository = {
@@ -9,14 +11,21 @@ export const blogsMongoDBRepository = {
     const blogsFromDb = (await blogCollection
       .find()
       .toArray()) as BlogsOutputModelFromDb[];
-    return this.mapBlogsToOutputModel(blogsFromDb);
+    return blogsFromDb.map(({ _id, ...rest }) => ({
+      id: _id.toString(),
+      ...rest,
+    }));
   },
 
   async getBlog(id: string): Promise<BlogOutputModelToFront | null> {
-    const blog = (await blogCollection.findOne({
+    const blogFromDB = (await blogCollection.findOne({
       _id: new ObjectId(id),
     })) as BlogsOutputModelFromDb;
-    return this.changeBlogToOutputModel(blog);
+    if (blogFromDB) {
+      const { _id, ...rest } = blogFromDB;
+      return { id: _id.toString(), ...rest };
+    }
+    return null;
   },
 
   async createBlog(data: BlogInputModel) {
@@ -36,17 +45,10 @@ export const blogsMongoDBRepository = {
     return info.deletedCount > 0;
   },
 
-  changeBlogToOutputModel(blog: BlogsOutputModelFromDb) {
-    const { _id, ...rest } = blog;
-    return { id: _id.toString(), ...rest };
-  },
-
-  mapBlogsToOutputModel(
-    inputArray: BlogsOutputModelFromDb[]
-  ): BlogOutputModelToFront[] {
-    return inputArray.map(({ _id, ...rest }) => ({
-      id: _id.toString(),
-      ...rest,
-    }));
+  async blogNameByIdIsExist(id: string) {
+    const blogFromDB = await this.getBlog(id);
+    if (!blogFromDB) {
+      throw new Error("There are no blogs with such id");
+    }
   },
 };
