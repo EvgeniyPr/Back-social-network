@@ -1,11 +1,9 @@
 import { Response } from "express";
 import { RequestWithParams } from "../../models/RequestsModels";
 import { GetPostByURIParamsModel } from "../models/GetPostByURIParamsModel";
-
-import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
+import { PostOutputModelToFront } from "../models/PostOutputModel";
 import { postsMongoDbRepository } from "../repositories/postsMongoDbRepository";
-import { postRepository } from "../repositories/postsRepository";
-import { PostOutputModelToFront } from "../models/PostOutputModelToFront";
+import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 
 export const getPostsController = async (
   req: RequestWithParams<GetPostByURIParamsModel>,
@@ -18,7 +16,7 @@ export const getPostsController = async (
     res.status(HTTP_STATUSES.OK_200).json(posts);
     return;
   } else {
-    const post = await postRepository.getPost(req.params.id);
+    const post = await postsMongoDbRepository.getPost(req.params.id);
     if (post) {
       res.status(HTTP_STATUSES.OK_200).json(post);
       return;

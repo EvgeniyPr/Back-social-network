@@ -1,7 +1,8 @@
-import { blogsMongoDBRepository } from "../../blogs/repositories/blogsMongoDbRepository";
+import { blogsRepository } from "../blogs/repositories/blogsRepository";
 import { db } from "../db/db";
 import { findIndex } from "../utils/findIndex";
 import { PostInputModel } from "./models/PostInputModel";
+import { PostOutputModelToFront } from "./models/PostOutputModelToFront";
 
 export const postRepository = {
   async getPosts() {
@@ -14,9 +15,7 @@ export const postRepository = {
   async createPost(data: PostInputModel) {
     const posts = await this.getPosts();
     try {
-      const blogName = await blogsMongoDBRepository.findBlogNameById(
-        data.blogId
-      );
+      const blogName = await blogsRepository.findBlogNameById(data.blogId);
       const newBlog = {
         ...data,
         id: (Date.now() + Math.random()).toString(),
@@ -49,4 +48,3 @@ export const postRepository = {
     return false;
   },
 };
-8;
