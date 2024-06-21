@@ -8,14 +8,14 @@ export let dbMongo: Db = {} as Db;
 export let blogCollection: Collection;
 export let postCollection: Collection;
 
-const client = new MongoClient(SETTINGS.MONGO_URI);
-export const connectToDb = async () => {
+export const connectToDb = async (url: string) => {
+  const client = new MongoClient(url);
   try {
     dbMongo = client.db(SETTINGS.DBNAME);
     await client.connect();
     blogCollection = dbMongo.collection(SETTINGS.BLOGS_COLLECTION_NAME);
     postCollection = dbMongo.collection(SETTINGS.POSTS_COLLECTION_NAME);
-    return true;
+    return client;
   } catch (e) {
     console.log(e);
     await client.close();

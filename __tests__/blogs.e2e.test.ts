@@ -1,16 +1,14 @@
-import { BlogOutputModelToFront } from "../src/blogs/models/BlogOutputModelToFront";
-import { setDb } from "../src/db/db";
+import { BlogOutputModelToFront } from "../src/blogs/models/BlogOutputModel";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { SETTINGS } from "../src/settings/SETTINGS";
 import { req } from "./test-helpers";
 
 describe("/blogs", () => {
   let blogs: BlogOutputModelToFront[];
+
   test("-GET should get an empty array", async () => {
-    setDb();
     await req.get(SETTINGS.PASS.BLOGS).expect(HTTP_STATUSES.OK_200, []);
   });
-
   test("-POST shouldn't create a new blog with unauthorized user (wrong password)", async () => {
     await req
       .post(SETTINGS.PASS.BLOGS)
@@ -80,8 +78,8 @@ describe("/blogs", () => {
       .post(SETTINGS.PASS.BLOGS)
       .auth("admin", "qwerty")
       .send({
-        name: "name",
-        description: "description",
+        name: "nameblog",
+        description: "descriptionblog",
         websiteUrl:
           "https://CRtXHiQcztBWNLaYHLMk2GCFcFO6VCTxAi_uV_NE433I.jJawuDHgUt.t4dzLhgZ_q0QRlIITs-_.6Lm4HLxV8JDKsA9",
       })
@@ -100,7 +98,6 @@ describe("/blogs", () => {
     blogs = createRequest.body;
     expect(blogs.length === 1);
   });
-
   test("-GET BY PARAMS should return the blog by params id", async () => {
     await req
       .get(SETTINGS.PASS.BLOGS + "/" + blogs[0].id)
@@ -121,8 +118,8 @@ describe("/blogs", () => {
   });
   test("-GET BY PARAMS shouldn't return the blog with wrong params id", async () => {
     await req
-      .get(SETTINGS.PASS.BLOGS + "/" + "0000")
-      .expect(HTTP_STATUSES.NOT_FOUND_404);
+      .get(SETTINGS.PASS.BLOGS + "/" + "12323")
+      .expect(HTTP_STATUSES.BAD_REQUEST_400);
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
@@ -139,7 +136,7 @@ describe("/blogs", () => {
         websiteUrl:
           "https://CRtXHiQcztBWNLaYHLMk2GCFcFO6VCTxAi_uV_NE433I.jJawuDHgUt.t4dzLhgZ_q0QRlIITs-_.6Lm4HLxV8JDKsA9",
       })
-      .expect(HTTP_STATUSES.NOT_FOUND_404);
+      .expect(HTTP_STATUSES.BAD_REQUEST_400);
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
@@ -280,7 +277,7 @@ describe("/blogs", () => {
     await req
       .delete(SETTINGS.PASS.BLOGS + "/" + "0000")
       .auth("admin", "qwerty")
-      .expect(HTTP_STATUSES.NOT_FOUND_404);
+      .expect(HTTP_STATUSES.BAD_REQUEST_400);
     const createRequest = await req
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);

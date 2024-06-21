@@ -1,16 +1,13 @@
-import { response } from "express";
-import { BlogOutputModelToFront } from "../src/blogs/models/BlogOutputModelToFront";
-import { setDb } from "../src/db/db";
-import { PostOutputModelToFront } from "../src/posts/models/PostOutputModelToFront";
+import { BlogOutputModelToFront } from "../src/blogs/models/BlogOutputModel";
+import { PostOutputModelToFront } from "../src/posts/models/PostOutputModel";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { SETTINGS } from "../src/settings/SETTINGS";
 import { req } from "./test-helpers";
 
-describe("", () => {
-  let posts: PostOutputModelToFront[];
+describe("/posts", () => {
   let blogs: BlogOutputModelToFront[];
+  let posts: PostOutputModelToFront[];
   test("-GET should get an empty array", async () => {
-    setDb();
     await req.get(SETTINGS.PASS.POSTS).expect(HTTP_STATUSES.OK_200, []);
   });
   test("-POST should create a new blog with valid data", async () => {
@@ -134,7 +131,7 @@ describe("", () => {
         title: "title",
         shortDescription: "shortDescription",
         content: "content",
-        blogId: "no such blogs",
+        blogId: "000000000000000000000000",
       })
       .expect(HTTP_STATUSES.BAD_REQUEST_400)
       .then((response) => {
@@ -201,7 +198,7 @@ describe("", () => {
   test("-GET BY PARAMS shouldn't return the post with wrong params id", async () => {
     await req
       .get(SETTINGS.PASS.POSTS + "/" + "0000")
-      .expect(HTTP_STATUSES.NOT_FOUND_404);
+      .expect(HTTP_STATUSES.BAD_REQUEST_400);
     const createRequest = await req
       .get(SETTINGS.PASS.POSTS)
       .expect(HTTP_STATUSES.OK_200);
@@ -218,7 +215,7 @@ describe("", () => {
         content: "new content",
         blogId: blogs[0].id,
       })
-      .expect(HTTP_STATUSES.NOT_FOUND_404);
+      .expect(HTTP_STATUSES.BAD_REQUEST_400);
     const createRequest = await req
       .get(SETTINGS.PASS.POSTS)
       .expect(HTTP_STATUSES.OK_200);
@@ -343,7 +340,7 @@ describe("", () => {
         title: "new title",
         shortDescription: "new shortDescription",
         content: "new content",
-        blogId: "no blogsId",
+        blogId: "000000000000000000000000",
       })
       .expect(HTTP_STATUSES.BAD_REQUEST_400)
       .then((response) => {
@@ -408,7 +405,7 @@ describe("", () => {
     await req
       .delete(SETTINGS.PASS.POSTS + "/" + "0000")
       .auth("admin", "qwerty")
-      .expect(HTTP_STATUSES.NOT_FOUND_404);
+      .expect(HTTP_STATUSES.BAD_REQUEST_400);
     await req.get(SETTINGS.PASS.POSTS).expect(HTTP_STATUSES.OK_200);
     expect(blogs.length === 1);
   });
