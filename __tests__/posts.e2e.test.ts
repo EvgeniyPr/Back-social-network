@@ -1,6 +1,5 @@
 import { BlogOutputModelToFront } from "../src/blogs/models/BlogOutputModel";
-
-import { PostOutputModelToFront } from "../src/posts/models/PostOutputModelToFront";
+import { PostOutputModelToFront } from "../src/posts/models/PostOutputModel";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { SETTINGS } from "../src/settings/SETTINGS";
 import { req } from "./test-helpers";
