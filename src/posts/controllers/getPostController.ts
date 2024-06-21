@@ -5,13 +5,13 @@ import { PostOutputModelToFront } from "../models/PostOutputModel";
 import { postRepository } from "../repositories/postsRepository";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { postsMongoDbRepository } from "../repositories/postsMongoDbRepository";
+
 export const getPostsController = async (
   req: RequestWithParams<GetPostByURIParamsModel>,
   res: Response<PostOutputModelToFront[] | PostOutputModelToFront>
 ) => {
   if (!req.params.id) {
-    // const postsDb = await postRepository.getPostsFromDB();
-    const posts = await postRepository.getPosts();
+    const posts = await postsMongoDbRepository.getPosts();
     res.status(HTTP_STATUSES.OK_200).json(posts);
     return;
   } else {
