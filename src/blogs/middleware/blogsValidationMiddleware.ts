@@ -1,7 +1,7 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import { errorCheckMiddleware } from "../../middlewares/errorCheckMiddleware";
 
-export const blogNameInputValidator = body("name")
+const blogNameInputValidator = body("name")
   .trim()
   .notEmpty()
   .withMessage("name is empty")
@@ -10,7 +10,7 @@ export const blogNameInputValidator = body("name")
   .isLength({ max: 15 })
   .withMessage("max length of name is 15");
 
-export const blogDescriptionInputValidation = body("description")
+const blogDescriptionInputValidation = body("description")
   .trim()
   .notEmpty()
   .withMessage("description is empty")
@@ -19,7 +19,7 @@ export const blogDescriptionInputValidation = body("description")
   .isLength({ max: 500 })
   .withMessage("max length of description is 500");
 
-export const blogWebsiteUrlInputValidation = body("websiteUrl")
+const blogWebsiteUrlInputValidation = body("websiteUrl")
   .trim()
   .notEmpty()
   .withMessage("websiteUrl is empty")
@@ -31,6 +31,10 @@ export const blogWebsiteUrlInputValidation = body("websiteUrl")
     /^https:\/\/([a-zA-Z0-9_-]+\.)+[a-zA-Z0-9_-]+(\/[a-zA-Z0-9_-]+)*\/?$/
   )
   .withMessage("format websiteUrl must be data URL");
+
+export const blogIdParamsValidator = param("id")
+  .matches(/^[0-9a-fA-F]{24}$/)
+  .withMessage("id must be 24 character hex string");
 
 export const blogsInputValidators = [
   blogNameInputValidator,

@@ -12,8 +12,6 @@ export const getPostsController = async (
 ) => {
   if (!req.params.id) {
     const posts = await postsMongoDbRepository.getPosts();
-    console.log("posts", posts);
-
     res.status(HTTP_STATUSES.OK_200).json(posts);
     return;
   } else {

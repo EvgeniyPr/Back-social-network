@@ -3,7 +3,12 @@ import { connectToDb } from "./db/mongo-db";
 import { SETTINGS } from "./settings/SETTINGS";
 
 const startApp = async () => {
-  if (!(await connectToDb())) {
+  if (!SETTINGS.MONGO_URI) {
+    console.log("MONGO_URI is not defined");
+    process.exit(1);
+  }
+
+  if (!(await connectToDb(SETTINGS.MONGO_URI))) {
     console.log("no   connection to DB");
     process.exit();
   }
