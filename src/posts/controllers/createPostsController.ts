@@ -5,6 +5,7 @@ import { PostOutputModelToFront } from "../models/PostOutputModel";
 
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { APIErrorResult } from "../../models/APIErrorResult";
+import { postsMongoDbRepository } from "../repositories/postsMongoDbRepository";
 
 export const createPostsController = async (
   req: RequestWithBody<PostInputModel>,
