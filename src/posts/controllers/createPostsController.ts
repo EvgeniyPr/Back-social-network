@@ -10,6 +10,7 @@ import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { postsMongoDbRepository } from "../repositories/postsMongoDbRepository";
 >>>>>>> 1008e8d (craete postsMongoDbRepository)
 import { APIErrorResult } from "../../models/APIErrorResult";
+import { postsMongoDbRepository } from "../repositories/postsMongoDbRepository";
 
 export const createPostsController = async (
   req: RequestWithBody<PostInputModel>,

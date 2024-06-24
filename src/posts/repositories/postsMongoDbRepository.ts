@@ -3,7 +3,7 @@ import { postCollection } from "../../db/mongo-db";
 import {
   PostOutputModelToFront,
   PostsOutputModelFromDb,
-} from "../models/PostOutputModel";
+} from "../models/PostOutputModelToFront";
 import { PostInputModel } from "../models/PostInputModel";
 import { blogsMongoDBRepository } from "../../blogs/repositories/blogsMongoDbRepository";
 import { errors } from "../../errors/errors";
