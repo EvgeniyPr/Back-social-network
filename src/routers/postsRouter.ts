@@ -4,11 +4,12 @@ import { createPostsController } from "../posts/controllers/createPostsControlle
 import { deletePostController } from "../posts/controllers/deletePostController";
 import { updatePostController } from "../posts/controllers/updatePostController";
 import { authMiddleware } from "../middlewares/authMiddleware";
+
+import { errorCheckMiddleware } from "../middlewares/errorCheckMiddleware";
 import {
   postInputValidator,
   postsIdParamsValidator,
 } from "../posts/middleware/postsValidationMiddleware";
-import { errorCheckMiddleware } from "../middlewares/errorCheckMiddleware";
 
 export const postsRouter = Router();
 

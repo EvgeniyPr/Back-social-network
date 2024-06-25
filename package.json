@@ -11,7 +11,8 @@
     "express": "^4.19.2",
     "express-validator": "^7.0.1",
     "mongodb": "^6.7.0",
-    "mongodb-memory-server-global-4.4": "^9.3.0"
+    "mongodb-memory-server-global-4.4": "^9.3.0",
+    "serve-favicon": "^2.5.0"
   },
   "scripts": {
     "watch": "tsc -w",
