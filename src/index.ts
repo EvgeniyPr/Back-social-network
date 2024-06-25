@@ -1,6 +1,6 @@
 import { app } from "./app";
 import { connectToDb } from "./db/mongo-db";
-import { SETTINGS } from "./settings/SETTINGS";
+import { SETTINGS } from "./settings/settings";
 
 const startApp = async () => {
   if (!SETTINGS.MONGO_URI) {

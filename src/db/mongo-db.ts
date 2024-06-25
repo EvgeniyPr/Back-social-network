@@ -1,5 +1,5 @@
 import { Collection, Db, MongoClient } from "mongodb";
-import { SETTINGS } from "../settings/SETTINGS";
+import { SETTINGS } from "../settings/settings";
 
 if (!SETTINGS.MONGO_URI) {
   throw new Error("Missing MONGO_URL in environment variables");
