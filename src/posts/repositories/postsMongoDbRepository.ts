@@ -37,7 +37,6 @@ export const postsMongoDbRepository = {
     }
     const info = await postCollection.insertOne({
       ...data,
-      isMembership: false,
       createdAt: new Date().toISOString(),
       blogName: blog.name,
     });
