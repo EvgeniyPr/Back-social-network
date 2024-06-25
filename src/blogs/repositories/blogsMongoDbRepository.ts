@@ -29,7 +29,11 @@ export const blogsMongoDBRepository = {
   },
 
   async createBlog(data: BlogInputModel) {
-    const info = await blogCollection.insertOne({ ...data });
+    const info = await blogCollection.insertOne({
+      ...data,
+      isMembership: false,
+      createdAt: new Date().toISOString(),
+    });
     return this.getBlog(info.insertedId.toString());
   },
 
