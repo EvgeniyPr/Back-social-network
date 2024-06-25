@@ -1,14 +1,16 @@
 import { Response } from "express";
 import { RequestWithBody } from "../../models/RequestsModels";
 import { PostInputModel } from "../models/PostInputModel";
-import { PostOutputModel } from "../models/PostOutputModel";
-import { postRepository } from "../postsRepository";
+import { PostOutputModelToFront } from "../models/PostOutputModel";
+
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
+import { APIErrorResult } from "../../models/APIErrorResult";
+import { postsMongoDbRepository } from "../repositories/postsMongoDbRepository";
 
 export const createPostsController = async (
   req: RequestWithBody<PostInputModel>,
-  res: Response<PostOutputModel>
+  res: Response<PostOutputModelToFront | APIErrorResult>
 ) => {
-  const newPost: any = await postRepository.createPost(req.body);
+  const newPost = await postsMongoDbRepository.createPost(req.body);
   res.status(HTTP_STATUSES.CREATED_201).json(newPost);
 };

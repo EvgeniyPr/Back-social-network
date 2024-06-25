@@ -1,17 +1,17 @@
-import { db } from "../db/db";
-import { BlogOutputModel } from "./models/BlogOutputModel";
-import { BlogInputModel } from "./models/BlogInputModel";
-import { findIndex } from "../utils/findIndex";
+import { db } from "../../db/db";
+import { BlogOutputModelToFront } from "../models/BlogOutputModel";
+import { BlogInputModel } from "../models/BlogInputModel";
+import { findIndex } from "../../utils/findIndex";
 
 export const blogsRepository = {
-  async getBlogs(): Promise<BlogOutputModel[]> {
+  async getBlogs(): Promise<BlogOutputModelToFront[]> {
     return db.blogs;
   },
-  async getBlog(id: string): Promise<BlogOutputModel | undefined> {
+  async getBlog(id: string): Promise<BlogOutputModelToFront | undefined> {
     const blogs = await this.getBlogs();
     return blogs.find((b) => b.id === id);
   },
-  async createBlog(data: BlogInputModel): Promise<BlogOutputModel> {
+  async createBlog(data: BlogInputModel): Promise<BlogOutputModelToFront> {
     const blogs = await this.getBlogs();
     const newBlog = { ...data, id: (Date.now() + Math.random()).toString() };
     blogs.push(newBlog);

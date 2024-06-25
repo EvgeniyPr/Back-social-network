@@ -1,6 +1,6 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import { errorCheckMiddleware } from "../../middlewares/errorCheckMiddleware";
-import { blogsRepository } from "../../blogs/blogRepository";
+import { blogsMongoDBRepository } from "../../blogs/repositories/blogsMongoDbRepository";
 
 export const postTitleInputValidator = body("title")
   .trim()
@@ -27,15 +27,20 @@ export const postContentInputValidator = body("content")
   .withMessage("content must be a string")
   .isLength({ max: 1000 })
   .withMessage("max length of content is 1000");
+
 export const postBlogIdInputValidator = body("blogId")
   .trim()
   .notEmpty()
   .withMessage("blogId is empty")
   .isString()
   .withMessage("blogId must be a string")
-  .custom(async (blogId) => {
-    await blogsRepository.findBlogNameById(blogId);
+  .custom(async (id) => {
+    await blogsMongoDBRepository.blogNameByIdIsExist(id);
   });
+
+export const postsIdParamsValidator = param("id")
+  .matches(/^[0-9a-fA-F]{24}$/)
+  .withMessage("id must be 24 character hex string");
 
 export const postInputValidator = [
   postTitleInputValidator,

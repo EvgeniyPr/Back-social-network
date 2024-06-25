@@ -1,4 +1,18 @@
 import { app } from "./app";
-import { SETTINGS } from "./settings/settings";
+import { connectToDb } from "./db/mongo-db";
+import { SETTINGS } from "./settings/SETTINGS";
 
-app.listen(SETTINGS.PORT, () => console.log("...test server started"));
+const startApp = async () => {
+  if (!SETTINGS.MONGO_URI) {
+    console.log("MONGO_URI is not defined");
+    process.exit(1);
+  }
+
+  if (!(await connectToDb(SETTINGS.MONGO_URI))) {
+    console.log("no   connection to DB");
+    process.exit();
+  }
+  app.listen(SETTINGS.PORT, () => console.log("...test server started"));
+};
+
+startApp();
