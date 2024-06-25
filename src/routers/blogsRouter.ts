@@ -11,7 +11,6 @@ import {
 import { errorCheckMiddleware } from "../middlewares/errorCheckMiddleware";
 
 export const blogsRouter = Router();
-
 blogsRouter.get("/", getBlogController);
 blogsRouter.get(
   "/:id",
