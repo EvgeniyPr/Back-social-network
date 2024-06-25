@@ -21,8 +21,8 @@ app.use(SETTINGS.PASS.BLOGS, blogsRouter);
 app.use(SETTINGS.PASS.POSTS, postsRouter);
 
 app.delete("/testing/all-data", (req, res) => {
-  blogCollection.drop();
-  postCollection.drop();
+  blogCollection.deleteMany({});
+  postCollection.deleteMany({});
   db.videos = [];
   // db.posts = [];
   // db.blogs = [];
