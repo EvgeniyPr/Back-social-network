@@ -70,6 +70,8 @@ describe("/blogs", () => {
         name: "name",
         description: "description",
         websiteUrl: "websiteUrl",
+        isMembership: false,
+        createdAt: new Date().toISOString(),
       })
       .expect(HTTP_STATUSES.BAD_REQUEST_400);
     await req.get(SETTINGS.PASS.BLOGS).expect(HTTP_STATUSES.OK_200, []);
@@ -83,6 +85,8 @@ describe("/blogs", () => {
         description: "descriptionblog",
         websiteUrl:
           "https://CRtXHiQcztBWNLaYHLMk2GCFcFO6VCTxAi_uV_NE433I.jJawuDHgUt.t4dzLhgZ_q0QRlIITs-_.6Lm4HLxV8JDKsA9",
+        isMembership: false,
+        createdAt: new Date().toISOString(),
       })
       .expect(HTTP_STATUSES.CREATED_201)
       .then((response) => {
@@ -91,6 +95,8 @@ describe("/blogs", () => {
           name: expect.any(String),
           description: expect.any(String),
           websiteUrl: expect.any(String),
+          isMembership: expect.any(Boolean),
+          createdAt: expect.any(String),
         });
       });
     const createRequest = await req
@@ -109,6 +115,8 @@ describe("/blogs", () => {
           name: expect.any(String),
           description: expect.any(String),
           websiteUrl: expect.any(String),
+          isMembership: expect.any(Boolean),
+          createdAt: expect.any(String),
         });
       });
     const createRequest = await req
@@ -249,6 +257,8 @@ describe("/blogs", () => {
           description: "new description",
           websiteUrl:
             "https://CRtXHiQcztBWNLaYHLMk2GCFcFO6VCTxAi_uV_NE433I.jJawuDHgUt.t4dzLhgZ_q0QRlIITs-_.6Lm4HLxV8JDKsA8",
+          isMembership: expect.any(Boolean),
+          createdAt: expect.any(String),
         });
       });
   });

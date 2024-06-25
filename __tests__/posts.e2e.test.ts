@@ -1,3 +1,4 @@
+import { strict } from "assert";
 import { BlogOutputModelToFront } from "../src/blogs/models/BlogOutputModel";
 import { PostOutputModelToFront } from "../src/posts/models/PostOutputModel";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
@@ -19,6 +20,7 @@ describe("", () => {
         description: "description",
         websiteUrl:
           "https://CRtXHiQcztBWNLaYHLMk2GCFcFO6VCTxAi_uV_NE433I.jJawuDHgUt.t4dzLhgZ_q0QRlIITs-_.6Lm4HLxV8JDKsA9",
+        createdAt: new Date().toISOString(),
       })
       .expect(HTTP_STATUSES.CREATED_201)
       .then((response) => {
@@ -27,6 +29,8 @@ describe("", () => {
           name: expect.any(String),
           description: expect.any(String),
           websiteUrl: expect.any(String),
+          createdAt: expect.any(String),
+          isMembership: expect.any(Boolean),
         });
       });
     const createRequest = await req
@@ -165,6 +169,7 @@ describe("", () => {
           content: "content",
           blogId: blogs[0].id,
           blogName: blogs[0].name,
+          createdAt: expect.any(String),
         });
       });
     await req
@@ -187,6 +192,7 @@ describe("", () => {
           content: "content",
           blogId: blogs[0].id,
           blogName: blogs[0].name,
+          createdAt: expect.any(String),
         });
       });
     const createRequest = await req
@@ -382,6 +388,7 @@ describe("", () => {
           content: "new content",
           blogId: blogs[0].id,
           blogName: blogs[0].name,
+          createdAt: expect.any(String),
         });
       });
   });
