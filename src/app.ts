@@ -22,8 +22,9 @@ app.use(SETTINGS.PASS.BLOGS, blogsRouter);
 app.use(SETTINGS.PASS.POSTS, postsRouter);
 
 app.delete("/testing/all-data", async (req, res) => {
-  const testUrl = await getUrl();
-  const con = await connectToDb(testUrl);
+  // const testUrl = await getUrl();
+  // console.log("testUrl", testUrl);
+  // const con = await connectToDb(testUrl);
   blogCollection.deleteMany({});
   postCollection.deleteMany({});
   // db.videos = [];
