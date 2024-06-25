@@ -8,6 +8,7 @@ import { db } from "./db/db";
 import { HTTP_STATUSES } from "./settings/HTTP_STATUSES/HTTP_STATUSES";
 import { blogsRouter } from "./routers/blogsRouter";
 import { postsRouter } from "./routers/postsRouter";
+import { blogCollection, postCollection } from "./db/mongo-db";
 
 export const app = express();
 
@@ -20,8 +21,10 @@ app.use(SETTINGS.PASS.BLOGS, blogsRouter);
 app.use(SETTINGS.PASS.POSTS, postsRouter);
 
 app.delete("/testing/all-data", (req, res) => {
+  blogCollection.drop();
+  postCollection.drop();
   db.videos = [];
-  db.posts = [];
-  db.blogs = [];
+  // db.posts = [];
+  // db.blogs = [];
   res.sendStatus(HTTP_STATUSES.NO_CONTENT_204);
 });
