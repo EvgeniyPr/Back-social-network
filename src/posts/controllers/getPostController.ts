@@ -2,7 +2,6 @@ import { Response } from "express";
 import { RequestWithParams } from "../../models/RequestsModels";
 import { GetPostByURIParamsModel } from "../models/GetPostByURIParamsModel";
 import { PostOutputModelToFront } from "../models/PostOutputModel";
-import { postRepository } from "../repositories/postsRepository";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { postsMongoDbRepository } from "../repositories/postsMongoDbRepository";
 

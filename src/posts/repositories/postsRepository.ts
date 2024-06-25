@@ -2,7 +2,7 @@ import { blogsRepository } from "../../blogs/repositories/blogsRepository";
 import { db } from "../../db/db";
 import { findIndex } from "../../utils/findIndex";
 import { PostInputModel } from "../models/PostInputModel";
-import { PostOutputModelToFront } from "../models/PostOutputModel";
+import { PostOutputModelToFront } from "../models/PostOutputModelToFront";
 
 export const postRepository = {
   async getPosts() {

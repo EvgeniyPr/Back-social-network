@@ -1,6 +1,5 @@
 import { BlogOutputModelToFront } from "../blogs/models/BlogOutputModel";
-import { PostOutputModelToFront } from "../posts/models/PostOutputModel";
-
+import { PostOutputModelToFront } from "../posts/models/PostOutputModelToFront";
 import { OutputVideoModel } from "../videos/models/OutputVideoModel";
 
 export const findIndex = (
