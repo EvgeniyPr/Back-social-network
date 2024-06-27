@@ -3,7 +3,6 @@ import { RequestWithParams } from "../../models/RequestsModels";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { BlogOutputModelToFront } from "../models/BlogOutputModel";
 import { GetBlogByURIParamsModel } from "../models/GetBlogByURIParamsModel";
-import { blogsMongoDBRepository } from "../repositories/blogsMongoDbRepository";
 import { blogsService } from "../domain/blogsService";
 
 export const getBlogController = async (

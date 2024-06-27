@@ -1,6 +1,7 @@
 import { body, param } from "express-validator";
 import { errorCheckMiddleware } from "../../middlewares/errorCheckMiddleware";
 import { blogsMongoDBRepository } from "../../blogs/repositories/blogsMongoDbRepository";
+import { blogsService } from "../../blogs/domain/blogsService";
 
 export const postTitleInputValidator = body("title")
   .trim()
@@ -35,7 +36,7 @@ export const postBlogIdInputValidator = body("blogId")
   .isString()
   .withMessage("blogId must be a string")
   .custom(async (id) => {
-    await blogsMongoDBRepository.blogNameByIdIsExist(id);
+    await blogsService.blogWithIdIsExist(id);
   });
 
 export const postsIdParamsValidator = param("id")

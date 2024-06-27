@@ -1,9 +1,6 @@
 import { ObjectId } from "mongodb";
 import { blogCollection } from "../../db/mongo-db";
-import {
-  BlogOutputModelToFront,
-  BlogsOutputModelFromDb,
-} from "../models/BlogOutputModel";
+import { BlogsOutputModelFromDb } from "../models/BlogOutputModel";
 import { BlogInputModel } from "../models/BlogInputModel";
 
 export const blogsMongoDBRepository = {
@@ -21,13 +18,9 @@ export const blogsMongoDBRepository = {
     return blogFromDB;
   },
 
-  async createBlog(data: BlogInputModel) {
-    const info = await blogCollection.insertOne({
-      ...data,
-      isMembership: false,
-      createdAt: new Date().toISOString(),
-    });
-    return this.getBlog(info.insertedId.toString());
+  async createBlog(newBlog: BlogInputModel) {
+    const info = await blogCollection.insertOne(newBlog);
+    return info;
   },
 
   async updateBlog(id: string, data: BlogInputModel) {
@@ -35,17 +28,11 @@ export const blogsMongoDBRepository = {
       { _id: new ObjectId(id) },
       { $set: { ...data } }
     );
-    return info.matchedCount > 0;
-  },
-  async deleteBlog(id: string) {
-    const info = await blogCollection.deleteOne({ _id: new ObjectId(id) });
-    return info.deletedCount > 0;
+    return info;
   },
 
-  async blogNameByIdIsExist(id: string) {
-    const blogFromDB = await this.getBlog(id);
-    if (!blogFromDB) {
-      throw new Error("There are no blogs with such id");
-    }
+  async deleteBlog(id: string) {
+    const info = await blogCollection.deleteOne({ _id: new ObjectId(id) });
+    return info;
   },
 };

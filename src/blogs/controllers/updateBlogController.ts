@@ -6,7 +6,6 @@ import {
 import { BlogInputModel } from "../models/BlogInputModel";
 import { GetBlogByURIParamsModel } from "../models/GetBlogByURIParamsModel";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { blogsRepository } from "../repositories/blogsRepository";
 import { blogsMongoDBRepository } from "../repositories/blogsMongoDbRepository";
 
 export const updateBlogController = async (
@@ -14,11 +13,11 @@ export const updateBlogController = async (
     RequestWithBody<BlogInputModel>,
   res: Response
 ) => {
-  const isUpdate = await blogsMongoDBRepository.updateBlog(
+  const isUpdated = await blogsMongoDBRepository.updateBlog(
     req.params.id,
     req.body
   );
-  if (isUpdate) {
+  if (isUpdated) {
     res.sendStatus(HTTP_STATUSES.NO_CONTENT_204);
     return;
   }
