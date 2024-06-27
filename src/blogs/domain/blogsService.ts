@@ -5,20 +5,24 @@ import {
   BlogsOutputModelFromDb,
 } from "../models/BlogOutputModel";
 import { BlogInputModel } from "../models/BlogInputModel";
+import { blogsMongoDBRepository } from "../repositories/blogsMongoDbRepository";
 
-export const blogsMongoDBRepository = {
-  async getBlogs(): Promise<BlogsOutputModelFromDb[]> {
-    const blogsFromDb = (await blogCollection
-      .find()
-      .toArray()) as BlogsOutputModelFromDb[];
-    return blogsFromDb;
+export const blogsService = {
+  async getBlogs(): Promise<BlogOutputModelToFront[]> {
+    const blogs = await blogsMongoDBRepository.getBlogs();
+    return blogs.map(({ _id, ...rest }) => ({
+      id: _id.toString(),
+      ...rest,
+    }));
   },
 
-  async getBlog(id: string): Promise<BlogsOutputModelFromDb> {
-    const blogFromDB = (await blogCollection.findOne({
-      _id: new ObjectId(id),
-    })) as BlogsOutputModelFromDb;
-    return blogFromDB;
+  async getBlog(id: string): Promise<BlogOutputModelToFront | null> {
+    const blog = await blogsMongoDBRepository.getBlog(id);
+    if (blog) {
+      const { _id, ...rest } = blog;
+      return { id: _id.toString(), ...rest };
+    }
+    return null;
   },
 
   async createBlog(data: BlogInputModel) {
