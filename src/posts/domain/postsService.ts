@@ -20,6 +20,12 @@ export const postsService = {
     }
     return null;
   },
+
+  async getAllPostsByBlogId(blogId: string) {
+    const posts = await postsMongoDbRepository.getPostsByBlogId(blogId);
+    return posts;
+  },
+
   async createPost(data: PostInputModel) {
     const blog = await blogsService.getBlog(data.blogId);
     if (!blog) {

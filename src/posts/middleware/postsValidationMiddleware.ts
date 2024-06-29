@@ -1,6 +1,5 @@
 import { body, param } from "express-validator";
 import { errorCheckMiddleware } from "../../middlewares/errorCheckMiddleware";
-import { blogsMongoDBRepository } from "../../blogs/repositories/blogsMongoDbRepository";
 import { blogsService } from "../../blogs/domain/blogsService";
 
 export const postTitleInputValidator = body("title")

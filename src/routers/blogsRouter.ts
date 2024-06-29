@@ -9,6 +9,7 @@ import {
   blogsInputValidators,
 } from "../blogs/middleware/blogsValidationMiddleware";
 import { errorCheckMiddleware } from "../middlewares/errorCheckMiddleware";
+import { getAllPostsByBlogId } from "../posts/controllers/getAllPostsByBlogId";
 
 export const blogsRouter = Router();
 blogsRouter.get("/", getBlogController);
@@ -18,6 +19,14 @@ blogsRouter.get(
   errorCheckMiddleware,
   getBlogController
 );
+
+blogsRouter.get(
+  "/:id/posts",
+  blogIdParamsValidator,
+  errorCheckMiddleware,
+  getAllPostsByBlogId
+);
+
 blogsRouter.post(
   "/",
   authMiddleware,

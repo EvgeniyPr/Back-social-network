@@ -16,6 +16,16 @@ export const postsMongoDbRepository = {
     })) as PostsOutputModelFromDb;
     return postFromDb;
   },
+
+  async getPostsByBlogId(blogId: string): Promise<PostsOutputModelFromDb[]> {
+    const blogs = (await postCollection
+      .find({
+        blogId: blogId,
+      })
+      .toArray()) as PostsOutputModelFromDb[];
+    return blogs;
+  },
+
   async createPost(newPost: PostInputModel) {
     const info = await postCollection.insertOne(newPost);
     return info;
