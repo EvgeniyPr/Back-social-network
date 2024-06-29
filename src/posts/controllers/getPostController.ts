@@ -3,18 +3,18 @@ import { RequestWithParams } from "../../models/RequestsModels";
 import { GetPostByURIParamsModel } from "../models/GetPostByURIParamsModel";
 import { PostOutputModelToFront } from "../models/PostOutputModel";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { postsMongoDbRepository } from "../repositories/postsMongoDbRepository";
+import { postsService } from "../domain/postsService";
 
 export const getPostsController = async (
   req: RequestWithParams<GetPostByURIParamsModel>,
   res: Response<PostOutputModelToFront[] | PostOutputModelToFront>
 ) => {
   if (!req.params.id) {
-    const posts = await postsMongoDbRepository.getPosts();
+    const posts = await postsService.getPosts();
     res.status(HTTP_STATUSES.OK_200).json(posts);
     return;
   } else {
-    const post = await postsMongoDbRepository.getPost(req.params.id);
+    const post = await postsService.getPost(req.params.id);
     if (post) {
       res.status(HTTP_STATUSES.OK_200).json(post);
       return;
