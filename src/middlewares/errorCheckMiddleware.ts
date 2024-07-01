@@ -18,7 +18,6 @@ export const errorCheckMiddleware = (
     mapErrors(validationErrors);
     res.status(HTTP_STATUSES.BAD_REQUEST_400).json(errors);
     return;
-    ``;
   }
   next();
 };

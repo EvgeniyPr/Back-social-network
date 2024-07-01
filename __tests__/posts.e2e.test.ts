@@ -150,7 +150,7 @@ describe("", () => {
       });
     await req.get(SETTINGS.PASS.POSTS).expect(HTTP_STATUSES.OK_200, []);
   });
-  test("-POST should create a new post without valid data", async () => {
+  test("-POST should create a new post with valid data", async () => {
     await req
       .post(SETTINGS.PASS.POSTS)
       .auth("admin", "qwerty")
@@ -423,5 +423,246 @@ describe("", () => {
       .expect(HTTP_STATUSES.NO_CONTENT_204);
     await req.get(SETTINGS.PASS.POSTS).expect(HTTP_STATUSES.OK_200);
     expect(blogs.length === 0);
+  });
+  test("-POST should create a new blog with valid data", async () => {
+    await req
+      .post(SETTINGS.PASS.BLOGS)
+      .auth("admin", "qwerty")
+      .send({
+        name: "name",
+        description: "description",
+        websiteUrl:
+          "https://CRtXHiQcztBWNLaYHLMk2GCFcFO6VCTxAi_uV_NE433I.jJawuDHgUt.t4dzLhgZ_q0QRlIITs-_.6Lm4HLxV8JDKsA9",
+        createdAt: new Date().toISOString(),
+      })
+      .expect(HTTP_STATUSES.CREATED_201)
+      .then((response) => {
+        expect(response.body).toEqual({
+          id: expect.any(String),
+          name: expect.any(String),
+          description: expect.any(String),
+          websiteUrl: expect.any(String),
+          createdAt: expect.any(String),
+          isMembership: expect.any(Boolean),
+        });
+      });
+    const createRequest = await req
+      .get(SETTINGS.PASS.BLOGS)
+      .expect(HTTP_STATUSES.OK_200);
+    blogs = createRequest.body;
+    expect(blogs.length === 1);
+  });
+  test("-POST should create a new post with valid data", async () => {
+    await req
+      .post(SETTINGS.PASS.POSTS)
+      .auth("admin", "qwerty")
+      .send({
+        title: "title",
+        shortDescription: "shortDescription",
+        content: "content",
+        blogId: blogs[0].id,
+      })
+      .expect(HTTP_STATUSES.CREATED_201)
+      .then((response) => {
+        expect(response.body).toEqual({
+          id: expect.any(String),
+          title: "title",
+          shortDescription: "shortDescription",
+          content: "content",
+          blogId: blogs[0].id,
+          blogName: blogs[0].name,
+          createdAt: expect.any(String),
+        });
+      });
+    await req
+      .get(SETTINGS.PASS.POSTS)
+      .expect(HTTP_STATUSES.OK_200)
+      .then((response) => {
+        posts = response.body;
+        expect(response.body.length === 1);
+      });
+  });
+  test("-POST should create a new post with valid data", async () => {
+    await req
+      .post(SETTINGS.PASS.POSTS)
+      .auth("admin", "qwerty")
+      .send({
+        title: "title",
+        shortDescription: "shortDescription",
+        content: "content",
+        blogId: blogs[0].id,
+      })
+      .expect(HTTP_STATUSES.CREATED_201)
+      .then((response) => {
+        expect(response.body).toEqual({
+          id: expect.any(String),
+          title: "title",
+          shortDescription: "shortDescription",
+          content: "content",
+          blogId: blogs[0].id,
+          blogName: blogs[0].name,
+          createdAt: expect.any(String),
+        });
+      });
+    await req
+      .get(SETTINGS.PASS.POSTS)
+      .expect(HTTP_STATUSES.OK_200)
+      .then((response) => {
+        posts = response.body;
+        expect(response.body.length === 2);
+      });
+  });
+  test("-GET ALL POSTS FOR SPECIFIED BLOG should return all posts", async () => {
+    await req
+      .get(`${SETTINGS.PASS.BLOGS}/${blogs[0].id}/posts`)
+      .expect(HTTP_STATUSES.OK_200)
+      .then((response) => {
+        expect(response.body.lengh === 2);
+      });
+  });
+  test("-GET ALL POSTS FOR SPECIFIED BLOG shouldn't return the post with wrong params id", async () => {
+    await req
+      .get(`${SETTINGS.PASS.BLOGS}/0000/posts`)
+      .expect(HTTP_STATUSES.BAD_REQUEST_400);
+    const createRequest = await req
+      .get(SETTINGS.PASS.POSTS)
+      .expect(HTTP_STATUSES.OK_200);
+    posts = createRequest.body;
+    expect(posts.length === 2);
+  });
+  test("-POST NEW POST FOR SPECIFIED BLOG shouldn't create a new post with unauthorized user (wrong password)", async () => {
+    await req
+      .post(`${SETTINGS.PASS.BLOGS}/${blogs[0].id}/posts`)
+      .auth("admin", "wrong qwerty")
+      .send({
+        title: "test title",
+        shortDescription: "test shortDescription",
+        content: "test content",
+      })
+      .expect(HTTP_STATUSES.UNAUTHORIZED_401);
+    const createRequest = await req
+      .get(SETTINGS.PASS.POSTS)
+      .expect(HTTP_STATUSES.OK_200);
+    posts = createRequest.body;
+    expect(posts.length === 2);
+  });
+  test("-POST NEW POST FOR SPECIFIED BLOG shouldn't create a new post with unauthorized user (wrong username)", async () => {
+    await req
+      .post(`${SETTINGS.PASS.BLOGS}/${blogs[0].id}/posts`)
+      .auth("wrong admin", "qwerty")
+      .send({
+        title: "test title",
+        shortDescription: "test shortDescription",
+        content: "test content",
+      })
+      .expect(HTTP_STATUSES.UNAUTHORIZED_401);
+    const createRequest = await req
+      .get(SETTINGS.PASS.POSTS)
+      .expect(HTTP_STATUSES.OK_200);
+    posts = createRequest.body;
+    expect(posts.length === 2);
+  });
+
+  test("-POST NEW POST FOR SPECIFIED BLOG shouldn't create a new post with invalid field title", async () => {
+    await req
+      .post(`${SETTINGS.PASS.BLOGS}/${blogs[0].id}/posts`)
+      .auth("admin", "qwerty")
+      .send({
+        title: "",
+        shortDescription: "test shortDescription",
+        content: "test content",
+      })
+      .expect(HTTP_STATUSES.BAD_REQUEST_400)
+      .then((response) => {
+        expect(response.body).toEqual({
+          errorsMessages: [{ message: "title is empty", field: "title" }],
+        });
+      });
+    const createRequest = await req
+      .get(SETTINGS.PASS.POSTS)
+      .expect(HTTP_STATUSES.OK_200);
+    posts = createRequest.body;
+    expect(posts.length === 2);
+  });
+
+  test("-POST NEW POST FOR SPECIFIED BLOG shouldn't create a new post with invalid field shortDescription", async () => {
+    await req
+      .post(`${SETTINGS.PASS.BLOGS}/${blogs[0].id}/posts`)
+      .auth("admin", "qwerty")
+      .send({
+        title: "title",
+        shortDescription: "",
+        content: "test content",
+      })
+      .expect(HTTP_STATUSES.BAD_REQUEST_400)
+      .then((response) => {
+        expect(response.body).toEqual({
+          errorsMessages: [
+            { message: "shortDescription is empty", field: "shortDescription" },
+          ],
+        });
+      });
+    const createRequest = await req
+      .get(SETTINGS.PASS.POSTS)
+      .expect(HTTP_STATUSES.OK_200);
+    posts = createRequest.body;
+    expect(posts.length === 2);
+  });
+  test("-POST NEW POST FOR SPECIFIED BLOG shouldn't create a new post with invalid field content", async () => {
+    await req
+      .post(`${SETTINGS.PASS.BLOGS}/${blogs[0].id}/posts`)
+      .auth("admin", "qwerty")
+      .send({
+        title: "title",
+        shortDescription: "shortDescription",
+        content: "",
+        blogId: blogs[0].id,
+      })
+      .expect(HTTP_STATUSES.BAD_REQUEST_400)
+      .then((response) => {
+        expect(response.body).toEqual({
+          errorsMessages: [
+            {
+              message: "content is empty",
+              field: "content",
+            },
+          ],
+        });
+      });
+    const createRequest = await req
+      .get(SETTINGS.PASS.POSTS)
+      .expect(HTTP_STATUSES.OK_200);
+    posts = createRequest.body;
+    expect(posts.length === 2);
+  });
+
+  test("-POST NEW POST FOR SPECIFIED BLOG should create a new post with valid data", async () => {
+    await req
+      .post(`${SETTINGS.PASS.BLOGS}/${blogs[0].id}/posts`)
+      .auth("admin", "qwerty")
+      .send({
+        title: "title",
+        shortDescription: "shortDescription",
+        content: "content",
+      })
+      .expect(HTTP_STATUSES.CREATED_201)
+      .then((response) => {
+        expect(response.body).toEqual({
+          id: expect.any(String),
+          title: "title",
+          shortDescription: "shortDescription",
+          content: "content",
+          blogId: blogs[0].id,
+          blogName: blogs[0].name,
+          createdAt: expect.any(String),
+        });
+      });
+    await req
+      .get(`${SETTINGS.PASS.BLOGS}/${blogs[0].id}/posts`)
+      .expect(HTTP_STATUSES.OK_200)
+      .then((response) => {
+        posts = response.body;
+        expect(response.body.length === 3);
+      });
   });
 });

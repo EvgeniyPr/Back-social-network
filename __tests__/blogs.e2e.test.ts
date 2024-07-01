@@ -123,6 +123,7 @@ describe("/blogs", () => {
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200);
     blogs = createRequest.body;
+
     expect(blogs.length === 1);
   });
   test("-GET BY PARAMS shouldn't return the blog with wrong params id", async () => {

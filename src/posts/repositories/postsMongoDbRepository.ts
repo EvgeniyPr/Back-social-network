@@ -4,26 +4,26 @@ import { PostsOutputModelFromDb } from "../models/PostOutputModelToFront";
 import { PostInputModel } from "../models/PostInputModel";
 
 export const postsMongoDbRepository = {
-  async getPosts(): Promise<PostsOutputModelFromDb[]> {
-    const postsFromDb = (await postCollection
-      .find()
+  async getPosts(blogId = ""): Promise<PostsOutputModelFromDb[]> {
+    if (blogId === "") {
+      const postsFromDb = (await postCollection
+        .find()
+        .toArray()) as PostsOutputModelFromDb[];
+      return postsFromDb;
+    }
+    const posts = (await postCollection
+      .find({
+        blogId,
+      })
       .toArray()) as PostsOutputModelFromDb[];
-    return postsFromDb;
+    return posts;
   },
+
   async getPost(id: string): Promise<PostsOutputModelFromDb> {
     const postFromDb = (await postCollection.findOne({
       _id: new ObjectId(id),
     })) as PostsOutputModelFromDb;
     return postFromDb;
-  },
-
-  async getPostsByBlogId(blogId: string): Promise<PostsOutputModelFromDb[]> {
-    const blogs = (await postCollection
-      .find({
-        blogId: blogId,
-      })
-      .toArray()) as PostsOutputModelFromDb[];
-    return blogs;
   },
 
   async createPost(newPost: PostInputModel) {

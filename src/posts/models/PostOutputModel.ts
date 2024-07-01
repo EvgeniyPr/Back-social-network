@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 
-interface PostOutputModel {
+export interface PostOutputModel {
   title: string;
   shortDescription: string;
   content: string;

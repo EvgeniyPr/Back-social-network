@@ -10,6 +10,12 @@ import {
 } from "../blogs/middleware/blogsValidationMiddleware";
 import { errorCheckMiddleware } from "../middlewares/errorCheckMiddleware";
 import { getAllPostsByBlogId } from "../posts/controllers/getAllPostsByBlogId";
+import { createPostForSpecificBlogContriller } from "../posts/controllers/createPostForSpecificBlogContriller";
+import {
+  postContentInputValidator,
+  postShortDescriptionInputValidator,
+  postTitleInputValidator,
+} from "../posts/middleware/postsValidationMiddleware";
 
 export const blogsRouter = Router();
 blogsRouter.get("/", getBlogController);
@@ -33,6 +39,18 @@ blogsRouter.post(
   ...blogsInputValidators,
   createBlogController
 );
+
+blogsRouter.post(
+  "/:id/posts",
+  authMiddleware,
+  blogIdParamsValidator,
+  postTitleInputValidator,
+  postShortDescriptionInputValidator,
+  postContentInputValidator,
+  errorCheckMiddleware,
+  createPostForSpecificBlogContriller
+);
+
 blogsRouter.delete(
   "/:id",
   authMiddleware,

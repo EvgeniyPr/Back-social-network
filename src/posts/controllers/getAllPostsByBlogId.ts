@@ -10,7 +10,7 @@ export const getAllPostsByBlogId = async (
   res: Response<PostOutputModelToFront[]>
 ) => {
   if (req.params.id) {
-    const posts = await postsService.getPosts();
+    const posts = await postsService.getPosts(req.params.id);
     res.status(HTTP_STATUSES.OK_200).json(posts);
   }
 };
