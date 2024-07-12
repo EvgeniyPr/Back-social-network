@@ -4,13 +4,6 @@ import { BlogsOutputModelFromDb } from "../models/BlogOutputModel";
 import { BlogInputModel } from "../models/BlogInputModel";
 
 export const blogsMongoDBRepository = {
-  async getBlogs(): Promise<BlogsOutputModelFromDb[]> {
-    const blogsFromDb = (await blogCollection
-      .find()
-      .toArray()) as BlogsOutputModelFromDb[];
-    return blogsFromDb;
-  },
-
   async getBlog(id: string): Promise<BlogsOutputModelFromDb> {
     const blogFromDB = (await blogCollection.findOne({
       _id: new ObjectId(id),

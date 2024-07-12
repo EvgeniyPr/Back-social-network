@@ -8,7 +8,6 @@ import { isNotValidString } from "./isNotValidString";
 
 export const inputValidation = (video: UpdateVideoInputModel) => {
   errors.errorsMessages = [];
-  // const errors: APIErrorResult = { errorsMessages: [] };
   if (isNotValidString(MAX_STRING_LENGTH.TITLE, video.title)) {
     errors.errorsMessages.push({
       message: "title is required",

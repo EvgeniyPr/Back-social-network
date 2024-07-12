@@ -5,7 +5,7 @@ import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { SETTINGS } from "../src/settings/settings";
 import { req } from "./test-helpers";
 
-describe("", () => {
+describe("/posts", () => {
   let blogs: BlogOutputModelToFront[];
   let posts: PostOutputModelToFront[];
   test("-GET should get an empty array", async () => {

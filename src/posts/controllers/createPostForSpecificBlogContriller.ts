@@ -5,7 +5,7 @@ import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { postsService } from "../domain/postsService";
 import { GetPostByURIParamsModel } from "../models/GetPostByURIParamsModel";
 import { PostInputModelForSpecificBlog } from "../models/PostInputModel";
-import { PostOutputModelToFront } from "../models/PostOutputModelToFront";
+import { PostOutputModelToFront } from "../models/PostOutputModel";
 
 export const createPostForSpecificBlogContriller = async (
   req: RequestWithParamsAndBody<

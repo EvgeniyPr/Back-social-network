@@ -3,14 +3,6 @@ import { BlogInputModel } from "../models/BlogInputModel";
 import { blogsMongoDBRepository } from "../repositories/blogsMongoDbRepository";
 
 export const blogsService = {
-  async getBlogs(): Promise<BlogOutputModelToFront[]> {
-    const blogs = await blogsMongoDBRepository.getBlogs();
-    return blogs.map(({ _id, ...rest }) => ({
-      id: _id.toString(),
-      ...rest,
-    }));
-  },
-
   async getBlog(id: string): Promise<BlogOutputModelToFront | null> {
     const blog = await blogsMongoDBRepository.getBlog(id);
     if (blog) {

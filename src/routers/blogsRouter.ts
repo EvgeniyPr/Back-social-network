@@ -16,9 +16,10 @@ import {
   postShortDescriptionInputValidator,
   postTitleInputValidator,
 } from "../posts/middleware/postsValidationMiddleware";
+import { getBlogsController } from "../blogs/controllers/getBlogsController";
 
 export const blogsRouter = Router();
-blogsRouter.get("/", getBlogController);
+blogsRouter.get("/", getBlogsController);
 blogsRouter.get(
   "/:id",
   blogIdParamsValidator,

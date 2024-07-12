@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import { createVideoController } from "../videos/controllers/createVideoController";
 import { updateVideoController } from "../videos/controllers/updateVideoController";
 import { deleteVideoController } from "../videos/controllers/deleteVideoController";

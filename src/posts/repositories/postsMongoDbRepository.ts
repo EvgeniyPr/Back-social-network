@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import { postCollection } from "../../db/mongo-db";
-import { PostsOutputModelFromDb } from "../models/PostOutputModelToFront";
+import { PostsOutputModelFromDb } from "../models/PostOutputModel";
 import { PostInputModel } from "../models/PostInputModel";
 
 export const postsMongoDbRepository = {
