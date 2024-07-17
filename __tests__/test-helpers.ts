@@ -3,7 +3,7 @@ import { agent, Response } from "supertest";
 import { MongoClient } from "mongodb";
 import { MongoMemoryServer } from "mongodb-memory-server-global-4.4";
 import { connectToDb } from "../src/db/mongo-db";
-import { BlogOutputModelToFront } from "../src/blogs/models/BlogOutputModel";
+import { BlogsOutputModelToFrontWithPagination } from "../src/blogs/models/BlogOutputModel";
 import { PostsOutputModelToFrontWithPagination } from "../src/posts/models/PostOutputModel";
 
 export const req = agent(app);
@@ -14,29 +14,26 @@ export const getUrl = async () => {
   return mongoServe.getUri();
 };
 
-export function responceIsEqualToBlogsData(
+export function responceIsEqualToData(
   responce: Response,
   {
-    pageCount,
+    pagesCount,
     page,
     pageSize,
     totalCount,
     items,
-  }: PostsOutputModelToFrontWithPagination
+  }:
+    | PostsOutputModelToFrontWithPagination
+    | BlogsOutputModelToFrontWithPagination
 ) {
   expect(responce.body).toEqual({
-    pagesCount: pageCount,
+    pagesCount: pagesCount,
     page: page,
     pageSize: pageSize,
     totalCount: totalCount,
     items: items,
   });
 }
-
-// export function () {
-//   blogsData = createRequest.body;
-
-//     expect(blogsData.items.length === 1); }
 
 beforeAll(async () => {
   const uri = await getUrl();

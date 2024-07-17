@@ -11,8 +11,11 @@ import { errors } from "../../middlewares/errorCheckMiddleware";
 export const postsService = {
   async getPost(id: string): Promise<PostOutputModelToFront | null> {
     const post = await postsMongoDbRepository.getPost(id);
-    const { _id, ...rest } = post;
-    return { id: _id.toString(), ...rest };
+    if (post) {
+      const { _id, ...rest } = post;
+      return { id: _id.toString(), ...rest };
+    }
+    return null;
   },
   async createPost(data: PostInputModel) {
     const blog = await this.getBlogByID(data.blogId);

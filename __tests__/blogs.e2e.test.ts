@@ -1,9 +1,9 @@
-import { PostsOutputModelToFrontWithPagination } from "../src/posts/models/PostOutputModel";
+import { BlogsOutputModelToFrontWithPagination } from "../src/blogs/models/BlogOutputModel";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { SETTINGS } from "../src/settings/settings";
-import { responceIsEqualToBlogsData, req } from "./test-helpers";
+import { responceIsEqualToData, req } from "./test-helpers";
 
-let blogsData: PostsOutputModelToFrontWithPagination = {
+let blogsData: BlogsOutputModelToFrontWithPagination = {
   pagesCount: 0,
   page: 1,
   pageSize: 10,
@@ -16,7 +16,7 @@ describe("/blogs", () => {
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200)
       .then((response) => {
-        responceIsEqualToBlogsData(response, blogsData);
+        responceIsEqualToData(response, blogsData);
       });
   });
   test("-POST shouldn't create a new blog with unauthorized user (wrong password)", async () => {
@@ -34,7 +34,7 @@ describe("/blogs", () => {
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200)
       .then((response) => {
-        responceIsEqualToBlogsData(response, blogsData);
+        responceIsEqualToData(response, blogsData);
       });
   });
   test("-POST shouldn't create a new blog with unauthorized user (wrong username)", async () => {
@@ -52,7 +52,7 @@ describe("/blogs", () => {
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200)
       .then((response) => {
-        responceIsEqualToBlogsData(response, blogsData);
+        responceIsEqualToData(response, blogsData);
       });
   });
   test("-POST shouldn't create a new blog with invalid field name", async () => {
@@ -70,7 +70,7 @@ describe("/blogs", () => {
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200)
       .then((response) => {
-        responceIsEqualToBlogsData(response, blogsData);
+        responceIsEqualToData(response, blogsData);
       });
   });
   test("-POST shouldn't create a new blog with invalid field description", async () => {
@@ -88,7 +88,7 @@ describe("/blogs", () => {
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200)
       .then((response) => {
-        responceIsEqualToBlogsData(response, blogsData);
+        responceIsEqualToData(response, blogsData);
       });
   });
   test("-POST shouldn't create a new blog with invalid format websiteUrl", async () => {
@@ -107,7 +107,7 @@ describe("/blogs", () => {
       .get(SETTINGS.PASS.BLOGS)
       .expect(HTTP_STATUSES.OK_200)
       .then((response) => {
-        responceIsEqualToBlogsData(response, blogsData);
+        responceIsEqualToData(response, blogsData);
       });
   });
   test("-POST should create a new blog with valid data", async () => {

@@ -14,8 +14,19 @@ export const errorCheckMiddleware = (
   });
   if (validationErrors.length > 0) {
     errors = mapErrors(validationErrors);
-    res.status(HTTP_STATUSES.BAD_REQUEST_400).json(errors);
-    return;
+    if (
+      errors.errorsMessages.some(
+        (error) =>
+          error.message === "There are no blogs with such id" &&
+          error.field === "id"
+      )
+    ) {
+      res.status(HTTP_STATUSES.NOT_FOUND_404).json(errors);
+      return;
+    } else {
+      res.status(HTTP_STATUSES.BAD_REQUEST_400).json(errors);
+      return;
+    }
   }
   next();
 };

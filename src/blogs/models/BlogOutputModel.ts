@@ -1,6 +1,4 @@
 import { ObjectId } from "mongodb";
-// import { PaginationModel } from "../../models/PaginationModel";
-
 interface BlogOutputModel {
   name: string;
   description: string;
