@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 
-interface PostOutputModel {
+export interface PostOutputModel {
   title: string;
   shortDescription: string;
   content: string;
@@ -15,4 +15,11 @@ export interface PostsOutputModelFromDb extends PostOutputModel {
 
 export interface PostOutputModelToFront extends PostOutputModel {
   id: string;
+}
+export interface PostsOutputModelToFrontWithPagination {
+  pagesCount: number;
+  page: number;
+  pageSize: number;
+  totalCount: number;
+  items: PostOutputModelToFront[];
 }

@@ -1,5 +1,6 @@
 import { body, param } from "express-validator";
 import { errorCheckMiddleware } from "../../middlewares/errorCheckMiddleware";
+import { blogsService } from "../domain/blogsService";
 
 const blogNameInputValidator = body("name")
   .trim()
@@ -34,7 +35,10 @@ const blogWebsiteUrlInputValidation = body("websiteUrl")
 
 export const blogIdParamsValidator = param("id")
   .matches(/^[0-9a-fA-F]{24}$/)
-  .withMessage("id must be 24 character hex string");
+  .withMessage("id must be 24 character hex string")
+  .custom(async (id) => {
+    await blogsService.blogWithIdIsExist(id);
+  });
 
 export const blogsInputValidators = [
   blogNameInputValidator,

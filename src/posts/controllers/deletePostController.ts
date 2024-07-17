@@ -2,13 +2,13 @@ import { Response } from "express";
 import { RequestWithParams } from "../../models/RequestsModels";
 import { GetPostByURIParamsModel } from "../models/GetPostByURIParamsModel";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { postsMongoDbRepository } from "../repositories/postsMongoDbRepository";
+import { postsService } from "../domain/postsService";
 
 export const deletePostController = async (
   req: RequestWithParams<GetPostByURIParamsModel>,
   res: Response
 ) => {
-  const isDeleted = await postsMongoDbRepository.deletePost(req.params.id);
+  const isDeleted = await postsService.deletePost(req.params.id);
   if (isDeleted) {
     res.sendStatus(HTTP_STATUSES.NO_CONTENT_204);
     return;

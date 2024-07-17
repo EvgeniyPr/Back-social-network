@@ -10,6 +10,7 @@ export const authMiddleware = (
   next: NextFunction
 ) => {
   const auth = req.headers.authorization;
+
   if (auth && base64regex.test(auth.slice(6))) {
     const decodedAuth = atob(auth.slice(6));
     if (decodedAuth === SETTINGS.ADMIN_AUTH && auth.slice(0, 5) === "Basic") {
