@@ -2,11 +2,11 @@ import { Response } from "express";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { BlogsOutputModelToFrontWithPagination } from "../models/BlogOutputModel";
 import { RequestWithQuery } from "../../models/RequestsModels";
-import { QueryBlogModel } from "../../queryRepositories/QueryModel";
+import { QueryModel } from "../../queryRepositories/QueryModel";
 import { queryBlogsRepository } from "../../queryRepositories/queryBlogsRepository";
 
 export const getBlogsController = async (
-  req: RequestWithQuery<QueryBlogModel>,
+  req: RequestWithQuery<QueryModel>,
   res: Response<BlogsOutputModelToFrontWithPagination>
 ) => {
   const { query } = req;

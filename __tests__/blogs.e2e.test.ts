@@ -4,7 +4,7 @@ import { SETTINGS } from "../src/settings/settings";
 import { responceIsEqualToBlogsData, req } from "./test-helpers";
 
 let blogsData: PostsOutputModelToFrontWithPagination = {
-  pageCount: 0,
+  pagesCount: 0,
   page: 1,
   pageSize: 10,
   totalCount: 0,

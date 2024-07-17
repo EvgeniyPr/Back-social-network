@@ -9,19 +9,11 @@ import { PostOutputModel } from "../models/PostOutputModel";
 import { errors } from "../../middlewares/errorCheckMiddleware";
 
 export const postsService = {
-  async getPosts(id = ""): Promise<PostOutputModelToFront[]> {
-    const posts = await postsMongoDbRepository.getPosts(id);
-    return posts.map((post) => {
-      const { _id, ...rest } = post;
-      return { id: _id.toString(), ...rest };
-    });
-  },
   async getPost(id: string): Promise<PostOutputModelToFront | null> {
     const post = await postsMongoDbRepository.getPost(id);
     const { _id, ...rest } = post;
     return { id: _id.toString(), ...rest };
   },
-
   async createPost(data: PostInputModel) {
     const blog = await this.getBlogByID(data.blogId);
     if (blog) {

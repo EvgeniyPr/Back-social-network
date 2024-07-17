@@ -17,7 +17,7 @@ export interface PostOutputModelToFront extends PostOutputModel {
   id: string;
 }
 export interface PostsOutputModelToFrontWithPagination {
-  pageCount: number;
+  pagesCount: number;
   page: number;
   pageSize: number;
   totalCount: number;
