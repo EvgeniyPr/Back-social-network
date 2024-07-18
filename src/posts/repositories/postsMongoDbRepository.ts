@@ -4,21 +4,6 @@ import { PostsOutputModelFromDb } from "../models/PostOutputModel";
 import { PostInputModel } from "../models/PostInputModel";
 
 export const postsMongoDbRepository = {
-  async getPosts(blogId = ""): Promise<PostsOutputModelFromDb[]> {
-    if (blogId === "") {
-      const postsFromDb = (await postCollection
-        .find()
-        .toArray()) as PostsOutputModelFromDb[];
-      return postsFromDb;
-    }
-    const posts = (await postCollection
-      .find({
-        blogId,
-      })
-      .toArray()) as PostsOutputModelFromDb[];
-    return posts;
-  },
-
   async getPost(id: string): Promise<PostsOutputModelFromDb> {
     const postFromDb = (await postCollection.findOne({
       _id: new ObjectId(id),

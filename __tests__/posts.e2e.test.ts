@@ -653,6 +653,23 @@ describe("/posts", () => {
         expect(response.body.items.length).toBe(2);
       });
   });
+  test("-POST NEW POST FOR SPECIFIED BLOG shouldn't create a new post if specified blog doesn't exists", async () => {
+    await req
+      .post(`${SETTINGS.PASS.BLOGS}/66980da79147a5632259f956/posts`)
+      .auth("admin", "qwerty")
+      .send({
+        title: "test title",
+        shortDescription: "test shortDescription",
+        content: "test content",
+      })
+      .expect(HTTP_STATUSES.NOT_FOUND_404);
+    await req
+      .get(SETTINGS.PASS.POSTS)
+      .expect(HTTP_STATUSES.OK_200)
+      .then((response) => {
+        expect(response.body.items.length).toBe(2);
+      });
+  });
   test("-POST NEW POST FOR SPECIFIED BLOG shouldn't create a new post with unauthorized user (wrong username)", async () => {
     await req
       .post(`${SETTINGS.PASS.BLOGS}/${blogsData.items[0].id}/posts`)
