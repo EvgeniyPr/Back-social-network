@@ -1,15 +1,15 @@
 import { Collection } from "mongodb";
-import { sanitizedQueryModel } from "../QueryModel";
+import { sanitizedQueryModel } from "../models/QueryModel";
 import { BlogsOutputModelFromDb } from "../../blogs/models/BlogOutputModel";
 import { mapId } from "../../utils/mapId";
 
 export const getItemsWithPagination = async (
-  id: string | null,
+  blogId: string | null,
   { searchNameTerm, pageSize, pageNumber, sort, skipPage }: sanitizedQueryModel,
   collection: Collection
 ) => {
   const filter =
-    id !== null ? { blogId: id, ...searchNameTerm } : { ...searchNameTerm };
+    blogId !== null ? { blogId, ...searchNameTerm } : { ...searchNameTerm };
   const totalCount = await collection.countDocuments(filter);
   const pagesCount = Math.ceil(totalCount / pageSize);
   const blogs = (await collection

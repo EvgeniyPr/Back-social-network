@@ -1,4 +1,8 @@
-import { QueryModel, sanitizedQueryModel, SortDirection } from "../QueryModel";
+import {
+  QueryModel,
+  sanitizedQueryModel,
+  SortDirection,
+} from "../models/QueryModel";
 
 export const sanitizedQuery = (
   query: QueryModel,
