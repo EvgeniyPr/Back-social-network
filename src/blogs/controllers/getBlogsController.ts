@@ -9,8 +9,7 @@ export const getBlogsController = async (
   req: RequestWithQuery<QueryModel>,
   res: Response<BlogsOutputModelToFrontWithPagination>
 ) => {
-  const { query } = req;
-  const blogs = await queryBlogsRepository.getBlogs(query);
+  const blogs = await queryBlogsRepository.getBlogs(req.query);
   if (blogs) {
     res.status(HTTP_STATUSES.OK_200).json(blogs);
     return;

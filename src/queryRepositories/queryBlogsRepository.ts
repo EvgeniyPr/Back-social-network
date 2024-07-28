@@ -1,8 +1,13 @@
-import { BlogsOutputModelToFrontWithPagination } from "../blogs/models/BlogOutputModel";
+import {
+  BlogOutputModelToFront,
+  BlogsOutputModelFromDb,
+  BlogsOutputModelToFrontWithPagination,
+} from "../blogs/models/BlogOutputModel";
 import { blogCollection } from "../db/mongo-db";
 import { QueryModel } from "./models/QueryModel";
 import { sanitizedQuery } from "./utils/sanitizedQuery";
 import { getItemsWithPagination } from "./utils/getItemsWithPagination";
+import { ObjectId } from "mongodb";
 
 export const queryBlogsRepository = {
   async getBlogs(query: QueryModel) {
@@ -11,5 +16,15 @@ export const queryBlogsRepository = {
       sanitizedQuery(query, "name"),
       blogCollection
     )) as BlogsOutputModelToFrontWithPagination;
+  },
+  async getBlog(id: string): Promise<BlogOutputModelToFront | null> {
+    const blog = (await blogCollection.findOne({
+      _id: new ObjectId(id),
+    })) as BlogsOutputModelFromDb;
+    if (blog) {
+      const { _id, ...rest } = blog;
+      return { id: _id.toString(), ...rest };
+    }
+    return null;
   },
 };

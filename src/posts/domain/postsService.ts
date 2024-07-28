@@ -4,19 +4,20 @@ import {
   PostInputModelForSpecificBlog,
 } from "../models/PostInputModel";
 import { postsMongoDbRepository } from "../repositories/postsMongoDbRepository";
-import { blogsService } from "../../blogs/domain/blogsService";
 import { PostOutputModel } from "../models/PostOutputModel";
 import { errors } from "../../middlewares/errorCheckMiddleware";
+import { queryBlogsRepository } from "../../queryRepositories/queryBlogsRepository";
+import { queryPostsRepository } from "../../queryRepositories/queryPostsRepository";
 
 export const postsService = {
-  async getPost(id: string): Promise<PostOutputModelToFront | null> {
-    const post = await postsMongoDbRepository.getPost(id);
-    if (post) {
-      const { _id, ...rest } = post;
-      return { id: _id.toString(), ...rest };
-    }
-    return null;
-  },
+  // async getPost(id: string): Promise<PostOutputModelToFront | null> {
+  //   const post = await postsMongoDbRepository.getPost(id);
+  //   if (post) {
+  //     const { _id, ...rest } = post;
+  //     return { id: _id.toString(), ...rest };
+  //   }
+  //   return null;
+  // },
   async createPost(data: PostInputModel) {
     const blog = await this.getBlogByID(data.blogId);
     if (blog) {
@@ -64,12 +65,14 @@ export const postsService = {
   },
 
   async getBlogByID(blogId: string) {
-    const blog = await blogsService.getBlog(blogId);
+    const blog = await queryBlogsRepository.getBlog(blogId);
     return blog;
   },
   async creatNewPostResponse(newPost: PostOutputModel) {
     const responce = await postsMongoDbRepository.createPost(newPost);
-    const postedPost = await this.getPost(responce.insertedId.toString());
+    const postedPost = await queryPostsRepository.getPost(
+      responce.insertedId.toString()
+    );
     return postedPost;
   },
 };
