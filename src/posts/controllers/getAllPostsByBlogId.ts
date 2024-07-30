@@ -3,7 +3,7 @@ import { GetBlogByURIParamsModel } from "../../blogs/models/GetBlogByURIParamsMo
 import { Response } from "express";
 import { PostsOutputModelToFrontWithPagination } from "../models/PostOutputModel";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { QueryModel } from "../../queryRepositories/models/QueryModel";
+import { QueryModel } from "../../queryRepositories/models/QueryModels";
 import { queryPostsRepository } from "../../queryRepositories/queryPostsRepository";
 
 export const getAllPostsByBlogId = async (

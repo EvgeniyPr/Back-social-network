@@ -2,7 +2,13 @@ import * as dotenv from "dotenv";
 dotenv.config();
 export const SETTINGS = {
   PORT: process.env.PORT || 3000,
-  PASS: { VIDEO: "/videos", BLOGS: "/blogs", POSTS: "/posts", USERS: "/users" },
+  PASS: {
+    VIDEO: "/videos",
+    BLOGS: "/blogs",
+    POSTS: "/posts",
+    USERS: "/users",
+    AUTH: "/auth",
+  },
   ADMIN_AUTH: "admin:qwerty",
   DBNAME: "SocialNetwork",
   POSTS_COLLECTION_NAME: "posts",

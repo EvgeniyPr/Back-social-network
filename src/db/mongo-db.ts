@@ -15,6 +15,7 @@ export const connectToDb = async (url: string) => {
     blogCollection = dbMongo.collection(SETTINGS.BLOGS_COLLECTION_NAME);
     postCollection = dbMongo.collection(SETTINGS.POSTS_COLLECTION_NAME);
     userCollection = dbMongo.collection(SETTINGS.USERS_COLLECTION_NAME);
+
     return client;
   } catch (e) {
     console.log(e);

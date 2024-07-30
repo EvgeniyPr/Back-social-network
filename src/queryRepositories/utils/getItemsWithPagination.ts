@@ -1,7 +1,9 @@
 import { Collection } from "mongodb";
-import { sanitizedQueryModel } from "../models/QueryModel";
+import { sanitizedQueryModel } from "../models/QueryModels";
 import { BlogsOutputModelFromDb } from "../../blogs/models/BlogOutputModel";
 import { mapId } from "../../utils/mapId";
+import { PostsOutputModelFromDb } from "../../posts/models/PostOutputModel";
+import { UsersOutputModelFromDb } from "../../users/models/UserModels";
 
 export const getItemsWithPagination = async (
   blogId: string | null,
@@ -12,18 +14,21 @@ export const getItemsWithPagination = async (
     blogId !== null ? { blogId, ...searchNameTerm } : { ...searchNameTerm };
   const totalCount = await collection.countDocuments(filter);
   const pagesCount = Math.ceil(totalCount / pageSize);
-  const blogs = (await collection
-    .find(filter)
+  const items = (await collection
+    .find(filter, { projection: { password: 0 } })
     .sort(sort)
     .skip(skipPage)
     .limit(pageSize)
-    .toArray()) as BlogsOutputModelFromDb[];
+    .toArray()) as
+    | BlogsOutputModelFromDb[]
+    | PostsOutputModelFromDb[]
+    | UsersOutputModelFromDb[];
   const responce = {
     pagesCount,
     page: pageNumber,
     pageSize,
     totalCount,
-    items: mapId(blogs),
+    items: mapId(items),
   };
   return responce;
 };

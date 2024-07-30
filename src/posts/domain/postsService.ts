@@ -1,4 +1,3 @@
-import { PostOutputModelToFront } from "../models/PostOutputModel";
 import {
   PostInputModel,
   PostInputModelForSpecificBlog,
@@ -10,14 +9,6 @@ import { queryBlogsRepository } from "../../queryRepositories/queryBlogsReposito
 import { queryPostsRepository } from "../../queryRepositories/queryPostsRepository";
 
 export const postsService = {
-  // async getPost(id: string): Promise<PostOutputModelToFront | null> {
-  //   const post = await postsMongoDbRepository.getPost(id);
-  //   if (post) {
-  //     const { _id, ...rest } = post;
-  //     return { id: _id.toString(), ...rest };
-  //   }
-  //   return null;
-  // },
   async createPost(data: PostInputModel) {
     const blog = await this.getBlogByID(data.blogId);
     if (blog) {
