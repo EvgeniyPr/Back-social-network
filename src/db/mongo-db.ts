@@ -6,6 +6,7 @@ if (!SETTINGS.MONGO_URI) {
 export let dbMongo: Db = {} as Db;
 export let blogCollection: Collection;
 export let postCollection: Collection;
+export let userCollection: Collection;
 export const connectToDb = async (url: string) => {
   const client = new MongoClient(url);
   try {
@@ -13,6 +14,8 @@ export const connectToDb = async (url: string) => {
     await client.connect();
     blogCollection = dbMongo.collection(SETTINGS.BLOGS_COLLECTION_NAME);
     postCollection = dbMongo.collection(SETTINGS.POSTS_COLLECTION_NAME);
+    userCollection = dbMongo.collection(SETTINGS.USERS_COLLECTION_NAME);
+
     return client;
   } catch (e) {
     console.log(e);

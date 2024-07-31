@@ -2,6 +2,11 @@ export enum SortDirection {
   asc = "asc",
   desc = "desc",
 }
+export enum searchBy {
+  name = "name",
+  title = "title",
+  loginOrEmail = "loginOrEmail",
+}
 type SortBy = string;
 type sortDirection = "asc" | "desc" | "ascending" | "descending" | 1 | -1;
 
@@ -11,6 +16,8 @@ export interface QueryModel {
   sortBy?: "name" | "title";
   sortDirection?: sortDirection;
   searchNameTerm?: string;
+  searchLoginTerm?: string;
+  searchEmailTerm?: string;
 }
 
 export interface sanitizedQueryModel {
@@ -18,7 +25,7 @@ export interface sanitizedQueryModel {
   pageSize: number;
   sortBy: SortBy;
   sortDirection: sortDirection;
-  searchNameTerm?: any;
+  searchNameTerm: Object;
   skipPage: number;
   sort: {
     [key in SortBy]: sortDirection;

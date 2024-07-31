@@ -1,5 +1,5 @@
 import { validationResult } from "express-validator";
-import { mapErrors } from "../utils/mapErrors";
+import { mapErrors } from "../errors/mapErrors";
 import { HTTP_STATUSES } from "../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { Request, Response, NextFunction } from "express";
 import { APIErrorResult } from "../models/APIErrorResult";

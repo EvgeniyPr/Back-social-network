@@ -1,4 +1,4 @@
-export const isNotBooleanType = (value: any) => {
+export const isNotBooleanType = (value: boolean | undefined) => {
   if (value === undefined) {
     return;
   }

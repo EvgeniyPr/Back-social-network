@@ -6,7 +6,7 @@ import {
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { postsService } from "../domain/postsService";
 import { RequestWithQuery } from "../../models/RequestsModels";
-import { QueryModel } from "../../queryRepositories/models/QueryModel";
+import { QueryModel } from "../../queryRepositories/models/QueryModels";
 import { queryPostsRepository } from "../../queryRepositories/queryPostsRepository";
 
 export const getPostsController = async (
