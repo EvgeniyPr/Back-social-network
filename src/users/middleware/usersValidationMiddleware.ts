@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import { userService } from "../domain/usersService";
 
 const userLoginInputValidator = body("login")
@@ -8,12 +8,16 @@ const userLoginInputValidator = body("login")
   .isString()
   .withMessage("login must be a string")
   .isLength({ min: 3, max: 10 })
-  .withMessage("min length is 3, max length is 10 ")
+  .withMessage("min length is 3, max length is 10")
   .matches(/^[a-zA-Z0-9_-]*$/)
   .withMessage("characters must be numbers or lowercase or uppercase letters")
   .custom(async (login) => {
     await userService.loginAndMailAreUnique(login);
   });
+
+export const usersIdParamsValidator = param("id")
+  .matches(/^[0-9a-fA-F]{24}$/)
+  .withMessage("id must be 24 character hex string");
 
 export const userPaswordInputValidator = body("password")
   .trim()
@@ -22,7 +26,7 @@ export const userPaswordInputValidator = body("password")
   .isString()
   .withMessage("password must be a string")
   .isLength({ min: 6, max: 20 })
-  .withMessage("min length is 6, max length is 20 ");
+  .withMessage("min length is 6, max length is 20");
 
 const userEmailInputValidator = body("email")
   .trim()

@@ -5,6 +5,7 @@ import { MongoMemoryServer } from "mongodb-memory-server-global-4.4";
 import { connectToDb } from "../src/db/mongo-db";
 import { BlogsOutputModelToFrontWithPagination } from "../src/blogs/models/BlogOutputModel";
 import { PostsOutputModelToFrontWithPagination } from "../src/posts/models/PostOutputModel";
+import { UsersOutputModelToFrontWithPagination } from "../src/users/models/UserModels";
 
 export const req = agent(app);
 
@@ -25,6 +26,7 @@ export function responceIsEqualToData(
   }:
     | PostsOutputModelToFrontWithPagination
     | BlogsOutputModelToFrontWithPagination
+    | UsersOutputModelToFrontWithPagination
 ) {
   expect(responce.body).toEqual({
     pagesCount: pagesCount,

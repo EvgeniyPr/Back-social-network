@@ -3,11 +3,14 @@ import { getUsersController } from "../users/controllers/getUsersController";
 import { createUser } from "../users/controllers/createUser";
 import { deleteUser } from "../users/controllers/deleteUser";
 import { authMiddleware } from "../middlewares/authMiddleware";
-import { userInputValidators } from "../users/middleware/usersValidationMiddleware";
+import {
+  userInputValidators,
+  usersIdParamsValidator,
+} from "../users/middleware/usersValidationMiddleware";
 import { errorCheckMiddleware } from "../middlewares/errorCheckMiddleware";
 
 export const usersRouter = Router();
-usersRouter.get("/", getUsersController);
+usersRouter.get("/", authMiddleware, errorCheckMiddleware, getUsersController);
 usersRouter.post(
   "/",
   authMiddleware,
@@ -15,4 +18,10 @@ usersRouter.post(
   errorCheckMiddleware,
   createUser
 );
-usersRouter.delete("/:id", authMiddleware, errorCheckMiddleware, deleteUser);
+usersRouter.delete(
+  "/:id",
+  authMiddleware,
+  usersIdParamsValidator,
+  errorCheckMiddleware,
+  deleteUser
+);
