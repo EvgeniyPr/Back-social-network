@@ -25,7 +25,7 @@ export interface sanitizedQueryModel {
   pageSize: number;
   sortBy: SortBy;
   sortDirection: sortDirection;
-  searchNameTerm?: any;
+  searchNameTerm: Object;
   skipPage: number;
   sort: {
     [key in SortBy]: sortDirection;

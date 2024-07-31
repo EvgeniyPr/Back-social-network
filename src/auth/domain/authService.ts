@@ -8,12 +8,10 @@ export const authService = {
     if (user) {
       const authenticationResult = await bcrypt.compare(
         data.password,
-        //@ts-ignore
-        user?.password
+        user.password
       );
-      console.log("authenticationResult", authenticationResult);
       return authenticationResult;
     }
-    return;
+    return false;
   },
 };

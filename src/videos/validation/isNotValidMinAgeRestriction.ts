@@ -1,4 +1,6 @@
-export const isNotValidMinAgeRestriction = (value: any) => {
+export const isNotValidMinAgeRestriction = (
+  value: number | undefined | null
+) => {
   if (
     value === null ||
     value === undefined ||
