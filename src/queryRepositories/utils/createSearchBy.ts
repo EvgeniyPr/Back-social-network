@@ -1,18 +1,19 @@
+import { searchBy } from "../models/QueryModels";
 import { SearchTerms } from "./sanitizedQuery";
 
 export const createSearchBy = (
   searchTerms: SearchTerms,
-  searchBy: string = ""
+  searchField: string = ""
 ) => {
   const { searchNameTerm, searchLoginTerm, searchEmailTerm } = searchTerms;
 
   let filter = {};
 
-  if (searchBy === "name" || searchBy === "title") {
-    filter = { [searchBy]: { $regex: searchNameTerm, $options: "i" } };
+  if (searchField === searchBy.name || searchField === searchBy.title) {
+    filter = { [searchField]: { $regex: searchNameTerm, $options: "i" } };
   }
   if (
-    searchBy === "loginOrEmail" &&
+    searchField === searchBy.loginOrEmail &&
     (searchLoginTerm || searchEmailTerm.length)
   ) {
     filter = {

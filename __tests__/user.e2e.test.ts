@@ -274,7 +274,7 @@ describe("/users", () => {
       .get(SETTINGS.PASS.USERS)
       .auth("admin", "qwerty")
       .expect(HTTP_STATUSES.OK_200);
-    console.log(createRequest.body.items);
+
     usersData = createRequest.body;
     expect(usersData.items.length).toBe(4);
     const createRequestWithPagination = await req
@@ -284,7 +284,6 @@ describe("/users", () => {
       .query({ searchEmailTerm: "K" })
       .query({ pageNumber: "1" })
       .query({ pageSize: "2" });
-    console.log(createRequestWithPagination.body.items);
     expect(createRequestWithPagination.body.pagesCount).toBe(1);
     expect(createRequestWithPagination.body.page).toBe(1);
     expect(createRequestWithPagination.body.pageSize).toBe(2);
