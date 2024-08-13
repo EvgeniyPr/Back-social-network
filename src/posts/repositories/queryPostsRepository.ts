@@ -1,13 +1,13 @@
 import { ObjectId } from "mongodb";
-import { postCollection } from "../db/mongo-db";
+import { postCollection } from "../../db/mongo-db";
 import {
   PostOutputModelToFront,
   PostsOutputModelFromDb,
   PostsOutputModelToFrontWithPagination,
-} from "../posts/models/PostOutputModel";
-import { QueryModel, searchBy } from "./models/QueryModels";
-import { getItemsWithPagination } from "./utils/getItemsWithPagination";
-import { sanitizedQuery } from "./utils/sanitizedQuery";
+} from "../models/PostOutputModel";
+import { QueryModel, searchBy } from "../../common/models/QueryModels";
+import { sanitizedQuery } from "../../common/pagination/sanitizedQuery";
+import { getItemsWithPagination } from "../../common/pagination/getItemsWithPagination";
 
 export const queryPostsRepository = {
   async getPosts(blogId: string | null, query: QueryModel) {

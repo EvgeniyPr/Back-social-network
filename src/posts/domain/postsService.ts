@@ -5,7 +5,7 @@ import {
 import { postsMongoDbRepository } from "../repositories/postsMongoDbRepository";
 import { PostOutputModel } from "../models/PostOutputModel";
 import { errors } from "../../common/middlewares/errorCheckMiddleware";
-import { queryPostsRepository } from "../../queryRepositories/queryPostsRepository";
+import { queryPostsRepository } from "../repositories/queryPostsRepository";
 import { blogsMongoDBRepository } from "../../blogs/repositories/blogsMongoDbRepository";
 
 export const postsService = {

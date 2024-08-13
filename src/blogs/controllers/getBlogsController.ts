@@ -2,7 +2,7 @@ import { Response } from "express";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { BlogsOutputModelToFrontWithPagination } from "../models/BlogOutputModel";
 import { RequestWithQuery } from "../../common/models/RequestsModels";
-import { QueryModel } from "../../queryRepositories/models/QueryModels";
+import { QueryModel } from "../../common/models/QueryModels";
 import { queryBlogsRepository } from "../repositories/queryBlogsRepository";
 
 export const getBlogsController = async (

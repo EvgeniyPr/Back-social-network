@@ -4,13 +4,10 @@ import {
   BlogsOutputModelToFrontWithPagination,
 } from "../models/BlogOutputModel";
 import { blogCollection } from "../../db/mongo-db";
-import {
-  QueryModel,
-  searchBy,
-} from "../../queryRepositories/models/QueryModels";
-import { sanitizedQuery } from "../../queryRepositories/utils/sanitizedQuery";
-import { getItemsWithPagination } from "../../queryRepositories/utils/getItemsWithPagination";
+import { QueryModel, searchBy } from "../../common/models/QueryModels";
 import { ObjectId } from "mongodb";
+import { getItemsWithPagination } from "../../common/pagination/getItemsWithPagination";
+import { sanitizedQuery } from "../../common/pagination/sanitizedQuery";
 
 export const queryBlogsRepository = {
   async getBlogs(query: QueryModel) {

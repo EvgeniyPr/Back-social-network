@@ -1,5 +1,5 @@
 import { Collection } from "mongodb";
-import { sanitizedQueryModel } from "../models/QueryModels";
+import { sanitizedQueryModel } from "../../common/models/QueryModels";
 import { BlogsOutputModelFromDb } from "../../blogs/models/BlogOutputModel";
 import { PostsOutputModelFromDb } from "../../posts/models/PostOutputModel";
 import { UsersOutputModelFromDb } from "../../users/models/UserModels";

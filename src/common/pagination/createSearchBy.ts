@@ -1,4 +1,4 @@
-import { searchBy } from "../models/QueryModels";
+import { searchBy } from "../../common/models/QueryModels";
 import { SearchTerms } from "./sanitizedQuery";
 
 export const createSearchBy = (

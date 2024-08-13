@@ -1,5 +1,5 @@
 import { userCollection } from "../../db/mongo-db";
-import { queryUsersRepository } from "../../queryRepositories/queryUsersRepository";
+import { queryUsersRepository } from "../repositories/queryUsersRepository";
 import { UserInputModel } from "../models/UserInputModel";
 import { usersMongoDbRepository } from "../repositories/usersMongoDbRepository";
 import bcrypt from "bcrypt";

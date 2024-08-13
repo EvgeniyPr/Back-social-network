@@ -1,13 +1,13 @@
 import { ObjectId } from "mongodb";
-import { userCollection } from "../db/mongo-db";
+import { userCollection } from "../../db/mongo-db";
 import {
   UserOutputModelToFront,
   UsersOutputModelFromDb,
   UsersOutputModelToFrontWithPagination,
-} from "../users/models/UserModels";
-import { QueryModel, searchBy } from "./models/QueryModels";
-import { getItemsWithPagination } from "./utils/getItemsWithPagination";
-import { sanitizedQuery } from "./utils/sanitizedQuery";
+} from "../models/UserModels";
+import { QueryModel, searchBy } from "../../common/models/QueryModels";
+import { getItemsWithPagination } from "../../common/pagination/getItemsWithPagination";
+import { sanitizedQuery } from "../../common/pagination/sanitizedQuery";
 
 export const queryUsersRepository = {
   async getUsers(

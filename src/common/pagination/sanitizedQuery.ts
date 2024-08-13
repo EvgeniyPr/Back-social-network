@@ -2,7 +2,7 @@ import {
   QueryModel,
   sanitizedQueryModel,
   SortDirection,
-} from "../models/QueryModels";
+} from "../../common/models/QueryModels";
 import { createSearchBy } from "./createSearchBy";
 
 export interface SearchTerms {
