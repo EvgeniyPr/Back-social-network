@@ -1,7 +1,6 @@
-import { BlogOutputModelToFront } from "../models/BlogOutputModel";
+import { queryBlogsRepository } from "../repositories/queryBlogsRepository";
 import { BlogInputModel } from "../models/BlogInputModel";
 import { blogsMongoDBRepository } from "../repositories/blogsMongoDbRepository";
-import { queryBlogsRepository } from "../../queryRepositories/queryBlogsRepository";
 
 export const blogsService = {
   async createBlog(data: BlogInputModel) {
@@ -25,7 +24,7 @@ export const blogsService = {
   },
 
   async blogWithIdIsExist(id: string) {
-    const blogFromDB = await queryBlogsRepository.getBlog(id);
+    const blogFromDB = await blogsMongoDBRepository.getBlog(id);
     if (!blogFromDB) {
       throw new Error("There are no blogs with such id");
     }

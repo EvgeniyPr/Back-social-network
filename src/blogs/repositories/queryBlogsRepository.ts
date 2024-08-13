@@ -2,11 +2,14 @@ import {
   BlogOutputModelToFront,
   BlogsOutputModelFromDb,
   BlogsOutputModelToFrontWithPagination,
-} from "../blogs/models/BlogOutputModel";
-import { blogCollection } from "../db/mongo-db";
-import { QueryModel, searchBy } from "./models/QueryModels";
-import { sanitizedQuery } from "./utils/sanitizedQuery";
-import { getItemsWithPagination } from "./utils/getItemsWithPagination";
+} from "../models/BlogOutputModel";
+import { blogCollection } from "../../db/mongo-db";
+import {
+  QueryModel,
+  searchBy,
+} from "../../queryRepositories/models/QueryModels";
+import { sanitizedQuery } from "../../queryRepositories/utils/sanitizedQuery";
+import { getItemsWithPagination } from "../../queryRepositories/utils/getItemsWithPagination";
 import { ObjectId } from "mongodb";
 
 export const queryBlogsRepository = {

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { SETTINGS } from "../settings/settings";
-import { HTTP_STATUSES } from "../settings/HTTP_STATUSES/HTTP_STATUSES";
+import { SETTINGS } from "../../settings/settings";
+import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 const base64regex: RegExp =
   /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/;
 

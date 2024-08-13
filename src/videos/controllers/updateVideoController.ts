@@ -2,13 +2,13 @@ import { Response } from "express";
 import {
   RequestWithBody,
   RequestWithParams,
-} from "../../models/RequestsModels";
+} from "../../common/models/RequestsModels";
 import { UpdateVideoInputModel } from "../models/UpdateVideoInputModel";
 import { inputValidation } from "../validation/inputValidation";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { findIndex } from "../../utils/findIndex";
 import { GetVideoByURIParamsModel } from "../models/GetVideoByURIParamsModel";
 import { db } from "../../db/db";
+import { findIndex } from "../../common/utils/findIndex";
 
 export const updateVideoController = (
   req: RequestWithBody<UpdateVideoInputModel> &

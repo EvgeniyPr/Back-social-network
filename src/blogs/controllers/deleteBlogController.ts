@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { RequestWithParams } from "../../models/RequestsModels";
+import { RequestWithParams } from "../../common/models/RequestsModels";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { GetBlogByURIParamsModel } from "../models/GetBlogByURIParamsModel";
 import { blogsService } from "../domain/blogsService";

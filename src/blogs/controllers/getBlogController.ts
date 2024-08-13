@@ -1,9 +1,9 @@
 import { Response } from "express";
-import { RequestWithParams } from "../../models/RequestsModels";
+import { RequestWithParams } from "../../common/models/RequestsModels";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { BlogOutputModelToFront } from "../models/BlogOutputModel";
 import { GetBlogByURIParamsModel } from "../models/GetBlogByURIParamsModel";
-import { queryBlogsRepository } from "../../queryRepositories/queryBlogsRepository";
+import { queryBlogsRepository } from "../repositories/queryBlogsRepository";
 
 export const getBlogController = async (
   req: RequestWithParams<GetBlogByURIParamsModel>,

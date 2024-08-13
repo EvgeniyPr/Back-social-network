@@ -10,6 +10,7 @@ import { postsRouter } from "./routers/postsRouter";
 import { blogCollection, postCollection, userCollection } from "./db/mongo-db";
 import { usersRouter } from "./routers/usersRouter";
 import { authRouter } from "./routers/authRouter";
+// import { commentsRouter } from "./routers/commentsRouter";
 
 export const app = express();
 
@@ -22,6 +23,7 @@ app.use(SETTINGS.PASS.BLOGS, blogsRouter);
 app.use(SETTINGS.PASS.POSTS, postsRouter);
 app.use(SETTINGS.PASS.USERS, usersRouter);
 app.use(SETTINGS.PASS.AUTH, authRouter);
+// app.use(SETTINGS.PASS.COMMENTS, commentsRouter);
 app.delete("/testing/all-data", async (req, res) => {
   blogCollection.deleteMany({});
   postCollection.deleteMany({});

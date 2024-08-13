@@ -2,7 +2,7 @@ import { Response } from "express";
 import {
   RequestWithBody,
   RequestWithParams,
-} from "../../models/RequestsModels";
+} from "../../common/models/RequestsModels";
 import { BlogInputModel } from "../models/BlogInputModel";
 import { GetBlogByURIParamsModel } from "../models/GetBlogByURIParamsModel";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";

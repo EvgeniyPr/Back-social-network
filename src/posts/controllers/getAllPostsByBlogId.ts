@@ -1,4 +1,4 @@
-import { RequestWithParamsAndQuery } from "../../models/RequestsModels";
+import { RequestWithParamsAndQuery } from "../../common/models/RequestsModels";
 import { GetBlogByURIParamsModel } from "../../blogs/models/GetBlogByURIParamsModel";
 import { Response } from "express";
 import { PostsOutputModelToFrontWithPagination } from "../models/PostOutputModel";

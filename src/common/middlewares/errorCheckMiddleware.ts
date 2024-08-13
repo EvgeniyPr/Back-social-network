@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
 import { mapErrors } from "../errors/mapErrors";
-import { HTTP_STATUSES } from "../settings/HTTP_STATUSES/HTTP_STATUSES";
+import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { Request, Response, NextFunction } from "express";
 import { APIErrorResult } from "../models/APIErrorResult";
 export let errors: APIErrorResult;

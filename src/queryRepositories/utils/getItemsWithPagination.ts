@@ -1,9 +1,9 @@
 import { Collection } from "mongodb";
 import { sanitizedQueryModel } from "../models/QueryModels";
 import { BlogsOutputModelFromDb } from "../../blogs/models/BlogOutputModel";
-import { mapId } from "../../utils/mapId";
 import { PostsOutputModelFromDb } from "../../posts/models/PostOutputModel";
 import { UsersOutputModelFromDb } from "../../users/models/UserModels";
+import { mapId } from "../../common/utils/mapId";
 
 export const getItemsWithPagination = async (
   blogId: string | null,

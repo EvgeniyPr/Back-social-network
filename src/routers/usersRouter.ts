@@ -2,12 +2,12 @@ import { Router } from "express";
 import { getUsersController } from "../users/controllers/getUsersController";
 import { createUser } from "../users/controllers/createUser";
 import { deleteUser } from "../users/controllers/deleteUser";
-import { authMiddleware } from "../middlewares/authMiddleware";
+import { authMiddleware } from "../common/middlewares/authMiddleware";
 import {
   userInputValidators,
   usersIdParamsValidator,
 } from "../users/middleware/usersValidationMiddleware";
-import { errorCheckMiddleware } from "../middlewares/errorCheckMiddleware";
+import { errorCheckMiddleware } from "../common/middlewares/errorCheckMiddleware";
 
 export const usersRouter = Router();
 usersRouter.get("/", authMiddleware, errorCheckMiddleware, getUsersController);

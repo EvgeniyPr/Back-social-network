@@ -3,12 +3,12 @@ import { getBlogController } from "../blogs/controllers/getBlogController";
 import { createBlogController } from "../blogs/controllers/createBlogController";
 import { deleteBlogController } from "../blogs/controllers/deleteBlogController";
 import { updateBlogController } from "../blogs/controllers/updateBlogController";
-import { authMiddleware } from "../middlewares/authMiddleware";
+import { authMiddleware } from "../common/middlewares/authMiddleware";
 import {
   blogIdParamsValidator,
   blogsInputValidators,
 } from "../blogs/middleware/blogsValidationMiddleware";
-import { errorCheckMiddleware } from "../middlewares/errorCheckMiddleware";
+import { errorCheckMiddleware } from "../common/middlewares/errorCheckMiddleware";
 import { getAllPostsByBlogId } from "../posts/controllers/getAllPostsByBlogId";
 import { createPostForSpecificBlogContriller } from "../posts/controllers/createPostForSpecificBlogContriller";
 import {

@@ -6,7 +6,6 @@ export const authMongoDbRepository = {
     const user = await userCollection.findOne({
       $or: [{ login: data.loginOrEmail }, { email: data.loginOrEmail }],
     });
-
     return user;
   },
 };

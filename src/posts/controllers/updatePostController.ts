@@ -2,7 +2,7 @@ import { Response } from "express";
 import {
   RequestWithBody,
   RequestWithParams,
-} from "../../models/RequestsModels";
+} from "../../common/models/RequestsModels";
 import { GetPostByURIParamsModel } from "../models/GetPostByURIParamsModel";
 import { PostInputModel } from "../models/PostInputModel";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";

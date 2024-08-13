@@ -2,8 +2,8 @@ import { Router } from "express";
 import { createPostsController } from "../posts/controllers/createPostsController";
 import { deletePostController } from "../posts/controllers/deletePostController";
 import { updatePostController } from "../posts/controllers/updatePostController";
-import { authMiddleware } from "../middlewares/authMiddleware";
-import { errorCheckMiddleware } from "../middlewares/errorCheckMiddleware";
+import { authMiddleware } from "../common/middlewares/authMiddleware";
+import { errorCheckMiddleware } from "../common/middlewares/errorCheckMiddleware";
 import {
   postInputValidator,
   postsIdParamsValidator,

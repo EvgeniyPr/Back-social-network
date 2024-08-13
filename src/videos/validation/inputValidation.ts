@@ -1,4 +1,4 @@
-import { errors } from "../../errors/errors";
+import { errors } from "../../common/errors/errors";
 import { UpdateVideoInputModel } from "../models/UpdateVideoInputModel";
 import { MAX_STRING_LENGTH } from "../settings/VALID_VIDEO_RESOLUTION";
 import { isNotBooleanType } from "./isNotBooleanType";
