@@ -10,6 +10,9 @@ import {
 } from "../posts/middleware/postsValidationMiddleware";
 import { getPostsController } from "../posts/controllers/getPostsController";
 import { getPostController } from "../posts/controllers/getPostController";
+import { createCommentForSpecificPost } from "../posts/controllers/createCommentForSpecificPost";
+import { commentsValidationMiddleware } from "../comments/middlewares/commentsValidationMiddleware";
+import { bearerAuthMiddleware } from "../common/middlewares/bearerAuthMiddleware";
 
 export const postsRouter = Router();
 postsRouter.get("/", getPostsController);
@@ -38,4 +41,14 @@ postsRouter.put(
   postsIdParamsValidator,
   ...postInputValidator,
   updatePostController
+);
+
+postsRouter.post(
+  "/:id/comments",
+  postsIdParamsValidator,
+  commentsValidationMiddleware,
+  errorCheckMiddleware,
+  bearerAuthMiddleware,
+  //@ts-ignore
+  createCommentForSpecificPost
 );

@@ -5,6 +5,8 @@ import {
   userLoginPaswordValidator,
 } from "../auth/middleware/authValidationMiddleware";
 import { errorCheckMiddleware } from "../common/middlewares/errorCheckMiddleware";
+import { getMeController } from "../auth/controllers/getMeController";
+import { bearerAuthMiddleware } from "../common/middlewares/bearerAuthMiddleware";
 
 export const authRouter = Router();
 authRouter.post(
@@ -14,3 +16,4 @@ authRouter.post(
   errorCheckMiddleware,
   authControler
 );
+authRouter.get("/me", bearerAuthMiddleware, getMeController);

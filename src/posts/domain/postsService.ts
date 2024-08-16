@@ -7,6 +7,7 @@ import { PostOutputModel } from "../models/PostOutputModel";
 import { errors } from "../../common/middlewares/errorCheckMiddleware";
 import { queryPostsRepository } from "../repositories/queryPostsRepository";
 import { blogsMongoDBRepository } from "../../blogs/repositories/blogsMongoDbRepository";
+import { commentsMongoDbRepository } from "../../comments/repositories/commentsMongoDbRepository";
 
 export const postsService = {
   async createPost(data: PostInputModel) {
@@ -58,5 +59,27 @@ export const postsService = {
       responce.insertedId.toString()
     );
     return postedPost;
+  },
+  async postWithIdIsExist(id: string) {
+    if (await postsMongoDbRepository.getPost(id)) {
+      return true;
+    }
+    return false;
+  },
+  //@ts-ignore
+  async createComment({ userId, login }, comment) {
+    //@ts-ignore
+    const newComment = {
+      ...comment,
+      commentatorInfo: { userId, userLogin: login },
+      createAt: new Date().toISOString(),
+    };
+    const responce = await commentsMongoDbRepository.createComment(newComment);
+    //@ts-ignore
+    const commentfromBd = await commentsMongoDbRepository.getComment(
+      //@ts-ignore
+      responce.insertedId.toString()
+    );
+    return commentfromBd;
   },
 };

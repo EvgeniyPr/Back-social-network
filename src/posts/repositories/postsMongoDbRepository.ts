@@ -1,10 +1,7 @@
 import { ObjectId } from "mongodb";
-import { postCollection } from "../../db/mongo-db";
+import { commentsCollection, postCollection } from "../../db/mongo-db";
 import { PostInputModel } from "../models/PostInputModel";
-import {
-  PostOutputModelToFront,
-  PostsOutputModelFromDb,
-} from "../models/PostOutputModel";
+import { PostsOutputModelFromDb } from "../models/PostOutputModel";
 
 export const postsMongoDbRepository = {
   async createPost(newPost: PostInputModel) {
@@ -21,5 +18,14 @@ export const postsMongoDbRepository = {
   async deletePost(id: string) {
     const info = await postCollection.deleteOne({ _id: new ObjectId(id) });
     return info;
+  },
+  async getPost(id: string): Promise<PostsOutputModelFromDb | null> {
+    const post = (await postCollection.findOne({
+      _id: new ObjectId(id),
+    })) as PostsOutputModelFromDb;
+    if (post) {
+      return post;
+    }
+    return null;
   },
 };
