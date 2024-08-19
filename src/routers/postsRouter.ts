@@ -13,6 +13,7 @@ import { getPostController } from "../posts/controllers/getPostController";
 import { createCommentForSpecificPost } from "../posts/controllers/createCommentForSpecificPost";
 import { commentsValidationMiddleware } from "../comments/middlewares/commentsValidationMiddleware";
 import { bearerAuthMiddleware } from "../common/middlewares/bearerAuthMiddleware";
+import { getAllCommentsForSpecifiedPostController } from "../posts/controllers/getAllCommentsForSpecifiedPost";
 
 export const postsRouter = Router();
 postsRouter.get("/", getPostsController);
@@ -49,6 +50,11 @@ postsRouter.post(
   commentsValidationMiddleware,
   errorCheckMiddleware,
   bearerAuthMiddleware,
-  //@ts-ignore
   createCommentForSpecificPost
+);
+postsRouter.get(
+  "/:id/comments",
+  postsIdParamsValidator,
+  errorCheckMiddleware,
+  getAllCommentsForSpecifiedPostController
 );

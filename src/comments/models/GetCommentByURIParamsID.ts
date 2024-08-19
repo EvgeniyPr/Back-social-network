@@ -1,3 +1,3 @@
 export interface GetCommentByURIParamsId {
-  id: string;
+  commentId: string;
 }

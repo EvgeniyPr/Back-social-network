@@ -8,6 +8,8 @@ import { errors } from "../../common/middlewares/errorCheckMiddleware";
 import { queryPostsRepository } from "../repositories/queryPostsRepository";
 import { blogsMongoDBRepository } from "../../blogs/repositories/blogsMongoDbRepository";
 import { commentsMongoDbRepository } from "../../comments/repositories/commentsMongoDbRepository";
+import { CommentInputModel } from "../../comments/models/CommentInputModel";
+import { CommentOutputModelFromDb } from "../../comments/models/CommenViewModel";
 
 export const postsService = {
   async createPost(data: PostInputModel) {
@@ -66,20 +68,19 @@ export const postsService = {
     }
     return false;
   },
-  //@ts-ignore
-  async createComment({ userId, login }, comment) {
-    //@ts-ignore
-    const newComment = {
-      ...comment,
-      commentatorInfo: { userId, userLogin: login },
-      createAt: new Date().toISOString(),
-    };
-    const responce = await commentsMongoDbRepository.createComment(newComment);
-    //@ts-ignore
-    const commentfromBd = await commentsMongoDbRepository.getComment(
-      //@ts-ignore
-      responce.insertedId.toString()
-    );
-    return commentfromBd;
-  },
+
+  // async createComment({ userId, login }, comment: CommentInputModel) {
+  //   const newComment = {
+  //     ...comment,
+  //     commentatorInfo: { userId, userLogin: login },
+  //     createAt: new Date().toISOString(),
+  //   };
+  //   const responce = await commentsMongoDbRepository.createComment(newComment);
+  //   const commentfromDb = (await commentsMongoDbRepository.getComment(
+  //     responce.insertedId.toString()
+  //   )) as CommentOutputModelFromDb;
+
+  //   const { _id, ...rest } = commentfromDb;
+  //   return { id: _id.toString(), ...rest };
+  // },
 };

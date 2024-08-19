@@ -1,14 +1,24 @@
 import { ObjectId } from "mongodb";
 import { commentsCollection } from "../../db/mongo-db";
+import { CommentViewModel } from "../models/CommenViewModel";
 
 export const commentsMongoDbRepository = {
-  //@ts-ignore
-  async createComment(newComment) {
+  async createComment(newComment: CommentViewModel) {
     const info = await commentsCollection.insertOne(newComment);
     return info;
   },
-  async getComment(id: string) {
-    const comment = await commentsCollection.findOne({ _id: new ObjectId(id) });
+  async getComment(commentId: string) {
+    const comment = await commentsCollection.findOne(
+      { _id: new ObjectId(commentId) },
+      { projection: { postId: 0 } }
+    );
     return comment;
+  },
+  async deleteComment(commentId: string) {
+    console.log(commentId);
+    const info = await commentsCollection.deleteOne({
+      _id: new ObjectId(commentId),
+    });
+    return info;
   },
 };

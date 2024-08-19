@@ -11,7 +11,7 @@ export const getItemsWithPagination = async (
   collection: Collection
 ) => {
   const filter =
-    blogId !== null ? { blogId, ...searchNameTerm } : { ...searchNameTerm };
+    blogId !== null ? { blogId, ...searchNameTerm } : searchNameTerm;
   const totalCount = await collection.countDocuments(filter);
   const pagesCount = Math.ceil(totalCount / pageSize);
   const items = (await collection

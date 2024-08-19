@@ -7,8 +7,9 @@ import {
 import { errorCheckMiddleware } from "../common/middlewares/errorCheckMiddleware";
 import { getMeController } from "../auth/controllers/getMeController";
 import { bearerAuthMiddleware } from "../common/middlewares/bearerAuthMiddleware";
+// import { CustomRequest } from "../common/models/RequestsModels";
 
-export const authRouter = Router();
+export const authRouter: Router = Router();
 authRouter.post(
   "/login",
   userLoginOrEmailInputValidator,
