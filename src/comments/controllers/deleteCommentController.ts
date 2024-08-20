@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-import { RequestWithParams } from "../../common/models/RequestsModels";
-import { GetCommentByURIParamsId } from "../models/GetCommentByURIParamsID";
 import { commentsService } from "../domain/commentsService";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 

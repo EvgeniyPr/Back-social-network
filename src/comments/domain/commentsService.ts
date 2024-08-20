@@ -22,6 +22,26 @@ export const commentsService = {
     const { _id, ...rest } = commentfromDb;
     return { id: _id.toString(), ...rest };
   },
+  async updateComment(
+    commentId: string,
+    data: CommentInputModel,
+    user: MeViewModel
+  ) {
+    const commentToUpdate = await commentsMongoDbRepository.getComment(
+      commentId
+    );
+    if (!commentToUpdate) {
+      return null;
+    }
+    if (commentToUpdate.commentatorInfo.userId === user.userId) {
+      const responce = await commentsMongoDbRepository.updateComment(
+        commentId,
+        data
+      );
+      return responce.matchedCount;
+    }
+    return "FORBIDDEN_403";
+  },
   async deleteComment(commentId: string, user: MeViewModel) {
     const commentToDelete = await commentsMongoDbRepository.getComment(
       commentId

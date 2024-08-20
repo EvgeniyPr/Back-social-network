@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import { commentsCollection } from "../../db/mongo-db";
 import { CommentViewModel } from "../models/CommenViewModel";
+import { CommentInputModel } from "../models/CommentInputModel";
 
 export const commentsMongoDbRepository = {
   async createComment(newComment: CommentViewModel) {
@@ -14,8 +15,17 @@ export const commentsMongoDbRepository = {
     );
     return comment;
   },
+  async updateComment(commentId: string, data: CommentInputModel) {
+    const info = await commentsCollection.updateOne(
+      {
+        _id: new ObjectId(commentId),
+      },
+      { $set: data }
+    );
+    console.log("info", info);
+    return info;
+  },
   async deleteComment(commentId: string) {
-    console.log(commentId);
     const info = await commentsCollection.deleteOne({
       _id: new ObjectId(commentId),
     });
