@@ -62,25 +62,16 @@ export const postsService = {
     );
     return postedPost;
   },
-  async postWithIdIsExist(id: string) {
-    if (await postsMongoDbRepository.getPost(id)) {
-      return true;
+  async blogWithIdIsExist(id: string) {
+    const blogFromDB = await blogsMongoDBRepository.getBlog(id);
+    if (!blogFromDB) {
+      throw new Error("There are no blogs with such id");
     }
-    return false;
   },
-
-  // async createComment({ userId, login }, comment: CommentInputModel) {
-  //   const newComment = {
-  //     ...comment,
-  //     commentatorInfo: { userId, userLogin: login },
-  //     createAt: new Date().toISOString(),
-  //   };
-  //   const responce = await commentsMongoDbRepository.createComment(newComment);
-  //   const commentfromDb = (await commentsMongoDbRepository.getComment(
-  //     responce.insertedId.toString()
-  //   )) as CommentOutputModelFromDb;
-
-  //   const { _id, ...rest } = commentfromDb;
-  //   return { id: _id.toString(), ...rest };
-  // },
+  async postWithIdIsExist(id: string) {
+    const postFromDB = await postsMongoDbRepository.getPost(id);
+    if (!postFromDB) {
+      throw new Error("There are no posts with such id");
+    }
+  },
 };

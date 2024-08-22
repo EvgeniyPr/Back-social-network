@@ -7,13 +7,14 @@ import { errorCheckMiddleware } from "../common/middlewares/errorCheckMiddleware
 import {
   postInputValidator,
   postsIdParamsValidator,
+  postWithIdIsExist,
 } from "../posts/middleware/postsValidationMiddleware";
 import { getPostsController } from "../posts/controllers/getPostsController";
 import { getPostController } from "../posts/controllers/getPostController";
 import { createCommentForSpecificPost } from "../posts/controllers/createCommentForSpecificPost";
 import { commentsValidationMiddleware } from "../comments/middlewares/commentsValidationMiddleware";
 import { bearerAuthMiddleware } from "../common/middlewares/bearerAuthMiddleware";
-import { getAllCommentsForSpecifiedPostController } from "../posts/controllers/getAllCommentsForSpecifiedPost";
+import { getCommentsForSpecifiedPostController } from "../posts/controllers/getCommentsForSpecifiedPost";
 
 export const postsRouter = Router();
 postsRouter.get("/", getPostsController);
@@ -46,15 +47,17 @@ postsRouter.put(
 
 postsRouter.post(
   "/:id/comments",
+  bearerAuthMiddleware,
   postsIdParamsValidator,
   commentsValidationMiddleware,
+  postWithIdIsExist,
   errorCheckMiddleware,
-  bearerAuthMiddleware,
   createCommentForSpecificPost
 );
 postsRouter.get(
   "/:id/comments",
   postsIdParamsValidator,
+  postWithIdIsExist,
   errorCheckMiddleware,
-  getAllCommentsForSpecifiedPostController
+  getCommentsForSpecifiedPostController
 );

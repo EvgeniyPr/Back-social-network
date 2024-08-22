@@ -19,6 +19,7 @@ export const commentsService = {
     const commentfromDb = (await commentsMongoDbRepository.getComment(
       responce.insertedId.toString()
     )) as CommentOutputModelFromDb;
+    console.log(commentfromDb, "commentfromDb");
     const { _id, ...rest } = commentfromDb;
     return { id: _id.toString(), ...rest };
   },

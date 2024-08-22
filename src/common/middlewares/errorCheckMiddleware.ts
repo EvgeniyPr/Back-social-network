@@ -17,7 +17,8 @@ export const errorCheckMiddleware = (
     if (
       errors.errorsMessages.some(
         (error) =>
-          error.message === "There are no blogs with such id" &&
+          (error.message === "There are no blogs with such id" ||
+            error.message === "There are no posts with such id") &&
           error.field === "id"
       )
     ) {

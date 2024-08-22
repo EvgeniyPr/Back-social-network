@@ -19,16 +19,16 @@ commentsRouter.get(
 );
 commentsRouter.delete(
   "/:commentsId",
+  bearerAuthMiddleware,
   commentsIdParamsValidator,
   errorCheckMiddleware,
-  bearerAuthMiddleware,
   deleteCommentController
 );
 commentsRouter.put(
   "/:commentsId",
+  bearerAuthMiddleware,
   commentsIdParamsValidator,
   commentsValidationMiddleware,
   errorCheckMiddleware,
-  bearerAuthMiddleware,
   updateCommentController
 );

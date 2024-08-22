@@ -22,7 +22,6 @@ export const commentsMongoDbRepository = {
       },
       { $set: data }
     );
-    console.log("info", info);
     return info;
   },
   async deleteComment(commentId: string) {

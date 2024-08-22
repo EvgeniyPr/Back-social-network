@@ -7,16 +7,11 @@ export const createCommentForSpecificPost = async (
   req: Request,
   res: Response<CommentOutputModelToFront>
 ) => {
-  if (!(await postsService.postWithIdIsExist(req.params.id))) {
-    res.sendStatus(HTTP_STATUSES.NOT_FOUND_404);
-    return;
-  } else {
-    const newComment = await commentsService.createComment(
-      req.user!,
-      req.body,
-      req.params.id
-    );
-    res.status(HTTP_STATUSES.CREATED_201).json(newComment);
-    return;
-  }
+  const newComment = await commentsService.createComment(
+    req.user!,
+    req.body,
+    req.params.id
+  );
+  res.status(HTTP_STATUSES.CREATED_201).json(newComment);
+  return;
 };

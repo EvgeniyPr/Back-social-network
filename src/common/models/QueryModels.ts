@@ -7,6 +7,11 @@ export enum searchBy {
   title = "title",
   loginOrEmail = "loginOrEmail",
 }
+
+export enum typeId {
+  postId = "postId",
+  blogId = "blogId",
+}
 type SortBy = string;
 type sortDirection = "asc" | "desc" | "ascending" | "descending" | 1 | -1;
 

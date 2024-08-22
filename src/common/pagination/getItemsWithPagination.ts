@@ -6,27 +6,29 @@ import { UsersOutputModelFromDb } from "../../users/models/UserModels";
 import { mapId } from "../../common/utils/mapId";
 
 export const getItemsWithPagination = async (
-  blogId: string | null,
-  { searchNameTerm, pageSize, pageNumber, sort, skipPage }: sanitizedQueryModel,
+  objectId: { id: string; typeId: string } | null,
+  query: sanitizedQueryModel,
   collection: Collection
 ) => {
-  const filter =
-    blogId !== null ? { blogId, ...searchNameTerm } : searchNameTerm;
+  const filter = query.searchNameTerm;
+  if (objectId !== null) {
+    //@ts-ignore
+    filter[objectId.typeId] = objectId.id;
+  }
   const totalCount = await collection.countDocuments(filter);
-  const pagesCount = Math.ceil(totalCount / pageSize);
   const items = (await collection
-    .find(filter, { projection: { password: 0 } })
-    .sort(sort)
-    .skip(skipPage)
-    .limit(pageSize)
+    .find(filter, { projection: { password: 0, postId: 0 } })
+    .sort(query.sort)
+    .skip(query.skipPage)
+    .limit(query.pageSize)
     .toArray()) as
     | BlogsOutputModelFromDb[]
     | PostsOutputModelFromDb[]
     | UsersOutputModelFromDb[];
   const responce = {
-    pagesCount,
-    page: pageNumber,
-    pageSize,
+    pagesCount: Math.ceil(totalCount / query.pageSize),
+    page: query.pageNumber,
+    pageSize: query.pageSize,
     totalCount,
     items: mapId(items),
   };

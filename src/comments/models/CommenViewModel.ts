@@ -7,7 +7,6 @@ export interface CommentViewModel {
 }
 export interface CommentOutputModelFromDb extends CommentViewModel {
   _id: ObjectId;
-  postId: string;
 }
 export interface CommentOutputModelToFront extends CommentViewModel {
   id: string;

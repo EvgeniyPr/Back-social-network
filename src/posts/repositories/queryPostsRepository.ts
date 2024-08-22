@@ -10,9 +10,12 @@ import { sanitizedQuery } from "../../common/pagination/sanitizedQuery";
 import { getItemsWithPagination } from "../../common/pagination/getItemsWithPagination";
 
 export const queryPostsRepository = {
-  async getPosts(blogId: string | null, query: QueryModel) {
+  async getPosts(
+    objectId: { id: string; typeId: string } | null,
+    query: QueryModel
+  ) {
     return (await getItemsWithPagination(
-      blogId,
+      objectId,
       sanitizedQuery(query, searchBy.title),
       postCollection
     )) as PostsOutputModelToFrontWithPagination;
