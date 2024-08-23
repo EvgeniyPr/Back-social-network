@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
-import { postsService } from "../domain/postsService";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { CommentOutputModelToFront } from "../../comments/models/CommenViewModel";
+import { CommentOutputModelToFront } from "../../comments/models/CommenOutputModel";
 import { commentsService } from "../../comments/domain/commentsService";
 export const createCommentForSpecificPost = async (
   req: Request,

@@ -1,4 +1,5 @@
-import { QueryModel, searchBy } from "../../common/models/QueryModels";
+import { QueryModel, SearchFilter } from "../../common/models/QueryModels";
+import { searchBy } from "../models/Pagination";
 
 export const createSearchBy = (query: QueryModel, searchField: string = "") => {
   const searchTerms = {
@@ -6,9 +7,9 @@ export const createSearchBy = (query: QueryModel, searchField: string = "") => {
     searchLoginTerm: query.searchLoginTerm || "",
     searchEmailTerm: query.searchEmailTerm || "",
   };
-  let filter = {};
+  let searchFilter = {};
   if (searchField === searchBy.name || searchField === searchBy.title) {
-    filter = {
+    searchFilter = {
       [searchField]: { $regex: searchTerms.searchNameTerm, $options: "i" },
     };
   }
@@ -16,12 +17,12 @@ export const createSearchBy = (query: QueryModel, searchField: string = "") => {
     searchField === searchBy.loginOrEmail &&
     (searchTerms.searchLoginTerm || searchTerms.searchEmailTerm.length)
   ) {
-    filter = {
+    searchFilter = {
       $or: [
         { login: { $regex: searchTerms.searchLoginTerm, $options: "i" } },
         { email: { $regex: searchTerms.searchEmailTerm, $options: "i" } },
       ],
     };
   }
-  return filter;
+  return searchFilter as SearchFilter;
 };

@@ -3,8 +3,9 @@ import { GetBlogByURIParamsModel } from "../../blogs/models/GetBlogByURIParamsMo
 import { Response } from "express";
 import { PostsOutputModelToFrontWithPagination } from "../models/PostOutputModel";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { QueryModel, typeId } from "../../common/models/QueryModels";
+import { QueryModel } from "../../common/models/QueryModels";
 import { queryPostsRepository } from "../repositories/queryPostsRepository";
+import { typeId } from "../../common/models/Pagination";
 
 export const getAllPostsByBlogId = async (
   req: RequestWithParamsAndQuery<GetBlogByURIParamsModel, QueryModel>,

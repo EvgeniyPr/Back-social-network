@@ -1,20 +1,24 @@
 import { Collection } from "mongodb";
-import { sanitizedQueryModel } from "../../common/models/QueryModels";
+import {
+  PaginationFilter,
+  SanitizedQueryModel,
+} from "../../common/models/QueryModels";
 import { BlogsOutputModelFromDb } from "../../blogs/models/BlogOutputModel";
 import { PostsOutputModelFromDb } from "../../posts/models/PostOutputModel";
 import { UsersOutputModelFromDb } from "../../users/models/UserModels";
 import { mapId } from "../../common/utils/mapId";
+import { CommentOutputModelFromDb } from "../../comments/models/CommenOutputModel";
 
 export const getItemsWithPagination = async (
   objectId: { id: string; typeId: string } | null,
-  query: sanitizedQueryModel,
+  query: SanitizedQueryModel,
   collection: Collection
 ) => {
-  const filter = query.searchNameTerm;
+  const filter: PaginationFilter = query.searchNameTerm;
   if (objectId !== null) {
-    //@ts-ignore
     filter[objectId.typeId] = objectId.id;
   }
+
   const totalCount = await collection.countDocuments(filter);
   const items = (await collection
     .find(filter, { projection: { password: 0, postId: 0 } })
@@ -24,7 +28,9 @@ export const getItemsWithPagination = async (
     .toArray()) as
     | BlogsOutputModelFromDb[]
     | PostsOutputModelFromDb[]
-    | UsersOutputModelFromDb[];
+    | UsersOutputModelFromDb[]
+    | CommentOutputModelFromDb[];
+
   const responce = {
     pagesCount: Math.ceil(totalCount / query.pageSize),
     page: query.pageNumber,

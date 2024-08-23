@@ -15,7 +15,7 @@ export const userService = {
       createdAt: new Date().toISOString(),
     };
     const responce = await usersMongoDbRepository.createUser(newUser);
-    return await queryUsersRepository.getUser(responce.insertedId.toString());
+    return await usersMongoDbRepository.getUser(responce.insertedId.toString());
   },
   async deleteUser(id: string) {
     const responce = await usersMongoDbRepository.deleteUser(id);

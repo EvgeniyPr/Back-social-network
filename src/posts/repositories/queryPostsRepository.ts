@@ -5,9 +5,10 @@ import {
   PostsOutputModelFromDb,
   PostsOutputModelToFrontWithPagination,
 } from "../models/PostOutputModel";
-import { QueryModel, searchBy } from "../../common/models/QueryModels";
+import { QueryModel } from "../../common/models/QueryModels";
 import { sanitizedQuery } from "../../common/pagination/sanitizedQuery";
 import { getItemsWithPagination } from "../../common/pagination/getItemsWithPagination";
+import { searchBy } from "../../common/models/Pagination";
 
 export const queryPostsRepository = {
   async getPosts(
@@ -20,14 +21,14 @@ export const queryPostsRepository = {
       postCollection
     )) as PostsOutputModelToFrontWithPagination;
   },
-  async getPost(id: string): Promise<PostOutputModelToFront | null> {
-    const post = (await postCollection.findOne({
-      _id: new ObjectId(id),
-    })) as PostsOutputModelFromDb;
-    if (post) {
-      const { _id, ...rest } = post;
-      return { id: _id.toString(), ...rest };
-    }
-    return null;
-  },
+  // async getPost(id: string): Promise<PostOutputModelToFront | null> {
+  //   const post = (await postCollection.findOne({
+  //     _id: new ObjectId(id),
+  //   })) as PostsOutputModelFromDb;
+  //   if (post) {
+  //     const { _id, ...rest } = post;
+  //     return { id: _id.toString(), ...rest };
+  //   }
+  //   return null;
+  // },
 };

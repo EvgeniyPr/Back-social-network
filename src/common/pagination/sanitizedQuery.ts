@@ -1,15 +1,16 @@
 import {
   QueryModel,
-  sanitizedQueryModel,
-  SortDirection,
+  SanitizedQueryModel,
 } from "../../common/models/QueryModels";
+import { SortDirection } from "../models/Pagination";
+
 import { createSearchBy } from "./createSearchBy";
 
 export const sanitizedQuery = (
   query: QueryModel,
   searchBy: string = ""
-): sanitizedQueryModel => {
-  const paginationSettings: sanitizedQueryModel = {
+): SanitizedQueryModel => {
+  const paginationSettings: SanitizedQueryModel = {
     pageNumber: query.pageNumber ? +query.pageNumber : 1,
     pageSize: query.pageSize ? +query.pageSize : 10,
     sortBy: query.sortBy ? query.sortBy : "createdAt",

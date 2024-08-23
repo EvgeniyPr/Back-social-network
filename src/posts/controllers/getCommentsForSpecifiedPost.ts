@@ -2,8 +2,9 @@ import { Response } from "express";
 import { RequestWithParamsAndQuery } from "../../common/models/RequestsModels";
 import { queryCommentsRepository } from "../../comments/repositories/queryCommentsRepository";
 import { GetPostByURIParamsModel } from "../models/GetPostByURIParamsModel";
-import { QueryModel, typeId } from "../../common/models/QueryModels";
+import { QueryModel } from "../../common/models/QueryModels";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
+import { typeId } from "../../common/models/Pagination";
 
 export const getCommentsForSpecifiedPostController = async (
   req: RequestWithParamsAndQuery<GetPostByURIParamsModel, QueryModel>,

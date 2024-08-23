@@ -1,7 +1,5 @@
-import { queryBlogsRepository } from "../repositories/queryBlogsRepository";
 import { BlogInputModel } from "../models/BlogInputModel";
 import { blogsMongoDBRepository } from "../repositories/blogsMongoDbRepository";
-
 export const blogsService = {
   async createBlog(data: BlogInputModel) {
     const newBlog = {
@@ -10,7 +8,11 @@ export const blogsService = {
       createdAt: new Date().toISOString(),
     };
     const response = await blogsMongoDBRepository.createBlog(newBlog);
-    return await queryBlogsRepository.getBlog(response.insertedId.toString());
+    return await blogsMongoDBRepository.getBlog(response.insertedId.toString());
+  },
+  async getBlog(id: string) {
+    const blog = await blogsMongoDBRepository.getBlog(id);
+    return blog;
   },
 
   async updateBlog(id: string, data: BlogInputModel) {

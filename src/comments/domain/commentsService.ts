@@ -1,6 +1,6 @@
 import { MeViewModel } from "../../auth/models/MeViewModel";
 import { CommentInputModel } from "../models/CommentInputModel";
-import { CommentOutputModelFromDb } from "../models/CommenViewModel";
+import { CommentOutputModelFromDb } from "../models/CommenOutputModel";
 import { commentsMongoDbRepository } from "../repositories/commentsMongoDbRepository";
 
 export const commentsService = {

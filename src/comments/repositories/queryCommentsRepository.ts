@@ -3,7 +3,6 @@ import { commentsCollection } from "../../db/mongo-db";
 import { QueryModel } from "../../common/models/QueryModels";
 import { getItemsWithPagination } from "../../common/pagination/getItemsWithPagination";
 import { sanitizedQuery } from "../../common/pagination/sanitizedQuery";
-
 export const queryCommentsRepository = {
   async getComment(id: string) {
     const comment = await commentsCollection.findOne(
@@ -12,7 +11,7 @@ export const queryCommentsRepository = {
       },
       { projection: { postId: 0 } }
     );
-    console.log("comment", comment);
+
     if (comment) {
       const { _id, ...rest } = comment;
       return { id: _id.toString(), ...rest };

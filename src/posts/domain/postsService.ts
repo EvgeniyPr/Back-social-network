@@ -5,11 +5,7 @@ import {
 import { postsMongoDbRepository } from "../repositories/postsMongoDbRepository";
 import { PostOutputModel } from "../models/PostOutputModel";
 import { errors } from "../../common/middlewares/errorCheckMiddleware";
-import { queryPostsRepository } from "../repositories/queryPostsRepository";
 import { blogsMongoDBRepository } from "../../blogs/repositories/blogsMongoDbRepository";
-import { commentsMongoDbRepository } from "../../comments/repositories/commentsMongoDbRepository";
-import { CommentInputModel } from "../../comments/models/CommentInputModel";
-import { CommentOutputModelFromDb } from "../../comments/models/CommenViewModel";
 
 export const postsService = {
   async createPost(data: PostInputModel) {
@@ -27,6 +23,10 @@ export const postsService = {
     }
     return errors;
   },
+  async getPost(id: string) {
+    const post = postsMongoDbRepository.getPost(id);
+    return post;
+  },
   async createPostForSpecificBlog(
     blogId: string,
     data: PostInputModelForSpecificBlog
@@ -37,7 +37,7 @@ export const postsService = {
         ...data,
         createdAt: new Date().toISOString(),
         blogName: blog.name,
-        blogId: blog._id.toString(),
+        blogId: blog.id.toString(),
       };
       const createdPost = await this.creatNewPostResponse(newPost);
       if (createdPost) {
@@ -57,7 +57,7 @@ export const postsService = {
   },
   async creatNewPostResponse(newPost: PostOutputModel) {
     const responce = await postsMongoDbRepository.createPost(newPost);
-    const postedPost = await queryPostsRepository.getPost(
+    const postedPost = await postsMongoDbRepository.getPost(
       responce.insertedId.toString()
     );
     return postedPost;

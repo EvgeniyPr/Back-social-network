@@ -1,13 +1,9 @@
-import { ObjectId } from "mongodb";
 import { userCollection } from "../../db/mongo-db";
-import {
-  UserOutputModelToFront,
-  UsersOutputModelFromDb,
-  UsersOutputModelToFrontWithPagination,
-} from "../models/UserModels";
-import { QueryModel, searchBy } from "../../common/models/QueryModels";
+import { UsersOutputModelToFrontWithPagination } from "../models/UserModels";
+import { QueryModel } from "../../common/models/QueryModels";
 import { getItemsWithPagination } from "../../common/pagination/getItemsWithPagination";
 import { sanitizedQuery } from "../../common/pagination/sanitizedQuery";
+import { searchBy } from "../../common/models/Pagination";
 
 export const queryUsersRepository = {
   async getUsers(
@@ -18,18 +14,5 @@ export const queryUsersRepository = {
       sanitizedQuery(query, searchBy.loginOrEmail),
       userCollection
     )) as UsersOutputModelToFrontWithPagination;
-  },
-  async getUser(id: string): Promise<UserOutputModelToFront | null> {
-    const user = (await userCollection.findOne(
-      {
-        _id: new ObjectId(id),
-      },
-      { projection: { password: 0 } }
-    )) as UsersOutputModelFromDb;
-    if (user) {
-      const { _id, ...rest } = user;
-      return { id: _id.toString(), ...rest };
-    }
-    return null;
   },
 };

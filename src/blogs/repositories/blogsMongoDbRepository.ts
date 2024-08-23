@@ -22,12 +22,13 @@ export const blogsMongoDBRepository = {
     const info = await blogCollection.deleteOne({ _id: new ObjectId(id) });
     return info;
   },
-  async getBlog(id: string): Promise<BlogsOutputModelFromDb | null> {
+  async getBlog(id: string): Promise<BlogOutputModelToFront | null> {
     const blog = (await blogCollection.findOne({
       _id: new ObjectId(id),
     })) as BlogsOutputModelFromDb;
     if (blog) {
-      return blog;
+      const { _id, ...rest } = blog;
+      return { id: _id.toString(), ...rest };
     }
     return null;
   },
