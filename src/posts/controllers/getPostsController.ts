@@ -1,13 +1,12 @@
-import { query, Request, Response } from "express";
+import { Response } from "express";
 import {
   PostOutputModelToFront,
   PostsOutputModelToFrontWithPagination,
 } from "../models/PostOutputModel";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { postsService } from "../domain/postsService";
-import { RequestWithQuery } from "../../models/RequestsModels";
-import { QueryModel } from "../../queryRepositories/models/QueryModels";
-import { queryPostsRepository } from "../../queryRepositories/queryPostsRepository";
+import { RequestWithQuery } from "../../common/models/RequestsModels";
+import { QueryModel } from "../../common/models/QueryModels";
+import { queryPostsRepository } from "../repositories/queryPostsRepository";
 
 export const getPostsController = async (
   req: RequestWithQuery<QueryModel>,

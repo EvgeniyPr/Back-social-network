@@ -1,9 +1,9 @@
 import { Response } from "express";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { UsersOutputModelToFrontWithPagination } from "../models/UserModels";
-import { queryUsersRepository } from "../../queryRepositories/queryUsersRepository";
-import { RequestWithQuery } from "../../models/RequestsModels";
-import { QueryModel } from "../../queryRepositories/models/QueryModels";
+import { queryUsersRepository } from "../repositories/queryUsersRepository";
+import { RequestWithQuery } from "../../common/models/RequestsModels";
+import { QueryModel } from "../../common/models/QueryModels";
 
 export const getUsersController = async (
   req: RequestWithQuery<QueryModel>,

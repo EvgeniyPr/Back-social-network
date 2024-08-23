@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { RequestWithParams } from "../../models/RequestsModels";
+import { RequestWithParams } from "../../common/models/RequestsModels";
 import { GetPostByURIParamsModel } from "../models/GetPostByURIParamsModel";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { postsService } from "../domain/postsService";

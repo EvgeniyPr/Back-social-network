@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { usersMongoDbRepository } from "../repositories/usersMongoDbRepository";
-import { RequestWithParams } from "../../models/RequestsModels";
+import { RequestWithParams } from "../../common/models/RequestsModels";
 import { GetUserByUriParam } from "../models/GetUserByUriParam";
 import { userService } from "../domain/usersService";
 

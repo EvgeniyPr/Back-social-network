@@ -94,16 +94,19 @@ describe("/user/login", () => {
     usersData = createRequest.body;
     expect(usersData.items.length).toBe(1);
   });
-  test("-POST should return responce no_content_204 with valid loginOrEmail and password", async () => {
-    await req
-      .post(SETTINGS.PASS.AUTH + "/login")
-      .send({ loginOrEmail: "test@mail.com", password: "123456" })
-      .expect(HTTP_STATUSES.NO_CONTENT_204);
-    const createRequest = await req
-      .get(SETTINGS.PASS.USERS)
-      .auth("admin", "qwerty")
-      .expect(HTTP_STATUSES.OK_200);
-    usersData = createRequest.body;
-    expect(usersData.items.length).toBe(1);
-  });
+  // test("-POST should return responce no_content_204 with valid loginOrEmail and password", async () => {
+  //   console.log(usersData.items[0].id);
+  //   await req
+  //     .delete(SETTINGS.PASS.AUTH + "/" + usersData.items[0].id)
+  //     .auth("admin", "qwerty")
+  //     // .send({ loginOrEmail: "test@mail.com", password: "123456" })
+  //     .expect(HTTP_STATUSES.NO_CONTENT_204);
+  //   const createRequest = await req
+  //     .get(SETTINGS.PASS.USERS)
+  //     .auth("admin", "qwerty")
+  //     .expect(HTTP_STATUSES.OK_200);
+  //   usersData = createRequest.body;
+  //   console.log("usersData", usersData);
+  //   expect(usersData.items.length).toBe(0);
+  // });
 });

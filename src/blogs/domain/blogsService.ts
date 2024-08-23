@@ -1,8 +1,5 @@
-import { BlogOutputModelToFront } from "../models/BlogOutputModel";
 import { BlogInputModel } from "../models/BlogInputModel";
 import { blogsMongoDBRepository } from "../repositories/blogsMongoDbRepository";
-import { queryBlogsRepository } from "../../queryRepositories/queryBlogsRepository";
-
 export const blogsService = {
   async createBlog(data: BlogInputModel) {
     const newBlog = {
@@ -11,7 +8,11 @@ export const blogsService = {
       createdAt: new Date().toISOString(),
     };
     const response = await blogsMongoDBRepository.createBlog(newBlog);
-    return await queryBlogsRepository.getBlog(response.insertedId.toString());
+    return await blogsMongoDBRepository.getBlog(response.insertedId.toString());
+  },
+  async getBlog(id: string) {
+    const blog = await blogsMongoDBRepository.getBlog(id);
+    return blog;
   },
 
   async updateBlog(id: string, data: BlogInputModel) {
@@ -25,7 +26,7 @@ export const blogsService = {
   },
 
   async blogWithIdIsExist(id: string) {
-    const blogFromDB = await queryBlogsRepository.getBlog(id);
+    const blogFromDB = await blogsMongoDBRepository.getBlog(id);
     if (!blogFromDB) {
       throw new Error("There are no blogs with such id");
     }

@@ -1,9 +1,9 @@
 import { Response } from "express";
-import { RequestWithParams } from "../../models/RequestsModels";
+import { RequestWithParams } from "../../common/models/RequestsModels";
 import { GetVideoByURIParamsModel } from "../models/GetVideoByURIParamsModel";
-import { findIndex } from "../../utils/findIndex";
 import { db } from "../../db/db";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
+import { findIndex } from "../../common/utils/findIndex";
 
 export const deleteVideoController = (
   req: RequestWithParams<GetVideoByURIParamsModel>,

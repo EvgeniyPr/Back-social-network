@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
 import { mapErrors } from "../errors/mapErrors";
-import { HTTP_STATUSES } from "../settings/HTTP_STATUSES/HTTP_STATUSES";
+import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 import { Request, Response, NextFunction } from "express";
 import { APIErrorResult } from "../models/APIErrorResult";
 export let errors: APIErrorResult;
@@ -17,7 +17,8 @@ export const errorCheckMiddleware = (
     if (
       errors.errorsMessages.some(
         (error) =>
-          error.message === "There are no blogs with such id" &&
+          (error.message === "There are no blogs with such id" ||
+            error.message === "There are no posts with such id") &&
           error.field === "id"
       )
     ) {

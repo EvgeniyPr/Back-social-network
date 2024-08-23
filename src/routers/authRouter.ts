@@ -1,14 +1,20 @@
 import { Router } from "express";
 import { authControler } from "../auth/controllers/authController";
-import { userPaswordInputValidator } from "../users/middleware/usersValidationMiddleware";
-import { userLoginInputValidator } from "../auth/middleware/authValidationMiddleware";
-import { errorCheckMiddleware } from "../middlewares/errorCheckMiddleware";
+import {
+  userLoginOrEmailInputValidator,
+  userLoginPaswordValidator,
+} from "../auth/middleware/authValidationMiddleware";
+import { errorCheckMiddleware } from "../common/middlewares/errorCheckMiddleware";
+import { getMeController } from "../auth/controllers/getMeController";
+import { bearerAuthMiddleware } from "../common/middlewares/bearerAuthMiddleware";
+// import { CustomRequest } from "../common/models/RequestsModels";
 
-export const authRouter = Router();
+export const authRouter: Router = Router();
 authRouter.post(
   "/login",
-  userLoginInputValidator,
-  userPaswordInputValidator,
+  userLoginOrEmailInputValidator,
+  userLoginPaswordValidator,
   errorCheckMiddleware,
   authControler
 );
+authRouter.get("/me", bearerAuthMiddleware, getMeController);

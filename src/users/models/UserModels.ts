@@ -10,7 +10,7 @@ export interface UsersOutputModelFromDb {
   _id: ObjectId;
   login: string;
   email: string;
-  password?: string;
+  password: string;
   createAt: string;
 }
 export interface UsersOutputModelToFrontWithPagination {

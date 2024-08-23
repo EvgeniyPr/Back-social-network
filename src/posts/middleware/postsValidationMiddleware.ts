@@ -1,6 +1,7 @@
 import { body, param } from "express-validator";
-import { errorCheckMiddleware } from "../../middlewares/errorCheckMiddleware";
+import { errorCheckMiddleware } from "../../common/middlewares/errorCheckMiddleware";
 import { blogsService } from "../../blogs/domain/blogsService";
+import { postsService } from "../domain/postsService";
 
 export const postTitleInputValidator = body("title")
   .trim()
@@ -41,6 +42,13 @@ export const postBlogIdInputValidator = body("blogId")
 export const postsIdParamsValidator = param("id")
   .matches(/^[0-9a-fA-F]{24}$/)
   .withMessage("id must be 24 character hex string");
+
+export const postWithIdIsExist = param("id")
+  .matches(/^[0-9a-fA-F]{24}$/)
+  .withMessage("id must be 24 character hex string")
+  .custom(async (id) => {
+    await postsService.postWithIdIsExist(id);
+  });
 
 export const postInputValidator = [
   postTitleInputValidator,
