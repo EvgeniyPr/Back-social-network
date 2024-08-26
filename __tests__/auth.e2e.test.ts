@@ -1,3 +1,4 @@
+import { AccessTokenModel } from "../src/auth/models/AccessTokenModel";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { SETTINGS } from "../src/settings/settings";
 import { UsersOutputModelToFrontWithPagination } from "../src/users/models/UserModels";
@@ -10,7 +11,8 @@ let usersData: UsersOutputModelToFrontWithPagination = {
   totalCount: 0,
   items: [],
 };
-describe("/user/login", () => {
+let token: AccessTokenModel;
+describe("create user, authorization test, creating token test", () => {
   test("-POST should create a new user with valid fields", async () => {
     await req
       .post(SETTINGS.PASS.USERS)
@@ -94,19 +96,30 @@ describe("/user/login", () => {
     usersData = createRequest.body;
     expect(usersData.items.length).toBe(1);
   });
-  // test("-POST should return responce no_content_204 with valid loginOrEmail and password", async () => {
-  //   console.log(usersData.items[0].id);
-  //   await req
-  //     .delete(SETTINGS.PASS.AUTH + "/" + usersData.items[0].id)
-  //     .auth("admin", "qwerty")
-  //     // .send({ loginOrEmail: "test@mail.com", password: "123456" })
-  //     .expect(HTTP_STATUSES.NO_CONTENT_204);
-  //   const createRequest = await req
-  //     .get(SETTINGS.PASS.USERS)
-  //     .auth("admin", "qwerty")
-  //     .expect(HTTP_STATUSES.OK_200);
-  //   usersData = createRequest.body;
-  //   console.log("usersData", usersData);
-  //   expect(usersData.items.length).toBe(0);
-  // });
+  test("-POST should return token and responce OK_200 with valid password and login", async () => {
+    const loginResponce = await req
+      .post(SETTINGS.PASS.AUTH + "/login")
+      .send({ loginOrEmail: "testlogin", password: "123456" })
+      .expect(HTTP_STATUSES.OK_200);
+    expect(loginResponce.body).toEqual({ accessToken: expect.any(String) });
+    token = loginResponce.body;
+    const createRequest = await req
+      .get(SETTINGS.PASS.USERS)
+      .auth("admin", "qwerty")
+      .expect(HTTP_STATUSES.OK_200);
+    usersData = createRequest.body;
+    expect(usersData.items.length).toBe(1);
+  });
+  test("-POST should return responce unauthorized_401 with wrong token", async () => {
+    await req
+      .get(SETTINGS.PASS.AUTH + "/me")
+      .set("Authorization", `Bearer wrongToken`)
+      .expect(HTTP_STATUSES.UNAUTHORIZED_401);
+  });
+  test("-POST should return token with responce ok_204 with valid loginOrEmail and password", async () => {
+    await req
+      .get(SETTINGS.PASS.AUTH + "/me")
+      .set("Authorization", `Bearer ${token.accessToken}`)
+      .expect(HTTP_STATUSES.OK_200);
+  });
 });

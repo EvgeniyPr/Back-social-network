@@ -283,10 +283,17 @@ describe("/users", () => {
       .query({ searchLoginTerm: "D" })
       .query({ searchEmailTerm: "K" })
       .query({ pageNumber: "1" })
-      .query({ pageSize: "2" });
+      .query({ pageSize: "2" })
+      .query({ sortDirection: "asc" });
     expect(createRequestWithPagination.body.pagesCount).toBe(1);
     expect(createRequestWithPagination.body.page).toBe(1);
     expect(createRequestWithPagination.body.pageSize).toBe(2);
     expect(createRequestWithPagination.body.totalCount).toBe(2);
+    expect(createRequestWithPagination.body.items[0]).toEqual({
+      id: expect.any(String),
+      login: "Dimych",
+      email: "dimych@gmail.com",
+      createdAt: expect.any(String),
+    });
   });
 });
