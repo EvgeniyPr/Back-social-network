@@ -8,7 +8,7 @@ export const jwtService = {
     });
   },
 
-  getUserByToken(token: string) {
+  getUserInfoFromToken(token: string) {
     try {
       const payload = jwt.verify(token, SETTINGS.SECRET_KEY!) as JwtPayload;
       const { email, login, userId } = payload;

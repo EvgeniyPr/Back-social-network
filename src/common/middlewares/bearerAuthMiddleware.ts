@@ -13,9 +13,10 @@ export const bearerAuthMiddleware = (
     return;
   }
   const token: string = req.headers.authorization!.slice(7);
-  const payload: MeViewModel | null = jwtService.getUserByToken(token);
-  if (payload) {
-    req.user = payload;
+  const userInfoFromToken: MeViewModel | null =
+    jwtService.getUserInfoFromToken(token);
+  if (userInfoFromToken) {
+    req.user = userInfoFromToken;
   } else {
     res.sendStatus(HTTP_STATUSES.UNAUTHORIZED_401);
     return;
