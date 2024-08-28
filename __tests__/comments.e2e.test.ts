@@ -1,5 +1,9 @@
 import { AccessTokenModel } from "../src/auth/models/AccessTokenModel";
 import { BlogsOutputModelToFrontWithPagination } from "../src/blogs/models/BlogOutputModel";
+import {
+  CommentOutputModelToFront,
+  CommentOutputModelToFrontWithPagination,
+} from "../src/comments/models/CommenOutputModel";
 import { PostsOutputModelToFrontWithPagination } from "../src/posts/models/PostOutputModel";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { SETTINGS } from "../src/settings/settings";
@@ -23,7 +27,7 @@ describe("", () => {
   };
   let token: AccessTokenModel;
   let usersData: UsersOutputModelToFrontWithPagination;
-  let comments;
+  let comments: CommentOutputModelToFrontWithPagination;
   test("-POST should create a new blog with valid data", async () => {
     await req
       .post(SETTINGS.PASS.BLOGS)
@@ -160,6 +164,360 @@ describe("", () => {
       commentatorInfo: {
         userId: expect.any(String),
         userLogin: expect.any(String),
+      },
+      createdAt: expect.any(String),
+    });
+  });
+  test("-POST should create and return new comment", async () => {
+    const responceNewComment = await req
+      .post(`${SETTINGS.PASS.POSTS}/${postsData.items[0].id}/comments`)
+      .set("Authorization", `Bearer ${token.accessToken}`)
+      .send({ content: "This is a new test conmment_2" })
+      .expect(HTTP_STATUSES.CREATED_201);
+    expect(responceNewComment.body).toEqual({
+      id: expect.any(String),
+      content: "This is a new test conmment_2",
+      commentatorInfo: {
+        userId: expect.any(String),
+        userLogin: expect.any(String),
+      },
+      createdAt: expect.any(String),
+    });
+  });
+  test("-POST should create and return new comment", async () => {
+    const responceNewComment = await req
+      .post(`${SETTINGS.PASS.POSTS}/${postsData.items[0].id}/comments`)
+      .set("Authorization", `Bearer ${token.accessToken}`)
+      .send({ content: "This is a new test conmment_3" })
+      .expect(HTTP_STATUSES.CREATED_201);
+    expect(responceNewComment.body).toEqual({
+      id: expect.any(String),
+      content: "This is a new test conmment_3",
+      commentatorInfo: {
+        userId: expect.any(String),
+        userLogin: expect.any(String),
+      },
+      createdAt: expect.any(String),
+    });
+  });
+  test("-POST should create and return new comment", async () => {
+    const responceNewComment = await req
+      .post(`${SETTINGS.PASS.POSTS}/${postsData.items[0].id}/comments`)
+      .set("Authorization", `Bearer ${token.accessToken}`)
+      .send({ content: "This is a new test conmment_4" })
+      .expect(HTTP_STATUSES.CREATED_201);
+    expect(responceNewComment.body).toEqual({
+      id: expect.any(String),
+      content: "This is a new test conmment_4",
+      commentatorInfo: {
+        userId: expect.any(String),
+        userLogin: expect.any(String),
+      },
+      createdAt: expect.any(String),
+    });
+  });
+  test("-POST should create and return new comment", async () => {
+    const responceNewComment = await req
+      .post(`${SETTINGS.PASS.POSTS}/${postsData.items[0].id}/comments`)
+      .set("Authorization", `Bearer ${token.accessToken}`)
+      .send({ content: "This is a new test conmment_5" })
+      .expect(HTTP_STATUSES.CREATED_201);
+    expect(responceNewComment.body).toEqual({
+      id: expect.any(String),
+      content: "This is a new test conmment_5",
+      commentatorInfo: {
+        userId: expect.any(String),
+        userLogin: expect.any(String),
+      },
+      createdAt: expect.any(String),
+    });
+  });
+  test("-GET should should return responce NOT_FOUND_404 because post for passed postId doesn't exist", async () => {
+    await req
+      .get(`${SETTINGS.PASS.POSTS}/000000000000000000000000/comments`)
+      .expect(HTTP_STATUSES.NOT_FOUND_404);
+  });
+  test("-GET should should return comments for post with pagination", async () => {
+    const responceComments = await req
+      .get(`${SETTINGS.PASS.POSTS}/${postsData.items[0].id}/comments`)
+      .expect(HTTP_STATUSES.OK_200);
+    expect(responceComments.body).toEqual({
+      pagesCount: 1,
+      page: 1,
+      pageSize: 10,
+      totalCount: 5,
+      items: [
+        {
+          id: expect.any(String),
+          content: "This is a new test conmment_5",
+          commentatorInfo: expect.any(Object),
+          createdAt: expect.any(String),
+        },
+        {
+          id: expect.any(String),
+          content: "This is a new test conmment_4",
+          commentatorInfo: expect.any(Object),
+          createdAt: expect.any(String),
+        },
+        {
+          id: expect.any(String),
+          content: "This is a new test conmment_3",
+          commentatorInfo: expect.any(Object),
+          createdAt: expect.any(String),
+        },
+        {
+          id: expect.any(String),
+          content: "This is a new test conmment_2",
+          commentatorInfo: expect.any(Object),
+          createdAt: expect.any(String),
+        },
+        {
+          id: expect.any(String),
+          content: "This is a new test conmment",
+          commentatorInfo: expect.any(Object),
+          createdAt: expect.any(String),
+        },
+      ],
+    });
+  });
+  test("-GET should should return comments for post with pagination", async () => {
+    const responceComments = await req
+      .get(`${SETTINGS.PASS.POSTS}/${postsData.items[0].id}/comments`)
+      .query({ sortDirection: "asc" })
+      .expect(HTTP_STATUSES.OK_200);
+    comments = responceComments.body;
+    expect(responceComments.body).toEqual({
+      pagesCount: 1,
+      page: 1,
+      pageSize: 10,
+      totalCount: 5,
+      items: [
+        {
+          id: expect.any(String),
+          content: "This is a new test conmment",
+          commentatorInfo: expect.any(Object),
+          createdAt: expect.any(String),
+        },
+        {
+          id: expect.any(String),
+          content: "This is a new test conmment_2",
+          commentatorInfo: expect.any(Object),
+          createdAt: expect.any(String),
+        },
+        {
+          id: expect.any(String),
+          content: "This is a new test conmment_3",
+          commentatorInfo: expect.any(Object),
+          createdAt: expect.any(String),
+        },
+        {
+          id: expect.any(String),
+          content: "This is a new test conmment_4",
+          commentatorInfo: expect.any(Object),
+          createdAt: expect.any(String),
+        },
+        {
+          id: expect.any(String),
+          content: "This is a new test conmment_5",
+          commentatorInfo: expect.any(Object),
+          createdAt: expect.any(String),
+        },
+      ],
+    });
+    comments = responceComments.body;
+  });
+  test("-GET should return comment by id", async () => {
+    const responceComment = await req
+      .get(`${SETTINGS.PASS.COMMENTS}/${comments.items[0].id}`)
+      .expect(HTTP_STATUSES.OK_200);
+    expect(responceComment.body).toEqual({
+      id: expect.any(String),
+      content: "This is a new test conmment",
+      commentatorInfo: {
+        userId: expect.any(String),
+        userLogin: expect.any(String),
+      },
+      createdAt: expect.any(String),
+    });
+  });
+  test("-GET should return responce NOT_FOUND_404 because comment with such id doesn't exist", async () => {
+    await req
+      .get(`${SETTINGS.PASS.COMMENTS}/000000000000000000000000`)
+      .expect(HTTP_STATUSES.NOT_FOUND_404);
+  });
+
+  test("-DELETE should return responce UNAUTHORIZED_401 with wrong token", async () => {
+    await req
+      .delete(`${SETTINGS.PASS.COMMENTS}/${comments.items[0].id}`)
+      .set("Authorization", `Bearer wrong_token`)
+      .expect(HTTP_STATUSES.UNAUTHORIZED_401);
+    const commentAfterDel = await req.get(
+      `${SETTINGS.PASS.POSTS}/${postsData.items[0].id}/comments`
+    );
+    comments = commentAfterDel.body;
+    expect(comments.items.length).toBe(5);
+  });
+
+  test("-DELETE should return responce NOT_FOUND_404 if comment with such id doesn't exist", async () => {
+    await req
+      .delete(`${SETTINGS.PASS.COMMENTS}/000000000000000000000000`)
+      .set("Authorization", `Bearer ${token.accessToken}`)
+      .expect(HTTP_STATUSES.NOT_FOUND_404);
+    const commentAfterDel = await req.get(
+      `${SETTINGS.PASS.POSTS}/${postsData.items[0].id}/comments`
+    );
+    comments = commentAfterDel.body;
+    expect(comments.items.length).toBe(5);
+  });
+  test("-DELETE should delete comment", async () => {
+    await req
+      .delete(`${SETTINGS.PASS.COMMENTS}/${comments.items[0].id}`)
+      .set("Authorization", `Bearer ${token.accessToken}`)
+      .expect(HTTP_STATUSES.NO_CONTENT_204);
+    const commentAfterDel = await req.get(
+      `${SETTINGS.PASS.POSTS}/${postsData.items[0].id}/comments`
+    );
+    comments = commentAfterDel.body;
+    expect(comments.items.length).toBe(4);
+  });
+  test("-DELETE should return responce FORBIDDEN_403 if try delete the comment that is not your own", async () => {
+    await req
+      .post(SETTINGS.PASS.USERS)
+      .auth("admin", "qwerty")
+      .send({
+        login: "testlogin3",
+        email: "test3@mail.com",
+        password: "1234567",
+      })
+      .expect(HTTP_STATUSES.CREATED_201)
+      .then((responce) => {
+        expect(responce.body).toEqual({
+          id: expect.any(String),
+          login: "testlogin3",
+          email: "test3@mail.com",
+          createdAt: expect.any(String),
+        });
+      });
+    const newUserToken = await req
+      .post(SETTINGS.PASS.AUTH + "/login")
+      .send({ loginOrEmail: "testlogin3", password: "1234567" })
+      .expect(HTTP_STATUSES.OK_200);
+    expect(newUserToken.body).toEqual({ accessToken: expect.any(String) });
+    token = newUserToken.body;
+    const createRequest = await req
+      .get(SETTINGS.PASS.USERS)
+      .auth("admin", "qwerty")
+      .expect(HTTP_STATUSES.OK_200);
+    usersData = createRequest.body;
+    expect(usersData.items.length).toBe(2);
+    await req
+      .delete(`${SETTINGS.PASS.COMMENTS}/${comments.items[0].id}`)
+      .set("Authorization", `Bearer ${token.accessToken}`)
+      .expect(HTTP_STATUSES.FORBIDDEN_403);
+    const commentAfterDel = await req.get(
+      `${SETTINGS.PASS.POSTS}/${postsData.items[0].id}/comments`
+    );
+    comments = commentAfterDel.body;
+    expect(comments.items.length).toBe(4);
+  });
+  test("-PUT should return responce FORBIDDEN_403 if try edit the comment that is not your own", async () => {
+    await req
+      .put(`${SETTINGS.PASS.COMMENTS}/${comments.items[0].id}`)
+      .set("Authorization", `Bearer ${token.accessToken}`)
+      .send({ content: "edited stringstringstringst" })
+      .expect(HTTP_STATUSES.FORBIDDEN_403);
+    const comment = await req.get(
+      `${SETTINGS.PASS.COMMENTS}/${comments.items[0].id}`
+    );
+    expect(comment.body).toEqual({
+      id: expect.any(String),
+      content: "This is a new test conmment_4",
+      commentatorInfo: {
+        userId: expect.any(String),
+        userLogin: "testlogin2",
+      },
+      createdAt: expect.any(String),
+    });
+  });
+  test("-PUT should return responce UNAUTHORIZED_401 when token is not valid", async () => {
+    const logInUser2 = await req
+      .post(SETTINGS.PASS.AUTH + "/login")
+      .send({ loginOrEmail: "testlogin2", password: "1234567" })
+      .expect(HTTP_STATUSES.OK_200);
+    expect(logInUser2.body).toEqual({ accessToken: expect.any(String) });
+    token = logInUser2.body;
+    await req
+      .put(`${SETTINGS.PASS.COMMENTS}/${comments.items[0].id}`)
+      .set("Authorization", `Bearer wrongToken`)
+      .send({ content: "edited stringstringstringst" })
+      .expect(HTTP_STATUSES.UNAUTHORIZED_401);
+    const comment = await req.get(
+      `${SETTINGS.PASS.COMMENTS}/${comments.items[0].id}`
+    );
+    expect(comment.body).toEqual({
+      id: expect.any(String),
+      content: "This is a new test conmment_4",
+      commentatorInfo: {
+        userId: expect.any(String),
+        userLogin: "testlogin2",
+      },
+      createdAt: expect.any(String),
+    });
+  });
+
+  test("-PUT should return responce NOT_FOUND_404 when comment id doesn't exist", async () => {
+    await req
+      .put(`${SETTINGS.PASS.COMMENTS}/000000000000000000000000`)
+      .set("Authorization", `Bearer ${token.accessToken}`)
+      .send({ content: "edited stringstringstringst" })
+      .expect(HTTP_STATUSES.NOT_FOUND_404);
+    const comment = await req.get(
+      `${SETTINGS.PASS.COMMENTS}/${comments.items[0].id}`
+    );
+    expect(comment.body).toEqual({
+      id: expect.any(String),
+      content: "This is a new test conmment_4",
+      commentatorInfo: {
+        userId: expect.any(String),
+        userLogin: "testlogin2",
+      },
+      createdAt: expect.any(String),
+    });
+  });
+  test("-PUT should return responce BAD_REQUEST_400 when comment comments field is not valid", async () => {
+    await req
+      .put(`${SETTINGS.PASS.COMMENTS}/${comments.items[0].id}`)
+      .set("Authorization", `Bearer ${token.accessToken}`)
+      .send({ content: "to short" })
+      .expect(HTTP_STATUSES.BAD_REQUEST_400);
+    const comment = await req.get(
+      `${SETTINGS.PASS.COMMENTS}/${comments.items[0].id}`
+    );
+    expect(comment.body).toEqual({
+      id: expect.any(String),
+      content: "This is a new test conmment_4",
+      commentatorInfo: {
+        userId: expect.any(String),
+        userLogin: "testlogin2",
+      },
+      createdAt: expect.any(String),
+    });
+  });
+  test("-PUT should return responce NO_CONTENT_204 when edit comment", async () => {
+    await req
+      .put(`${SETTINGS.PASS.COMMENTS}/${comments.items[0].id}`)
+      .set("Authorization", `Bearer ${token.accessToken}`)
+      .send({ content: "This is a edit conmment_4" })
+      .expect(HTTP_STATUSES.NO_CONTENT_204);
+    const comment = await req.get(
+      `${SETTINGS.PASS.COMMENTS}/${comments.items[0].id}`
+    );
+    expect(comment.body).toEqual({
+      id: expect.any(String),
+      content: "This is a edit conmment_4",
+      commentatorInfo: {
+        userId: expect.any(String),
+        userLogin: "testlogin2",
       },
       createdAt: expect.any(String),
     });
