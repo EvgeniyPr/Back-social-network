@@ -3,7 +3,6 @@ import { RequestWithParams } from "../../common/models/RequestsModels";
 import { GetPostByURIParamsModel } from "../models/GetPostByURIParamsModel";
 import { PostOutputModelToFront } from "../models/PostOutputModel";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { queryPostsRepository } from "../repositories/queryPostsRepository";
 import { postsService } from "../domain/postsService";
 
 export const getPostController = async (

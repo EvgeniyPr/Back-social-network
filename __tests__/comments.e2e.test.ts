@@ -1,9 +1,6 @@
 import { AccessTokenModel } from "../src/auth/models/AccessTokenModel";
 import { BlogsOutputModelToFrontWithPagination } from "../src/blogs/models/BlogOutputModel";
-import {
-  CommentOutputModelToFront,
-  CommentOutputModelToFrontWithPagination,
-} from "../src/comments/models/CommenOutputModel";
+import { CommentOutputModelToFrontWithPagination } from "../src/comments/models/CommenOutputModel";
 import { PostsOutputModelToFrontWithPagination } from "../src/posts/models/PostOutputModel";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { SETTINGS } from "../src/settings/settings";

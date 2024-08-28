@@ -1,12 +1,5 @@
-import { strict } from "assert";
-import {
-  BlogOutputModelToFront,
-  BlogsOutputModelToFrontWithPagination,
-} from "../src/blogs/models/BlogOutputModel";
-import {
-  PostOutputModelToFront,
-  PostsOutputModelToFrontWithPagination,
-} from "../src/posts/models/PostOutputModel";
+import { BlogsOutputModelToFrontWithPagination } from "../src/blogs/models/BlogOutputModel";
+import { PostsOutputModelToFrontWithPagination } from "../src/posts/models/PostOutputModel";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { SETTINGS } from "../src/settings/settings";
 import { req, responceIsEqualToData } from "./test-helpers";
