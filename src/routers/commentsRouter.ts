@@ -12,20 +12,20 @@ import { updateCommentController } from "../comments/controllers/updateCommentCo
 
 export const commentsRouter = Router();
 commentsRouter.get(
-  "/:commentsId",
+  "/:commentId",
   commentsIdParamsValidator,
   errorCheckMiddleware,
   getCommentByIdController
 );
 commentsRouter.delete(
-  "/:commentsId",
+  "/:commentId",
   bearerAuthMiddleware,
   commentsIdParamsValidator,
   errorCheckMiddleware,
   deleteCommentController
 );
 commentsRouter.put(
-  "/:commentsId",
+  "/:commentId",
   bearerAuthMiddleware,
   commentsIdParamsValidator,
   commentsValidationMiddleware,

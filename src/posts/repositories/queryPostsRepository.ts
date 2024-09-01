@@ -1,9 +1,9 @@
 import { postCollection } from "../../db/mongo-db";
-import { PostsOutputModelToFrontWithPagination } from "../models/PostOutputModel";
+import { PostOutputModelToFront } from "../models/PostOutputModel";
 import { QueryModel } from "../../common/models/QueryModels";
 import { sanitizedQuery } from "../../common/pagination/sanitizedQuery";
 import { getItemsWithPagination } from "../../common/pagination/getItemsWithPagination";
-import { searchBy } from "../../common/models/Pagination";
+import { IPagination, searchBy } from "../../common/models/Pagination";
 
 export const queryPostsRepository = {
   async getPosts(
@@ -14,6 +14,6 @@ export const queryPostsRepository = {
       objectId,
       sanitizedQuery(query, searchBy.title),
       postCollection
-    )) as PostsOutputModelToFrontWithPagination;
+    )) as IPagination<PostOutputModelToFront[]>;
   },
 };

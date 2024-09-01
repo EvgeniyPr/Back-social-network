@@ -1,9 +1,10 @@
-import { BlogsOutputModelToFrontWithPagination } from "../src/blogs/models/BlogOutputModel";
+import { BlogOutputModelToFront } from "../src/blogs/models/BlogOutputModel";
+import { IPagination } from "../src/common/models/Pagination";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { SETTINGS } from "../src/settings/settings";
 import { responceIsEqualToData, req } from "./test-helpers";
 
-let blogsData: BlogsOutputModelToFrontWithPagination = {
+let blogsData: IPagination<BlogOutputModelToFront[]> = {
   pagesCount: 0,
   page: 1,
   pageSize: 10,

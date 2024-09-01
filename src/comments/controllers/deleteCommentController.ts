@@ -1,10 +1,15 @@
 import { Request, Response } from "express";
 import { commentsService } from "../domain/commentsService";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
+import { RequestWithParams } from "../../common/models/RequestsModels";
+import { GetCommentByURIParamsId } from "../models/GetCommentByURIParamsId";
 
-export const deleteCommentController = async (req: Request, res: Response) => {
+export const deleteCommentController = async (
+  req: RequestWithParams<GetCommentByURIParamsId>,
+  res: Response
+) => {
   const responce = await commentsService.deleteComment(
-    req.params.commentsId,
+    req.params.commentId,
     req.user!
   );
   if (!responce) {

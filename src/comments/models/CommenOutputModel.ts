@@ -11,10 +11,3 @@ export interface CommentOutputModelFromDb extends CommentViewModel {
 export interface CommentOutputModelToFront extends CommentViewModel {
   id: string;
 }
-export interface CommentOutputModelToFrontWithPagination {
-  pagesCount: number;
-  page: number;
-  pageSize: number;
-  totalCount: number;
-  items: CommentOutputModelToFront[];
-}

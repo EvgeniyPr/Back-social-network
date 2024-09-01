@@ -21,3 +21,11 @@ export type sortDirection =
   | "descending"
   | 1
   | -1;
+
+export interface IPagination<I> {
+  pagesCount: number;
+  page: number;
+  pageSize: number;
+  totalCount: number;
+  items: I;
+}

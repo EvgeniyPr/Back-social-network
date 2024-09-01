@@ -1,3 +1,3 @@
-export interface GetCommentByURIParamsId {
+export type GetCommentByURIParamsId = {
   commentId: string;
-}
+};

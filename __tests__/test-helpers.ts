@@ -3,9 +3,10 @@ import { agent, Response } from "supertest";
 import { MongoClient } from "mongodb";
 import { MongoMemoryServer } from "mongodb-memory-server-global-4.4";
 import { connectToDb } from "../src/db/mongo-db";
-import { BlogsOutputModelToFrontWithPagination } from "../src/blogs/models/BlogOutputModel";
-import { PostsOutputModelToFrontWithPagination } from "../src/posts/models/PostOutputModel";
-import { UsersOutputModelToFrontWithPagination } from "../src/users/models/UserModels";
+import { BlogOutputModelToFront } from "../src/blogs/models/BlogOutputModel";
+import { PostOutputModelToFront } from "../src/posts/models/PostOutputModel";
+import { UserOutputModelToFront } from "../src/users/models/UserModels";
+import { IPagination } from "../src/common/models/Pagination";
 
 export const req = agent(app);
 
@@ -23,10 +24,11 @@ export function responceIsEqualToData(
     pageSize,
     totalCount,
     items,
-  }:
-    | PostsOutputModelToFrontWithPagination
-    | BlogsOutputModelToFrontWithPagination
-    | UsersOutputModelToFrontWithPagination
+  }: IPagination<
+    | BlogOutputModelToFront[]
+    | PostOutputModelToFront[]
+    | UserOutputModelToFront[]
+  >
 ) {
   expect(responce.body).toEqual({
     pagesCount: pagesCount,

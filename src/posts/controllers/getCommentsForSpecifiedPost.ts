@@ -4,11 +4,12 @@ import { queryCommentsRepository } from "../../comments/repositories/queryCommen
 import { GetPostByURIParamsModel } from "../models/GetPostByURIParamsModel";
 import { QueryModel } from "../../common/models/QueryModels";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { typeId } from "../../common/models/Pagination";
+import { IPagination, typeId } from "../../common/models/Pagination";
+import { CommentOutputModelToFront } from "../../comments/models/CommenOutputModel";
 
 export const getCommentsForSpecifiedPostController = async (
   req: RequestWithParamsAndQuery<GetPostByURIParamsModel, QueryModel>,
-  res: Response
+  res: Response<IPagination<CommentOutputModelToFront[]>>
 ) => {
   const commentsWithPagination =
     await queryCommentsRepository.getCommentsForSpecifiedPostWithPagination(

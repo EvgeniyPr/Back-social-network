@@ -1,21 +1,22 @@
 import { AccessTokenModel } from "../src/auth/models/AccessTokenModel";
-import { BlogsOutputModelToFrontWithPagination } from "../src/blogs/models/BlogOutputModel";
-import { CommentOutputModelToFrontWithPagination } from "../src/comments/models/CommenOutputModel";
-import { PostsOutputModelToFrontWithPagination } from "../src/posts/models/PostOutputModel";
+import { BlogOutputModelToFront } from "../src/blogs/models/BlogOutputModel";
+import { CommentOutputModelToFront } from "../src/comments/models/CommenOutputModel";
+import { IPagination } from "../src/common/models/Pagination";
+import { PostOutputModelToFront } from "../src/posts/models/PostOutputModel";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { SETTINGS } from "../src/settings/settings";
-import { UsersOutputModelToFrontWithPagination } from "../src/users/models/UserModels";
+import { UserOutputModelToFront } from "../src/users/models/UserModels";
 import { req, responceIsEqualToData } from "./test-helpers";
 
 describe("", () => {
-  let blogsData: BlogsOutputModelToFrontWithPagination = {
+  let blogsData: IPagination<BlogOutputModelToFront[]> = {
     pagesCount: 0,
     page: 1,
     pageSize: 10,
     totalCount: 0,
     items: [],
   };
-  let postsData: PostsOutputModelToFrontWithPagination = {
+  let postsData: IPagination<PostOutputModelToFront[]> = {
     pagesCount: 0,
     page: 1,
     pageSize: 10,
@@ -23,8 +24,8 @@ describe("", () => {
     items: [],
   };
   let token: AccessTokenModel;
-  let usersData: UsersOutputModelToFrontWithPagination;
-  let comments: CommentOutputModelToFrontWithPagination;
+  let usersData: IPagination<UserOutputModelToFront[]>;
+  let comments: IPagination<CommentOutputModelToFront[]>;
   test("-POST should create a new blog with valid data", async () => {
     await req
       .post(SETTINGS.PASS.BLOGS)
@@ -279,7 +280,9 @@ describe("", () => {
   });
   test("-GET should should return comments for post with pagination", async () => {
     const responceComments = await req
-      .get(`${SETTINGS.PASS.POSTS}/${postsData.items[0].id}/comments`)
+      .get(
+        `${SETTINGS.PASS.POSTS}/${postsData.items[0].id}${SETTINGS.PASS.COMMENTS}`
+      )
       .query({ sortDirection: "asc" })
       .expect(HTTP_STATUSES.OK_200);
     comments = responceComments.body;

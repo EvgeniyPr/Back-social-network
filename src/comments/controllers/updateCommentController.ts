@@ -4,7 +4,7 @@ import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
 
 export const updateCommentController = async (req: Request, res: Response) => {
   const responce = await commentsService.updateComment(
-    req.params.commentsId,
+    req.params.commentId,
     req.body,
     req.user!
   );

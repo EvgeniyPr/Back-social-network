@@ -13,11 +13,3 @@ export interface BlogOutputModelToFront extends BlogOutputModel {
 export interface BlogsOutputModelFromDb extends BlogOutputModel {
   _id: ObjectId;
 }
-
-export interface BlogsOutputModelToFrontWithPagination {
-  pagesCount: number;
-  page: number;
-  pageSize: number;
-  totalCount: number;
-  items: BlogOutputModelToFront[];
-}

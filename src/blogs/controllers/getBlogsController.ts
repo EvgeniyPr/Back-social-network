@@ -1,13 +1,14 @@
 import { Response } from "express";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { BlogsOutputModelToFrontWithPagination } from "../models/BlogOutputModel";
+import { BlogOutputModelToFront } from "../models/BlogOutputModel";
 import { RequestWithQuery } from "../../common/models/RequestsModels";
 import { QueryModel } from "../../common/models/QueryModels";
 import { queryBlogsRepository } from "../repositories/queryBlogsRepository";
+import { IPagination } from "../../common/models/Pagination";
 
 export const getBlogsController = async (
   req: RequestWithQuery<QueryModel>,
-  res: Response<BlogsOutputModelToFrontWithPagination>
+  res: Response<IPagination<BlogOutputModelToFront[]>>
 ) => {
   const blogs = await queryBlogsRepository.getBlogs(req.query);
   if (blogs) {

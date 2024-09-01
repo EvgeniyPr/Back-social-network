@@ -1,9 +1,10 @@
+import { IPagination } from "../src/common/models/Pagination";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { SETTINGS } from "../src/settings/settings";
-import { UsersOutputModelToFrontWithPagination } from "../src/users/models/UserModels";
+import { UserOutputModelToFront } from "../src/users/models/UserModels";
 import { req, responceIsEqualToData } from "./test-helpers";
 
-let usersData: UsersOutputModelToFrontWithPagination = {
+let usersData: IPagination<UserOutputModelToFront[]> = {
   pagesCount: 0,
   page: 1,
   pageSize: 10,

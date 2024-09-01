@@ -1,18 +1,19 @@
-import { BlogsOutputModelToFrontWithPagination } from "../src/blogs/models/BlogOutputModel";
-import { PostsOutputModelToFrontWithPagination } from "../src/posts/models/PostOutputModel";
+import { BlogOutputModelToFront } from "../src/blogs/models/BlogOutputModel";
+import { IPagination } from "../src/common/models/Pagination";
+import { PostOutputModelToFront } from "../src/posts/models/PostOutputModel";
 import { HTTP_STATUSES } from "../src/settings/HTTP_STATUSES/HTTP_STATUSES";
 import { SETTINGS } from "../src/settings/settings";
 import { req, responceIsEqualToData } from "./test-helpers";
 
 describe("/posts", () => {
-  let postsData: PostsOutputModelToFrontWithPagination = {
+  let postsData: IPagination<PostOutputModelToFront[]> = {
     pagesCount: 0,
     page: 1,
     pageSize: 10,
     totalCount: 0,
     items: [],
   };
-  let blogsData: BlogsOutputModelToFrontWithPagination = {
+  let blogsData: IPagination<BlogOutputModelToFront[]> = {
     pagesCount: 0,
     page: 1,
     pageSize: 10,
