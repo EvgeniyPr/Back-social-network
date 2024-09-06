@@ -1,3 +1,4 @@
+import { createHash } from "../../common/utils/createHash";
 import { userCollection } from "../../db/mongo-db";
 import { UserInputModel } from "../models/UserInputModel";
 import { usersMongoDbRepository } from "../repositories/usersMongoDbRepository";
@@ -6,11 +7,9 @@ import bcrypt from "bcrypt";
 export const userService = {
   async createUser(data: UserInputModel) {
     const { password } = data;
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
     const newUser = {
       ...data,
-      password: hash,
+      password: await createHash(password),
       createdAt: new Date().toISOString(),
     };
     const responce = await usersMongoDbRepository.createUser(newUser);

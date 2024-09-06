@@ -3,6 +3,8 @@ dotenv.config();
 export const SETTINGS = {
   PORT: process.env.PORT || 3000,
   SECRET_KEY: process.env.SECRET_KEY,
+  EMAIL: process.env.EMAIL,
+  EMAIL_PASS: process.env.EMAIL_PASS,
   PASS: {
     VIDEO: "/videos",
     BLOGS: "/blogs",

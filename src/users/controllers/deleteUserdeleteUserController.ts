@@ -1,11 +1,10 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { HTTP_STATUSES } from "../../settings/HTTP_STATUSES/HTTP_STATUSES";
-import { usersMongoDbRepository } from "../repositories/usersMongoDbRepository";
 import { RequestWithParams } from "../../common/models/RequestsModels";
 import { GetUserByUriParam } from "../models/GetUserByUriParam";
 import { userService } from "../domain/usersService";
 
-export const deleteUser = async (
+export const deleteUserController = async (
   req: RequestWithParams<GetUserByUriParam>,
   res: Response
 ) => {

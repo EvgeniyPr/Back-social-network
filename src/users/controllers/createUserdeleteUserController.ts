@@ -5,7 +5,7 @@ import { UserInputModel } from "../models/UserInputModel";
 import { UserOutputModelToFront } from "../models/UserModels";
 import { userService } from "../domain/usersService";
 
-export const createUser = async (
+export const createUserController = async (
   req: RequestWithBody<UserInputModel>,
   res: Response<UserOutputModelToFront | null>
 ) => {

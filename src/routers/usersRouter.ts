@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { getUsersController } from "../users/controllers/getUsersController";
-import { createUser } from "../users/controllers/createUser";
-import { deleteUser } from "../users/controllers/deleteUser";
+import { createUserController } from "../users/controllers/createUserdeleteUserController";
+import { deleteUserController } from "../users/controllers/deleteUserdeleteUserController";
 import { authMiddleware } from "../common/middlewares/authMiddleware";
 import {
   userInputValidators,
@@ -16,12 +16,12 @@ usersRouter.post(
   authMiddleware,
   ...userInputValidators,
   errorCheckMiddleware,
-  createUser
+  createUserController
 );
 usersRouter.delete(
   "/:id",
   authMiddleware,
   usersIdParamsValidator,
   errorCheckMiddleware,
-  deleteUser
+  deleteUserController
 );
