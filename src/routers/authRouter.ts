@@ -10,6 +10,7 @@ import { bearerAuthMiddleware } from "../common/middlewares/bearerAuthMiddleware
 import { registrationController } from "../auth/controllers/registrationController";
 import { userInputValidators } from "../users/middleware/usersValidationMiddleware";
 import { registrationConfirmationController } from "../auth/controllers/registrationConfirmationController";
+import { registrationResendingController } from "../auth/controllers/registrationResendingController";
 
 export const authRouter: Router = Router();
 authRouter.post(
@@ -28,9 +29,11 @@ authRouter.post(
 );
 authRouter.post(
   "/registration-confirmation",
-  // userInputValidators,
-  // errorCheckMiddleware,
   registrationConfirmationController
+);
+authRouter.post(
+  "/registration-email-resending",
+  registrationResendingController
 );
 
 authRouter.get("/me", bearerAuthMiddleware, getMeController);

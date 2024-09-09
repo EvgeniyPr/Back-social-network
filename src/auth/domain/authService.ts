@@ -12,6 +12,7 @@ import {
   RegistrationUserModelFromDb,
 } from "../models/RegistrationUserModel";
 import { emailAdapter } from "../../adapters/email-adapter";
+import { promises } from "dns";
 
 export const authService = {
   async guard(data: LoginInputModel) {
@@ -63,7 +64,6 @@ export const authService = {
   },
   async confirmRegistration(code: string): Promise<boolean> {
     const user = await authMongoDbRepository.findUserByConfirmationCode(code);
-    console.log(user);
     if (user) {
       if (user.emailConfirmation.isConfirmed) {
         return false;
@@ -80,6 +80,23 @@ export const authService = {
       return !!responce.modifiedCount;
     }
     return false;
+  },
+  async confirmResendingRegistration(email: string): Promise<true | false> {
+    const user = await authMongoDbRepository.getUserByEmail(email);
+    if (!user.emailConfirmation.isConfirmed) {
+      return false;
+    }
+    const newConformationCode: string = uuidv4().toString();
+    const conformationCodeIsUpdated =
+      await authMongoDbRepository.updateConfirmationCode(
+        email,
+        newConformationCode
+      );
+    if (!conformationCodeIsUpdated) {
+      return false;
+    }
+    await emailAdapter.sendEmail(email, newConformationCode);
+    return true;
   },
 
   checkLoginAndPassword(incomingPassword: string, userPasswordInDB: string) {
