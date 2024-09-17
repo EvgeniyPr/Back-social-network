@@ -30,6 +30,7 @@ export const authMongoDbRepository = {
     })) as RegistrationUserModelFromDb | null;
     return user;
   },
+
   async confirmUserRegistration(code: string) {
     const responce = await userCollection.updateOne(
       {

@@ -1,8 +1,11 @@
 import { Router } from "express";
 import { authControler } from "../auth/controllers/authController";
 import {
+  userBodyConfirmationCodeValidator,
+  userConfirmationCodeCheckValidator,
   userLoginOrEmailInputValidator,
   userLoginPaswordValidator,
+  userResendingRegistrationValidator,
 } from "../auth/middleware/authValidationMiddleware";
 import { errorCheckMiddleware } from "../common/middlewares/errorCheckMiddleware";
 import { getMeController } from "../auth/controllers/getMeController";
@@ -29,10 +32,15 @@ authRouter.post(
 );
 authRouter.post(
   "/registration-confirmation",
+  userBodyConfirmationCodeValidator,
+  userConfirmationCodeCheckValidator,
+  errorCheckMiddleware,
   registrationConfirmationController
 );
 authRouter.post(
   "/registration-email-resending",
+  userResendingRegistrationValidator,
+  errorCheckMiddleware,
   registrationResendingController
 );
 

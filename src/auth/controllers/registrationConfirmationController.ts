@@ -13,6 +13,5 @@ export const registrationConfirmationController = async (
     res.sendStatus(HTTP_STATUSES.NO_CONTENT_204);
     return;
   }
-  res.sendStatus(HTTP_STATUSES.BAD_REQUEST_400);
   return;
 };
